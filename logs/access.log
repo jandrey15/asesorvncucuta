@@ -1,0 +1,2 @@
+192.168.99.1 - - [27/Aug/2018:20:26:15 +0000] "GET / HTTP/1.1" 301 185 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36" "-"
+192.168.99.1 - - [27/Aug/2018:20:26:19 +0000] "GET /wp-admin/index.php HTTP/1.1" 301 185 "http://admin.docker.test/wp-admin/themes.php" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36" "-"
