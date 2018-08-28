@@ -7,10 +7,10 @@ services:
     env_file: .env
     image: wordpress:4.9.8
     restart: always
-    ports:
-      - "5000:9000"
-    # expose:
-    #   - "5000"
+    # ports:
+    #   - "5000:9000"
+    expose:
+      - "5000"
     environment:
       WORDPRESS_DB_HOST: mysql:3306
       WORDPRESS_DB_USER: root
@@ -38,10 +38,10 @@ services:
     restart: always
     volumes:
       - ./web:/app
-    ports:
-      - "3000:3000"
-    # expose:
-    #   - "3000"
+    # ports:
+    #   - "3000:3000"
+    expose:
+      - "3000"
 
   proxy:
     build: .
