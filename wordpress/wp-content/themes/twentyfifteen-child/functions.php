@@ -247,3 +247,97 @@ function color() {
 }
 add_action( 'init', 'color', 0 );
 
+// Función para crear una taxonomía
+function ciudades() {
+
+  // Definimos un array para las traducciones de la taxonomía
+  $etiquetas = array(
+      'name' => __( 'Ciudad' ),
+      'singular_name' => __( 'Ciudad' ),
+      'search_items' =>  __( 'Buscar ciudad' ),
+      'all_items' => __( 'Todos las ciudades' ),
+    //   'parent_item' => __( 'Año padre' ),
+    //   'parent_item_colon' => __( 'Año padre:' ),
+      'edit_item' => __( 'Editar ciudad' ), 
+      'update_item' => __( 'Actualizar ciudad' ),
+      'add_new_item' => __( 'Agregar un nueva ciudad' ),
+      'menu_name' => __( 'Ciudad' ),
+  ); 
+
+  // Función WordPress para registrar la taxonomía
+  register_taxonomy(
+      'ciudades',
+      array('post'), // Tipos de Post a los que asociaremos la taxonomía
+      array(
+          'hierarchical' => false, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
+          'labels' => $etiquetas, // La variable con las traducciones de las etiquetas
+          'show_ui' => true,
+          'show_admin_column' => true,
+          'query_var' => true,
+          'show_in_rest'      => true,
+          'rewrite' => array( 'slug' => '.', 'hierarchical' => true )
+      )
+  );
+
+}
+add_action( 'init', 'ciudades', 0 );
+
+// custom fields 
+add_action('rest_api_init', 'register_custom_fields');
+
+function register_custom_fields() {
+    register_rest_field('post', 'placa',
+        array( 'get_callback' => 'show_fields')
+    );
+
+    register_rest_field('post', 'combustible',
+        array( 'get_callback' => 'show_fields')
+    );
+
+    register_rest_field('post', 'recorrido',
+        array( 'get_callback' => 'show_fields')
+    );
+
+    register_rest_field('post', 'único_dueño',
+        array( 'get_callback' => 'show_fields')
+    );
+
+    register_rest_field('post', 'version',
+        array( 'get_callback' => 'show_fields')
+    );
+
+    register_rest_field('post', 'direccion',
+        array( 'get_callback' => 'show_fields')
+    );
+
+    register_rest_field('post', 'doy_financiamiento',
+        array( 'get_callback' => 'show_fields')
+    );
+
+    register_rest_field('post', 'motor',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'transmision',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'exterior',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'seguridad',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'equipamiento',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'ubicacion_del_vehiculos',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'precio',
+        array( 'get_callback' => 'show_fields')
+    );
+}
+
+function show_fields( $object, $field_name, $request ) {
+    return get_post_meta( $object[ 'id' ], $field_name, true );
+}
+
