@@ -3,15 +3,15 @@
  * Plugin Name: Gutenberg
  * Plugin URI: https://github.com/WordPress/gutenberg
  * Description: Printing since 1440. This is the development plugin for the new block editor in core.
- * Version: 3.6.2
+ * Version: 3.7.0
  * Author: Gutenberg Team
  *
  * @package gutenberg
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '3.6.2' );
-define( 'GUTENBERG_GIT_COMMIT', 'e4efc9217c8f97980aacb7dcd821773f3dc0aeab' );
+define( 'GUTENBERG_VERSION', '3.7.0' );
+define( 'GUTENBERG_GIT_COMMIT', '08065737ab9c7a755fda360678ef57ddca664b3c' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
@@ -271,11 +271,13 @@ function gutenberg_add_edit_link( $actions, $post ) {
 		'classic' => sprintf(
 			'<a href="%s" aria-label="%s">%s</a>',
 			esc_url( $edit_url ),
-			esc_attr( sprintf(
-				/* translators: %s: post title */
-				__( 'Edit &#8220;%s&#8221; in the classic editor', 'gutenberg' ),
-				$title
-			) ),
+			esc_attr(
+				sprintf(
+					/* translators: %s: post title */
+					__( 'Edit &#8220;%s&#8221; in the classic editor', 'gutenberg' ),
+					$title
+				)
+			),
 			__( 'Classic Editor', 'gutenberg' )
 		),
 	);

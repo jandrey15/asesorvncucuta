@@ -26,7 +26,7 @@ define('DB_NAME', 'asesor');
 define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'ulCraCtioNceSPeNip2018Cucuta');
+define('DB_PASSWORD', 'ja1509');
 
 /** MySQL hostname */
 define('DB_HOST', 'mysql:3306');

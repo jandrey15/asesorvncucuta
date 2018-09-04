@@ -24,7 +24,8 @@ services:
     image: mysql:5.7
     env_file: .env
     volumes:
-      - ../../../volumes/carros:/var/lib/mysql
+      # - ../../../volumes/carros:/var/lib/mysql
+      - ../../volumes/carros:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"

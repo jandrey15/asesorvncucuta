@@ -161,10 +161,13 @@ function gutenberg_warn_classic_about_blocks() {
 	$gutenberg_edit_link = get_edit_post_link( $post->ID, 'raw' );
 
 	$classic_edit_link = $gutenberg_edit_link;
-	$classic_edit_link = add_query_arg( array(
-		'classic-editor'     => '',
-		'hide-block-warning' => '',
-	), $classic_edit_link );
+	$classic_edit_link = add_query_arg(
+		array(
+			'classic-editor'     => '',
+			'hide-block-warning' => '',
+		),
+		$classic_edit_link
+	);
 
 	$revisions_link = '';
 	if ( wp_revisions_enabled( $post ) ) {
@@ -206,7 +209,7 @@ function gutenberg_warn_classic_about_blocks() {
 							<p>
 							<?php
 								/* translators: link to the post revisions page */
-								printf( __( 'You can also <a href="%s">browse previous revisions</a> and restore a version of the page before it was edited in Gutenberg.', 'gutenberg' ), esc_url( $revisions_link ) );
+								printf( __( 'You can also <a href="%s">browse previous revisions</a> and restore a version of the post before it was edited in Gutenberg.', 'gutenberg' ), esc_url( $revisions_link ) );
 							?>
 							</p>
 						<?php

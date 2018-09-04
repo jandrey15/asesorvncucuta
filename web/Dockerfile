@@ -6,11 +6,13 @@ LABEL maintainer="web@johnserrano.co"
 
 WORKDIR /app
 
-ADD package.json /app/
+COPY package.json /app/
 
 # RUN npm install && npm install --save serve
 
-ADD . /app
+RUN npm install
+
+COPY . /app
 
 # RUN npm run build
 
