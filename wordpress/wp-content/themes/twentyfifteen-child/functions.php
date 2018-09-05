@@ -95,7 +95,7 @@ function articulo_init() {
     'menu_position'     => null,
     'show_in_rest'      => true,
     'menu_icon'         => 'dashicons-welcome-write-blog',
-    'supports'          => array( 'title', 'editor', 'author', 'thumbnail' )
+    'supports'          => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'post-formats' )
   );
 
   register_post_type( 'articulo', $args );
@@ -336,6 +336,18 @@ function register_custom_fields() {
         array( 'get_callback' => 'show_fields')
     );
     register_rest_field('post', 'galeria',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'tipo',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'telefono',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'nombre',
+        array( 'get_callback' => 'show_fields')
+    );
+    register_rest_field('post', 'nombre_concesionario',
         array( 'get_callback' => 'show_fields')
     );
 }
