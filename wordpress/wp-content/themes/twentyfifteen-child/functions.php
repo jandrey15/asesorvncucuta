@@ -90,12 +90,13 @@ function articulo_init() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'articulo' ),
     'capability_type'   => 'post',
+    'map_meta_cap'      => true,
     'has_archive'       => true,
     'hierarchical'      => false,
     'menu_position'     => null,
     'show_in_rest'      => true,
     'menu_icon'         => 'dashicons-welcome-write-blog',
-    'supports'          => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'post-formats' )
+    'supports'          => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'post-formats' )
   );
 
   register_post_type( 'articulo', $args );
