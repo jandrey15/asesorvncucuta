@@ -164,7 +164,7 @@ function anos() {
       'anos',
       array('post'), // Tipos de Post a los que asociaremos la taxonomía
       array(
-          'hierarchical' => false, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
+          'hierarchical' => true, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
           'labels' => $etiquetas, // La variable con las traducciones de las etiquetas
           'show_ui' => true,
           'show_admin_column' => true,
@@ -199,7 +199,7 @@ function condicion() {
       'condicion',
       array('post'), // Tipos de Post a los que asociaremos la taxonomía
       array(
-          'hierarchical' => false, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
+          'hierarchical' => true, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
           'labels' => $etiquetas, // La variable con las traducciones de las etiquetas
           'show_ui' => true,
           'show_admin_column' => true,
@@ -235,7 +235,7 @@ function color() {
       'color',
       array('post'), // Tipos de Post a los que asociaremos la taxonomía
       array(
-          'hierarchical' => false, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
+          'hierarchical' => true, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
           'labels' => $etiquetas, // La variable con las traducciones de las etiquetas
           'show_ui' => true,
           'show_admin_column' => true,
@@ -270,7 +270,7 @@ function ciudades() {
       'ciudades',
       array('post'), // Tipos de Post a los que asociaremos la taxonomía
       array(
-          'hierarchical' => false, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
+          'hierarchical' => true, // True para taxonomías del tipo "Categoría" y false para el tipo "Etiquetas"
           'labels' => $etiquetas, // La variable con las traducciones de las etiquetas
           'show_ui' => true,
           'show_admin_column' => true,
