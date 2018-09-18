@@ -6,8 +6,48 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "standard"
   },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/out/",
+      "/lib/select2/",
+      "/lib/ckeditor/",
+      "tmp.js",
+      "build/*",
+      "dist/*",
+      ".next"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "node": true,
+      "jquery": true
+    },
+    "parser": "babel-eslint",
+    "rules": {
+      "no-console": "warn"
+    },
+    "extends": [
+      "standard",
+      "standard-jsx"
+    ]
+  },
+  "eslintIgnore": [
+    "/node_modules/*",
+    "build/*",
+    "!build/index.js",
+    "bundle.js",
+    "dist/*",
+    ".*/*",
+    ".*",
+    ".next"
+  ],
   "keywords": [],
   "author": "John Serrano <jandreys15@gmail.com> (https://twitter.com/jandrey15)",
   "license": "ISC",
@@ -15,5 +55,12 @@
     "next": "^6.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.6.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard-jsx": "^6.0.2",
+    "standard": "^12.0.1"
   }
 }
