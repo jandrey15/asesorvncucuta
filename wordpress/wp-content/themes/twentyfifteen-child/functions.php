@@ -357,3 +357,21 @@ function show_fields( $object, $field_name, $request ) {
     return get_post_meta( $object[ 'id' ], $field_name, true );
 }
 
+function tc_handle_upload_prefilter($file) {
+    
+    $img=getimagesize($file['tmp_name']);
+    $minimum = array('width' => '640', 'height' => '480');
+    $width= $img[0];
+    $height =$img[1];
+    
+    if ($width < $minimum['width'] )
+    return array("error"=>"Image dimensions are too small. Minimum width is {$minimum['width']}px. Uploaded image width is $width px");
+    
+    elseif ($height <  $minimum['height'])
+    return array("error"=>"Image dimensions are too small. Minimum height is {$minimum['height']}px. Uploaded image height is $height px");
+    else
+    return $file; 
+}
+
+add_filter('wp_handle_upload_prefilter','tc_handle_upload_prefilter');
+
