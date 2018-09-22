@@ -8,7 +8,7 @@ export default class Entrada extends Component {
     try {
       // let req = await fetch('https://api.audioboom.com/channels/recommended')
       let req = await fetch(
-        `http://admin.docker.test/wp-json/wp/v2/posts?slug=${name}&_embed`
+        `http://api.docker.test/wp-json/wp/v2/posts?slug=${name}&_embed`
       )
       let [entrada] = await req.json()
 
@@ -21,7 +21,7 @@ export default class Entrada extends Component {
 
   render () {
     const { entrada, statusCode } = this.props
-    console.log(entrada)
+    // console.log(entrada)
     if (statusCode !== 200) {
       console.log('error...')
       // return <Error statusCode={ statusCode }/>

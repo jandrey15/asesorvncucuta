@@ -9,8 +9,8 @@ export default class Home extends Component {
   static async getInitialProps ({ res }) {
     try {
       let [reqEntradas, reqSlide] = await Promise.all([
-        fetch('http://admin.docker.test/wp-json/wp/v2/posts?_embed'),
-        fetch('http://admin.docker.test/wp-json/wp/v2/posts?sticky=true&_embed')
+        fetch('http://api.docker.test/wp-json/wp/v2/posts?_embed'),
+        fetch('http://api.docker.test/wp-json/wp/v2/posts?sticky=true&_embed')
       ])
 
       if (reqEntradas.status >= 400) {
