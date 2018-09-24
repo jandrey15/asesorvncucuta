@@ -2,9 +2,10 @@ import normalize from './normalize'
 import css from 'styled-jsx/css'
 
 export default css`
+  @import url('https://fonts.googleapis.com/css?family=Nunito:400,600');
   ${normalize} body {
-    font-family: system-ui;
-    background: white;
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-size: 16px;
   }
   /* Make clicks pass-through */
   #nprogress {

@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import SlideShow from '../components/SlideShow'
 import ListEntradas from '../components/ListEntradas'
 import Filter from '../components/Filter'
+import homeStyle from './homeStyle'
 
 export default class Home extends Component {
   static async getInitialProps ({ res }) {
@@ -52,12 +53,7 @@ export default class Home extends Component {
             <ListEntradas entradas={entradas} />
           </div>
         </section>
-        <style jsx>{`
-          .container {
-            margin: 0 auto;
-            max-width: 1200px;
-          }
-        `}</style>
+        <style jsx>{homeStyle}</style>
       </Layout>
     )
   }

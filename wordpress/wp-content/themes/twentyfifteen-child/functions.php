@@ -360,7 +360,8 @@ function show_fields( $object, $field_name, $request ) {
 function tc_handle_upload_prefilter($file) {
     
     $img=getimagesize($file['tmp_name']);
-    $minimum = array('width' => '640', 'height' => '480');
+    // $minimum = array('width' => '640', 'height' => '480');
+    $minimum = array('width' => '885', 'height' => '360');
     $width= $img[0];
     $height =$img[1];
     
