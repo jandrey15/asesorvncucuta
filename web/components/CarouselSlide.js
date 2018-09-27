@@ -30,7 +30,7 @@ const CarouselSlide = props => {
         src={
           slide._embedded['wp:featuredmedia']
             ? slide._embedded['wp:featuredmedia'][0].source_url
-            : ''
+            : '/static/default.jpg'
         }
         alt={slide.title.rendered}
       />
@@ -43,7 +43,7 @@ const CarouselSlide = props => {
         </Link>
         <p>
           <span>${formatNumber.new(slide.precio)}</span>
-          <span>
+          <span className='kilo'>
             {slide._embedded['wp:term'][3][0]
               ? slide._embedded['wp:term'][3][0].name
               : null}{' '}
@@ -66,6 +66,7 @@ const CarouselSlide = props => {
         .slide img {
           object-fit: cover;
           max-height: 360px;
+          min-height: 360px;
           width: 100%;
         }
 
@@ -91,12 +92,16 @@ const CarouselSlide = props => {
           font-weight: 600;
           line-height: 25px;
         }
+        .kilo {
+          font-size: 18px;
+        }
         p {
           margin: 5px 0 0;
           color: #ffffff;
           font-size: 21px;
           display: flex;
           justify-content: space-between;
+          align-items: center;
         }
         @keyframes opacity {
           from {
