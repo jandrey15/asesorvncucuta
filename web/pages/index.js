@@ -46,11 +46,16 @@ export default class Home extends Component {
     return (
       <Layout title='Home'>
         <section id='Home'>
-          <div className='dondeEstoy'>Estoy en : carros nuevos</div>
-          <div className='container'>
+          <div className='dondeEstoy container'>
+            <span>Estoy en:</span> <p>carros nuevos</p>
+          </div>
+          <div id='sectionPrincipal' className='container'>
             <Filter />
             <SlideShow entradas={entradasSlides} />
             <ListEntradas entradas={entradas} />
+          </div>
+          <div id='masPubliciones'>
+            <h5>Mas publicaciones</h5>
           </div>
         </section>
         <style jsx>{homeStyle}</style>

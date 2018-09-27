@@ -43,6 +43,10 @@ export default props => {
         .entrada img {
           max-width: 500px;
         }
+
+        .ListEntradas {
+          grid-column: 2/3;
+        }
       `}</style>
     </section>
   )

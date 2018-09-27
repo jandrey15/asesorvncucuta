@@ -37,16 +37,16 @@ export default props => {
 
         <div className='redes'>
           <ul>
-            <li>
+            <li className='instagram'>
               <a href='/instagram'>Instagram</a>
             </li>
-            <li>
+            <li className='facebook'>
               <a href='/facebook'>Facebook</a>
             </li>
-            <li>
+            <li className='whatsapp'>
               <a href='/whatsapp'>Whatsapp</a>
             </li>
-            <li>
+            <li className='youtube'>
               <a href='/youtube'>Youtube</a>
             </li>
           </ul>
@@ -67,7 +67,7 @@ export default props => {
         .container {
           display: grid;
           margin: 0 auto;
-          grid-template-columns: 270px 500px 220px 160px;
+          grid-template-columns: 290px 500px 218px 190px;
           grid-template-rows: 50px;
           max-width: 1200px;
         }
@@ -151,6 +151,71 @@ export default props => {
           margin: 0;
           align-items: center;
           justify-content: center;
+        }
+
+        .menu ul li {
+          border-left: 1px solid #4d4c48;
+          padding: 4px 5px;
+        }
+
+        .menu ul li:last-child {
+          border-right: 1px solid #4d4c48;
+        }
+
+        .menu ul li a:hover {
+          text-decoration: underline;
+        }
+
+        .redes {
+          justify-self: flex-end;
+          align-self: center;
+          padding-right: 10px;
+        }
+
+        .redes ul {
+          padding: 0;
+          list-style: none;
+          margin: 0;
+          display: flex;
+        }
+
+        .redes ul li {
+          height: 25px;
+          margin: 0 3px;
+          transition: transform 0.2s;
+          width: 30px;
+        }
+
+        .redes ul li:hover {
+          transform: scale(0.9);
+        }
+
+        .redes ul .instagram {
+          background: url('/static/redes.png') no-repeat;
+          background-position-x: 0px;
+          background-position-y: -6px;
+        }
+
+        .redes ul .facebook {
+          background: url('/static/redes.png') no-repeat;
+          background-position-x: -37px;
+          background-position-y: -6px;
+        }
+        .redes ul .whatsapp {
+          background: url('/static/redes.png') no-repeat;
+          background-position-x: -72px;
+          background-position-y: -6px;
+        }
+        .redes ul .youtube {
+          background: url('/static/redes.png') no-repeat;
+          background-position-x: -108px;
+          background-position-y: -6px;
+        }
+
+        .redes ul li a {
+          display: block;
+          height: 100%;
+          text-indent: -9999px;
         }
       `}</style>
     </header>
