@@ -24,6 +24,19 @@ export default css`
     display: grid;
     grid-template-columns: 308px 1fr;
     grid-template-rows: repeat(auto-fill, 360px);
-    min-height: 1805px;
+    height: 2300px;
+  }
+
+  #postsNews,
+  #postsUsed {
+    margin: 30px 0;
+  }
+  #postsNews h3,
+  #postsUsed h3 {
+    margin: 0 auto 40px;
+    font-size: 28px;
+    font-weight: 600;
+    max-width: 550px;
+    color: #303030;
   }
 `

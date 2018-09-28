@@ -3,7 +3,7 @@ import Article from './Article'
 
 const ArticlesColumn = props => {
   const { news } = props
-  console.log(news)
+
   return (
     <div className='Articles'>
       {news.map((article, index) => {
@@ -11,7 +11,7 @@ const ArticlesColumn = props => {
           return (
             <div className='pauta' key={index}>
               <img src='/static/repuestos.jpg' alt='repuestos' />
-              <Article article={article} type='column' key={article.id} />
+              <Article article={article} key={article.id} />
             </div>
           )
         }
@@ -20,12 +20,12 @@ const ArticlesColumn = props => {
           return (
             <div className='pauta' key={index}>
               <p className='text'>Ayuda con sus tramites</p>
-              <Article article={article} type='column' key={article.id} />
+              <Article article={article} key={article.id} />
             </div>
           )
         }
 
-        return <Article article={article} type='column' key={article.id} />
+        return <Article article={article} key={article.id} />
       })}
       <style jsx>{`
         .Articles {

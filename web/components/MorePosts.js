@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-export default props => {
-  const { entradas } = props
-  // console.log(props)
+const MorePosts = props => {
+  const { posts } = props
+
   const formatNumber = {
     separador: '.', // separador para los miles
     sepDecimal: ',', // separador para los decimales
@@ -22,22 +22,23 @@ export default props => {
       return this.formatear(num)
     }
   }
+
   return (
-    <section className='ListEntradas'>
-      {entradas.map(entrada => (
-        <div className='entrada' key={entrada.id}>
-          <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+    <article className='posts'>
+      {posts.map(post => (
+        <div className='post'>
+          <Link href={`/entrada?name=${post.slug}`} prefetch>
             <a className='channel'>
               <img
                 src={
-                  entrada._embedded['wp:featuredmedia']
-                    ? entrada._embedded['wp:featuredmedia'][0].source_url
+                  post._embedded['wp:featuredmedia']
+                    ? post._embedded['wp:featuredmedia'][0].source_url
                     : '/static/default.jpg'
                 }
                 alt={
-                  entrada._embedded['wp:featuredmedia']
-                    ? entrada._embedded['wp:featuredmedia'][0].alt_text
-                    : entrada.title.rendered
+                  post._embedded['wp:featuredmedia']
+                    ? post._embedded['wp:featuredmedia'][0].alt_text
+                    : post.title.rendered
                 }
               />
             </a>
@@ -45,36 +46,40 @@ export default props => {
 
           <div className='info'>
             <p className='kilo'>
-              {entrada._embedded['wp:term'][3][0]
-                ? entrada._embedded['wp:term'][3][0].name
+              {post._embedded['wp:term'][3][0]
+                ? post._embedded['wp:term'][3][0].name
                 : '0'}{' '}
-              - {entrada.recorrido} km
+              - {post.recorrido} km
             </p>
-            <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+            <Link href={`/entrada?name=${post.slug}`} prefetch>
               <a className='title'>
-                <h2>{entrada.title.rendered}</h2>
+                <h2>{post.title.rendered}</h2>
               </a>
             </Link>
-            <p className='price'>${formatNumber.new(entrada.precio)}</p>
+            <p className='price'>${formatNumber.new(post.precio)}</p>
             <aside>
-              {entrada._embedded['wp:term'][6][0]
-                ? entrada._embedded['wp:term'][6][0].name
+              {post._embedded['wp:term'][6][0]
+                ? post._embedded['wp:term'][6][0].name
                 : null}
             </aside>
           </div>
         </div>
       ))}
       <style jsx>{`
-        .ListEntradas {
-          margin-top: 25px;
-          grid-column: 2/3;
-          display: grid;
-          grid-gap: 30px 15px;
-          grid-template-columns: repeat(3, minmax(287px, 1fr));
+        .post {
+          background-color: #f7f7f7;
+          max-width: 225px;
+          transition: 0.3s;
         }
 
-        .entrada {
-          background-color: #f7f7f7;
+        .post:hover {
+          box-shadow: 0px 18px 18px 0px rgba(48, 48, 48, 0.3686274509803922);
+        }
+
+        .posts {
+          display: grid;
+          grid-template-columns: repeat(5, minmax(225px, 1fr));
+          grid-gap: 0 18px;
         }
 
         .info {
@@ -103,8 +108,8 @@ export default props => {
         }
 
         h2 {
-          font-size: 21px;
-          line-height: 23px;
+          font-size: 19px;
+          line-height: 21px;
           font-weight: 600;
           margin: 15px 0 10px;
         }
@@ -114,11 +119,15 @@ export default props => {
         }
 
         img {
-          max-width: 285px;
-          min-height: 215px;
+          max-width: 225px;
+          min-height: 225px;
+          border-top-left-radius: 2px;
+          border-top-right-radius: 2px;
           object-fit: cover;
         }
       `}</style>
-    </section>
+    </article>
   )
 }
+
+export default MorePosts

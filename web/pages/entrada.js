@@ -29,12 +29,12 @@ export default class Entrada extends Component {
 
     return (
       <Layout title={entrada.title.rendered}>
-        <section id='Entrada'>
+        <article id='Entrada'>
           <img
             src={
               entrada._embedded['wp:featuredmedia']
                 ? entrada._embedded['wp:featuredmedia'][0].source_url
-                : ''
+                : '/static/default.jpg'
             }
             alt={
               entrada._embedded['wp:featuredmedia']
@@ -43,7 +43,11 @@ export default class Entrada extends Component {
             }
           />
           <h1 className='title'>{entrada.title.rendered}</h1>
-        </section>
+          <div
+            className='text'
+            dangerouslySetInnerHTML={{ __html: entrada.content.rendered }}
+          />
+        </article>
       </Layout>
     )
   }

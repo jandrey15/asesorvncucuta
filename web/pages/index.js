@@ -6,15 +6,32 @@ import ListEntradas from '../components/ListEntradas'
 import Filter from '../components/Filter'
 import ArticlesColumn from '../components/ArticlesColumn'
 import homeStyle from './homeStyle'
+import MorePosts from '../components/MorePosts'
 
 export default class Home extends Component {
   static async getInitialProps ({ res }) {
     try {
-      let [reqEntradas, reqSlide, reqNews] = await Promise.all([
-        fetch('http://api.docker.test/wp-json/wp/v2/posts?sticky=false&_embed'),
-        fetch('http://api.docker.test/wp-json/wp/v2/posts?sticky=true&_embed'),
+      let [
+        reqEntradas,
+        reqSlide,
+        reqNews,
+        reqPostsNew,
+        reqPostsused
+      ] = await Promise.all([
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/articulo?sticky=false&_embed'
+          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&per_page=15&_embed'
+        ),
+        fetch(
+          'http://api.docker.test/wp-json/wp/v2/posts?sticky=true&per_page=5&_embed'
+        ),
+        fetch(
+          'http://api.docker.test/wp-json/wp/v2/articulo?sticky=false&per_page=3&_embed'
+        ),
+        fetch(
+          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&condicion=54&per_page=5&_embed'
+        ),
+        fetch(
+          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&condicion=55&per_page=5&_embed'
         )
       ])
 
@@ -24,6 +41,8 @@ export default class Home extends Component {
           entradas: [],
           entradasSlides: [],
           news: [],
+          postsNew: [],
+          postsUsed: [],
           statusCode: reqEntradas.status
         }
       }
@@ -31,16 +50,39 @@ export default class Home extends Component {
       let entradas = await reqEntradas.json()
       let entradasSlides = await reqSlide.json()
       let news = await reqNews.json()
+      let postsNew = await reqPostsNew.json()
+      let postsUsed = await reqPostsused.json()
 
-      return { entradas, entradasSlides, news, statusCode: 200 }
+      return {
+        entradas,
+        entradasSlides,
+        news,
+        postsNew,
+        postsUsed,
+        statusCode: 200
+      }
     } catch (err) {
       res.statusCode = 503
-      return { entradas: [], statusCode: 503 }
+      return {
+        entradas: [],
+        entradasSlides: [],
+        news: [],
+        postsNew: [],
+        postsUsed: [],
+        statusCode: 503
+      }
     }
   }
 
   render () {
-    const { entradas, entradasSlides, news, statusCode } = this.props
+    const {
+      entradas,
+      entradasSlides,
+      news,
+      postsNew,
+      postsUsed,
+      statusCode
+    } = this.props
     // console.log(entradas)
 
     if (statusCode !== 200) {
@@ -62,8 +104,16 @@ export default class Home extends Component {
             <SlideShow entradas={entradasSlides} />
             <ListEntradas entradas={entradas} />
           </div>
-          <div id='masPubliciones'>
-            <h5>Mas publicaciones</h5>
+          <div id='MorePosts' className='container'>
+            <div id='postsNews'>
+              <h3>Publicaciones destacadas de carros nuevos</h3>
+              <MorePosts posts={postsNew} />
+            </div>
+
+            <div id='postsUsed'>
+              <h3>Publicaciones destacadas de carros usados</h3>
+              <MorePosts posts={postsUsed} />
+            </div>
           </div>
         </section>
         <style jsx>{homeStyle}</style>
