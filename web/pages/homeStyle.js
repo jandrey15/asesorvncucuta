@@ -12,6 +12,7 @@ export default css`
     padding-left: 20px;
     height: 40px;
     font-size: 13px;
+    box-sizing: border-box;
     color: #505050;
   }
 
@@ -21,7 +22,8 @@ export default css`
 
   #sectionPrincipal {
     display: grid;
-    display: grid;
-    grid-template-columns: 315px 1fr;
+    grid-template-columns: 308px 1fr;
+    grid-template-rows: repeat(auto-fill, 360px);
+    min-height: 1805px;
   }
 `

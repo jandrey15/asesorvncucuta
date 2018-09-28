@@ -30,3 +30,19 @@ describe('List Entradas', () => {
       })
   })
 })
+
+describe('List articles', () => {
+  it('GET list articles news column', () => {
+    request
+      .get('/articulo?sticky=false&_embed')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .end(function (err, res) {
+        if (err) throw err
+        expect(res).to.be.a('array')
+        expect(res).to.have.lengthOf(3)
+        expect(res[0].sticky).to.equal('false')
+        expect(res[0].status).to.equal('publish')
+      })
+  })
+})
