@@ -27,7 +27,7 @@ export default props => {
       {entradas.map(entrada => (
         <div className='entrada' key={entrada.id}>
           <Link href={`/entrada?name=${entrada.slug}`} prefetch>
-            <a className='channel'>
+            <a className='picture'>
               <img
                 src={
                   entrada._embedded['wp:featuredmedia']
@@ -75,6 +75,12 @@ export default props => {
 
         .entrada {
           background-color: #f7f7f7;
+          max-width: 287px;
+          transition: 0.3s;
+        }
+
+        .entrada:hover {
+          box-shadow: 0px 18px 18px 0px rgba(48, 48, 48, 0.3686274509803922);
         }
 
         .info {
@@ -114,8 +120,10 @@ export default props => {
         }
 
         img {
-          max-width: 285px;
+          max-width: 287px;
           min-height: 215px;
+          border-top-left-radius: 2px;
+          border-top-right-radius: 2px;
           object-fit: cover;
         }
       `}</style>

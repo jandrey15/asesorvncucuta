@@ -11,6 +11,8 @@ import MorePosts from '../components/MorePosts'
 export default class Home extends Component {
   static async getInitialProps ({ res }) {
     try {
+      // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance
+      // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance&color=59
       let [
         reqEntradas,
         reqSlide,
