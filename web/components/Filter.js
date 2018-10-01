@@ -115,7 +115,7 @@ export default class Filter extends Component {
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            color: #2c2c2a;
+            color: #2d2d2a;
             background-color: #cccccc;
             transition: 0.2s;
           }
@@ -124,19 +124,19 @@ export default class Filter extends Component {
           .usados:hover {
             background-color: transparent;
             opacity: 0.9;
-            color: #3499cd;
+            color: #337ab7;
           }
 
           .usados {
             border-right: 1px solid #cccccc;
           }
           .nuevos.is-active {
-            color: #3499cd;
+            color: #337ab7;
             background-color: transparent;
           }
 
           .usados.is-active {
-            color: #3499cd;
+            color: #337ab7;
             background-color: transparent;
           }
 
@@ -168,7 +168,7 @@ export default class Filter extends Component {
           button {
             border: none;
             color: #ffffff;
-            background-color: #3499cd;
+            background-color: #337ab7;
             width: 115px;
             margin: 30px auto 0 auto;
             height: 33px;

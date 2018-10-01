@@ -55,12 +55,12 @@ export default props => {
 
       <style jsx>{`
         header {
-          color: #fff;
-          background: #3499cd;
+          color: #ffffff;
+          background: #3399cc;
           height: 50px;
         }
         header a {
-          color: #fff;
+          color: #ffffff;
           text-decoration: none;
         }
 
@@ -154,12 +154,12 @@ export default props => {
         }
 
         .menu ul li {
-          border-left: 1px solid #4d4c48;
+          border-left: 1px solid #4c4c4c;
           padding: 4px 5px;
         }
 
         .menu ul li:last-child {
-          border-right: 1px solid #4d4c48;
+          border-right: 1px solid #4c4c4c;
         }
 
         .menu ul li a:hover {
@@ -191,25 +191,29 @@ export default props => {
         }
 
         .redes ul .instagram {
-          background: url('/static/redes.png') no-repeat;
-          background-position-x: 0px;
+          background: url('/static/redes.svg') no-repeat;
+          background-position-x: -8px;
           background-position-y: -6px;
+          background-size: 150px;
         }
 
         .redes ul .facebook {
-          background: url('/static/redes.png') no-repeat;
-          background-position-x: -37px;
+          background: url('/static/redes.svg') no-repeat;
+          background-position-x: -42px;
           background-position-y: -6px;
+          background-size: 150px;
         }
         .redes ul .whatsapp {
-          background: url('/static/redes.png') no-repeat;
-          background-position-x: -72px;
+          background: url('/static/redes.svg') no-repeat;
+          background-position-x: -75px;
           background-position-y: -6px;
+          background-size: 150px;
         }
         .redes ul .youtube {
-          background: url('/static/redes.png') no-repeat;
-          background-position-x: -108px;
+          background: url('/static/redes.svg') no-repeat;
+          background-position-x: -110px;
           background-position-y: -6px;
+          background-size: 150px;
         }
 
         .redes ul li a {

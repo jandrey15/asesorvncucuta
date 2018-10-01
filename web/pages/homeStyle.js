@@ -13,6 +13,11 @@ export default css`
 
   .dondeEstoy p {
     margin: 0 5px;
+    color: #4c4c4c;
+  }
+
+  .dondeEstoy span {
+    color: #4c4c4c;
   }
 
   #sectionPrincipal {
@@ -25,6 +30,21 @@ export default css`
   #postsNews,
   #postsUsed {
     margin: 30px 0;
+    position: relative;
+  }
+
+  hr {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: #cccccc;
+    margin: 0 auto;
+    border: none;
+    top: 18px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    max-width: 80%;
   }
   #postsNews h3,
   #postsUsed h3 {
@@ -32,6 +52,9 @@ export default css`
     font-size: 28px;
     font-weight: 600;
     max-width: 550px;
-    color: #303030;
+    color: #2d2d2a;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 0 5px;
   }
 `

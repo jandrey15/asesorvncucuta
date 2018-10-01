@@ -48,8 +48,8 @@ const Footer = props => {
               </ul>
             </div>
             <div className='contact'>
-              <p>Contactenos</p>
-              <p>3116589584</p>
+              <p className='cont'>Contactenos</p>
+              <p>311 6589584</p>
               <p>alvaro@asesorvncucuta.com</p>
             </div>
           </div>
@@ -170,9 +170,13 @@ const Footer = props => {
         }
 
         p {
-          margin: 0;
+          margin: 5px 0;
           color: #ffffff;
           font-size: 14px;
+        }
+
+        .cont {
+          text-align: center;
         }
 
         .redes .ulRedes {
@@ -193,26 +197,30 @@ const Footer = props => {
           transform: scale(0.9);
         }
 
-        .redes .ulRedes .instagram {
-          background: url('/static/redes.png') no-repeat;
-          background-position-x: 0px;
+        .redes ul .instagram {
+          background: url('/static/redes.svg') no-repeat;
+          background-position-x: -8px;
           background-position-y: -6px;
+          background-size: 150px;
         }
 
-        .redes .ulRedes .facebook {
-          background: url('/static/redes.png') no-repeat;
-          background-position-x: -37px;
+        .redes ul .facebook {
+          background: url('/static/redes.svg') no-repeat;
+          background-position-x: -42px;
           background-position-y: -6px;
+          background-size: 150px;
         }
-        .redes .ulRedes .whatsapp {
-          background: url('/static/redes.png') no-repeat;
-          background-position-x: -72px;
+        .redes ul .whatsapp {
+          background: url('/static/redes.svg') no-repeat;
+          background-position-x: -75px;
           background-position-y: -6px;
+          background-size: 150px;
         }
-        .redes .ulRedes .youtube {
-          background: url('/static/redes.png') no-repeat;
-          background-position-x: -108px;
+        .redes ul .youtube {
+          background: url('/static/redes.svg') no-repeat;
+          background-position-x: -110px;
           background-position-y: -6px;
+          background-size: 150px;
         }
 
         .redes .ulRedes li a {

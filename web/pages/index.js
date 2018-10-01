@@ -109,11 +109,13 @@ export default class Home extends Component {
           <div id='MorePosts' className='container'>
             <div id='postsNews'>
               <h3>Publicaciones destacadas de carros nuevos</h3>
+              <hr />
               <MorePosts posts={postsNew} />
             </div>
 
             <div id='postsUsed'>
               <h3>Publicaciones destacadas de carros usados</h3>
+              <hr />
               <MorePosts posts={postsUsed} />
             </div>
           </div>

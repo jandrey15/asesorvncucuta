@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import SlideLayout from './SlideLayout'
 import CarouselSlide from './CarouselSlide'
-// import CarouselIndicator from './CarouselIndicator'
+import CarouselGaleria from './CarouselGaleria'
+import CarouselIndicator from './CarouselIndicator'
 
 class Slides extends Component {
   constructor (props) {
@@ -73,99 +74,140 @@ class Slides extends Component {
   }
 
   render () {
-    return (
-      <SlideLayout>
-        <ul className='carouselSlides'>
-          {this.state.slides.map((slide, index) => (
-            <CarouselSlide
-              key={index}
-              index={index}
-              activeIndex={this.state.activeIndex}
-              slide={slide}
-              animation={this.state.type}
-            />
-          ))}
-        </ul>
+    if (this.props.type === 'galeria') {
+      return (
+        <SlideLayout>
+          <ul className='carouselGaleria'>
+            {this.state.slides.map((slide, index) => (
+              <CarouselGaleria
+                key={slide.id}
+                index={index}
+                activeIndex={this.state.activeIndex}
+                slide={slide}
+                animation={this.state.type}
+              />
+            ))}
+          </ul>
+          <button className='arrow left' onClick={this.handleClickLeft}>
+            &#10094;
+          </button>
+          <button className='arrow right' onClick={this.handleClickRight}>
+            &#10095;
+          </button>
 
-        <button className='arrow left' onClick={this.handleClickLeft}>
-          &#10094;
-        </button>
-        <button className='arrow right' onClick={this.handleClickRight}>
-          &#10095;
-        </button>
+          <ul className='indicators'>
+            {this.state.slides.map((slide, index) => (
+              <CarouselIndicator
+                key={slide.id}
+                slide={slide}
+                index={parseInt(index)}
+                activeIndex={this.state.activeIndex}
+                onClick={this.goToSlide(parseInt(index))}
+              />
+            ))}
+          </ul>
+          <style jsx>{`
+            button {
+              display: none;
+            }
 
-        {/* <ul className='indicators'>
-          {Object.keys(this.state.slides).map(index => (
-            <CarouselIndicator
-              key={index}
-              index={parseInt(index)}
-              activeIndex={this.state.activeIndex}
-              onClick={this.goToSlide(parseInt(index))}
-            />
-          ))}
-        </ul> */}
-        <style jsx>{`
-          .carouselSlides {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-          }
-          .arrow {
-            position: absolute;
-            top: 50%;
-            display: block;
-            font-size: 22px;
-            cursor: pointer;
-            border: none;
-            height: 50px;
-            width: 50px;
-            transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
-            text-indent: -9999px;
-          }
-          .arrow:focus {
-            outline: 0;
-          }
-          .arrow:hover {
-            opacity: 0.5;
-          }
-          .arrow.left {
-            left: 32px;
-            background: url('/static/cheveron-left.svg') no-repeat;
-            background-size: 100%;
-          }
-          .arrow.right {
-            right: 32px;
-            background: url('/static/cheveron-right.svg') no-repeat;
-            background-size: 100%;
-          }
-          .indicators {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            margin-top: 20px;
-          }
-          .indicators li:nth-of-type(n + 2) {
-            margin-left: 9px;
-          }
-          .indicator {
-            display: block;
-            width: 24px;
-            height: 3px;
-            background-color: #111;
-            cursor: pointer;
-            opacity: 0.15;
-            transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
-          }
-          .indicator:hover {
-            opacity: 0.5;
-          }
-          .indicator.active,
-          .indicator.active:hover {
-            opacity: 0.75;
-          }
-        `}</style>
-      </SlideLayout>
-    )
+            .carouselGaleria {
+              max-width: 885px;
+              padding: 0;
+              margin: 0;
+            }
+
+            .indicators {
+              display: flex;
+            }
+          `}</style>
+        </SlideLayout>
+      )
+    } else {
+      return (
+        <SlideLayout>
+          <ul className='carouselSlides'>
+            {this.state.slides.map((slide, index) => (
+              <CarouselSlide
+                key={slide.id}
+                index={index}
+                activeIndex={this.state.activeIndex}
+                slide={slide}
+                animation={this.state.type}
+              />
+            ))}
+          </ul>
+
+          <button className='arrow left' onClick={this.handleClickLeft}>
+            &#10094;
+          </button>
+          <button className='arrow right' onClick={this.handleClickRight}>
+            &#10095;
+          </button>
+
+          <style jsx>{`
+            .carouselSlides {
+              padding: 0;
+              margin: 0;
+              list-style: none;
+            }
+            .arrow {
+              position: absolute;
+              top: 50%;
+              display: block;
+              font-size: 22px;
+              cursor: pointer;
+              border: none;
+              height: 30px;
+              width: 30px;
+              transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
+              text-indent: -9999px;
+            }
+            .arrow:focus {
+              outline: 0;
+            }
+            .arrow:hover {
+              opacity: 0.5;
+            }
+            .arrow.left {
+              left: 15px;
+              background: url('/static/arrow-left.svg') no-repeat;
+              background-size: 100%;
+            }
+            .arrow.right {
+              right: 15px;
+              background: url('/static/arrow-right.svg') no-repeat;
+              background-size: 100%;
+            }
+            .indicators {
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              margin-top: 20px;
+            }
+            .indicators li:nth-of-type(n + 2) {
+              margin-left: 9px;
+            }
+            .indicator {
+              display: block;
+              width: 24px;
+              height: 3px;
+              background-color: #111;
+              cursor: pointer;
+              opacity: 0.15;
+              transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
+            }
+            .indicator:hover {
+              opacity: 0.5;
+            }
+            .indicator.active,
+            .indicator.active:hover {
+              opacity: 0.75;
+            }
+          `}</style>
+        </SlideLayout>
+      )
+    }
   }
 }
 
