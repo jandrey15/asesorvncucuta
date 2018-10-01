@@ -7,6 +7,12 @@ export default css`
     font-family: 'Nunito', system-ui, sans-serif;
     font-size: 16px;
   }
+
+  .container {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
   /* Make clicks pass-through */
   #nprogress {
     pointer-events: none;

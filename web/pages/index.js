@@ -21,19 +21,19 @@ export default class Home extends Component {
         reqPostsused
       ] = await Promise.all([
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&per_page=15&_embed'
+          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&per_page=15&status=publish&_embed'
         ),
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/posts?sticky=true&per_page=5&_embed'
+          'http://api.docker.test/wp-json/wp/v2/posts?sticky=true&per_page=5&status=publish&_embed'
         ),
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/articulo?sticky=false&per_page=3&_embed'
+          'http://api.docker.test/wp-json/wp/v2/articulo?sticky=false&per_page=3&status=publish&_embed'
         ),
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&condicion=54&per_page=5&_embed'
+          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&condicion=54&per_page=5&status=publish&_embed'
         ),
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&condicion=55&per_page=5&_embed'
+          'http://api.docker.test/wp-json/wp/v2/posts?sticky=false&condicion=55&per_page=5&status=publish&_embed'
         )
       ])
 

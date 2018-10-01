@@ -26,7 +26,7 @@ const MorePosts = props => {
   return (
     <article className='posts'>
       {posts.map(post => (
-        <div className='post'>
+        <div className='post' key={post.id}>
           <Link href={`/entrada?name=${post.slug}`} prefetch>
             <a className='channel'>
               <img

@@ -42,6 +42,11 @@ const Article = props => {
           max-width: 260px;
           object-fit: cover;
           min-height: 136px;
+          transition: 0.3s;
+        }
+
+        img:hover {
+          transform: scale(1.3);
         }
 
         h2 {
@@ -50,7 +55,6 @@ const Article = props => {
           font-weight: 600;
           color: #282826;
           line-height: 22px;
-          width: 230px;
         }
 
         h2:hover {
@@ -63,6 +67,8 @@ const Article = props => {
 
         a {
           text-decoration: none;
+          overflow: hidden;
+          display: block;
         }
 
         .summary {
