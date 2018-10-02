@@ -314,6 +314,9 @@ function register_custom_fields() {
     register_rest_field('post', 'doy_financiamiento',
         array( 'get_callback' => 'show_fields')
     );
+    register_rest_field('post', 'negosiable',
+        array( 'get_callback' => 'show_fields')
+    );
 
     register_rest_field('post', 'motor',
         array( 'get_callback' => 'show_fields')

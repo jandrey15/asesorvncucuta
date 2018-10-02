@@ -18,6 +18,7 @@ class Slides extends Component {
       },
       count: 0
     }
+    console.log(this.props.entradas)
   }
 
   componentDidMount () {
@@ -167,6 +168,7 @@ class Slides extends Component {
           </button>
         )
       }
+
       return (
         <SlideLayout>
           <ul className='carouselGaleria'>
@@ -268,31 +270,6 @@ class Slides extends Component {
               right: 15px;
               background: url('/static/arrow-right.svg') no-repeat;
               background-size: 100%;
-            }
-            .indicators {
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              margin-top: 20px;
-            }
-            .indicators li:nth-of-type(n + 2) {
-              margin-left: 9px;
-            }
-            .indicator {
-              display: block;
-              width: 24px;
-              height: 3px;
-              background-color: #111;
-              cursor: pointer;
-              opacity: 0.15;
-              transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
-            }
-            .indicator:hover {
-              opacity: 0.5;
-            }
-            .indicator.active,
-            .indicator.active:hover {
-              opacity: 0.75;
             }
           `}</style>
         </SlideLayout>
