@@ -1,4 +1,4 @@
-import Link from 'next/link'
+// import Link from 'next/link'
 import React from 'react'
 
 const CarouselSlide = props => {
@@ -23,9 +23,13 @@ const CarouselSlide = props => {
         }
         .slide img {
           object-fit: cover;
-          max-height: 360px;
-          min-height: 360px;
+          min-height: 500px;
+          max-height: 500px;
           width: 100%;
+        }
+
+        li {
+          height: 500px;
         }
 
         .info {

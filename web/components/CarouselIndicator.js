@@ -1,9 +1,9 @@
 import React from 'react'
 
 const CarouselIndicator = props => {
-  const { slide, index, activeIndex, onClick } = props
+  const { slide, index, activeIndex, onClick, style } = props
   return (
-    <li>
+    <li style={style}>
       <a onClick={onClick}>
         <img src={slide.full_image_url} alt={slide.title} />
         <aside
@@ -26,6 +26,9 @@ const CarouselIndicator = props => {
           padding: 0;
           cursor: pointer;
           position: relative;
+          margin-right: 2px;
+          transform: translateX(0);
+          transition: 0.2s;
         }
 
         .indicator {

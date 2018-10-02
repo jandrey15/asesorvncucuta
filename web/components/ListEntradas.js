@@ -48,7 +48,7 @@ export default props => {
               {entrada._embedded['wp:term'][3][0]
                 ? entrada._embedded['wp:term'][3][0].name
                 : '0'}{' '}
-              - {entrada.recorrido} km
+              - {formatNumber.new(entrada.recorrido)} km
             </p>
             <Link href={`/entrada?name=${entrada.slug}`} prefetch>
               <a className='title'>
