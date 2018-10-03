@@ -107,17 +107,21 @@ export default class Home extends Component {
             <ListEntradas entradas={entradas} />
           </div>
           <div id='MorePosts' className='container'>
-            <div id='postsNews'>
-              <h3>Publicaciones destacadas de carros nuevos</h3>
-              <hr />
-              <MorePosts posts={postsNew} />
-            </div>
+            {postsNew.length > 0 ? (
+              <div id='postsNews'>
+                <h3>Publicaciones destacadas de carros nuevos</h3>
+                <hr />
+                <MorePosts posts={postsNew} />
+              </div>
+            ) : null}
 
-            <div id='postsUsed'>
-              <h3>Publicaciones destacadas de carros usados</h3>
-              <hr />
-              <MorePosts posts={postsUsed} />
-            </div>
+            {postsUsed.length > 0 ? (
+              <div id='postsUsed'>
+                <h3>Publicaciones destacadas de carros usados</h3>
+                <hr />
+                <MorePosts posts={postsUsed} />
+              </div>
+            ) : null}
           </div>
         </section>
         <style jsx>{homeStyle}</style>

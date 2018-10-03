@@ -21,15 +21,16 @@ export default class Entrada extends Component {
       //     entrada.id
       //   }/galeria?type=photo_gallery`
       // )
-      let [
-        reqGaleria,
-        reqMorePosts
-      ] = await Promise.all([
+      let [reqGaleria, reqMorePosts] = await Promise.all([
         fetch(
-          `http://api.docker.test/wp-json/acf/v3/pages/${entrada.id}/galeria?type=photo_gallery`
+          `http://api.docker.test/wp-json/acf/v3/pages/${
+            entrada.id
+          }/galeria?type=photo_gallery`
         ),
         fetch(
-          `http://api.docker.test/wp-json/wp/v2/posts?author=${entrada.author}&per_page=5&_embed`
+          `http://api.docker.test/wp-json/wp/v2/posts?author=${
+            entrada.author
+          }&per_page=5&exclude=${entrada.id}&_embed`
         )
       ])
 
@@ -45,7 +46,6 @@ export default class Entrada extends Component {
   render () {
     const { entrada, galeria, posts, statusCode } = this.props
     // console.log(entrada)
-    console.log(galeria)
     if (statusCode !== 200) {
       console.log('error...')
       // return <Error statusCode={ statusCode }/>
@@ -223,7 +223,7 @@ export default class Entrada extends Component {
               </div>
             ) : null}
           </section>
-          <hr />
+          {entrada.exterior.length > 0 && <hr />}
           <section className='ficha exterior'>
             {entrada.exterior.length > 0
               ? entrada.exterior.map((item, index) => {
@@ -315,7 +315,7 @@ export default class Entrada extends Component {
               })
               : null}
           </section>
-          <hr />
+          {entrada.seguridad.length > 0 && <hr />}
           <section className='ficha seguridad'>
             {entrada.seguridad.length > 0
               ? entrada.seguridad.map((item, index) => {
@@ -362,8 +362,7 @@ export default class Entrada extends Component {
               })
               : null}
           </section>
-
-          <hr />
+          {entrada.equipamiento.length > 0 && <hr />}
           <section className='ficha equipamiento'>
             {entrada.equipamiento.length > 0
               ? entrada.equipamiento.map((item, index) => {
@@ -416,9 +415,12 @@ export default class Entrada extends Component {
             className='text'
             dangerouslySetInnerHTML={{ __html: entrada.content.rendered }}
           />
-
-          <h4 className='morePosts'>Más publicaciones</h4>
-          <MorePosts posts={posts} />
+          {posts.length > 0 ? (
+            <div className='posts'>
+              <h4 className='morePosts'>Más publicaciones</h4>
+              <MorePosts posts={posts} />
+            </div>
+          ) : null}
         </article>
         <style jsx>{`
           .pauta {
@@ -493,7 +495,9 @@ export default class Entrada extends Component {
             margin: 50px auto;
           }
 
-          .ficha.exterior, .ficha.seguridad, .ficha.equipamiento {
+          .ficha.exterior,
+          .ficha.seguridad,
+          .ficha.equipamiento {
             margin: 20px auto;
           }
 

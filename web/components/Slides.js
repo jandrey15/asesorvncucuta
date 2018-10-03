@@ -18,7 +18,6 @@ class Slides extends Component {
       },
       count: 0
     }
-    console.log(this.props.entradas)
   }
 
   componentDidMount () {
@@ -110,6 +109,20 @@ class Slides extends Component {
           transform: `translateX(${newMove}px)`
         },
         count: this.state.count - 1
+      })
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps !== this.props) {
+      this.setState({
+        slides: nextProps.entradas,
+        activeIndex: 0,
+        move: 0,
+        stylesTranslate: {
+          transform: 'translateX(0)'
+        },
+        count: 0
       })
     }
   }
