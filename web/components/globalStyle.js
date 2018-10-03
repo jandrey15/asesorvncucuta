@@ -13,6 +13,14 @@ export default css`
     max-width: 1200px;
   }
 
+  .text img,
+  .text figure img,
+  .text .instagram-media,
+  .text iframe {
+    max-width: 1000px;
+    object-fit: contain;
+  }
+
   /* Make clicks pass-through */
   #nprogress {
     pointer-events: none;

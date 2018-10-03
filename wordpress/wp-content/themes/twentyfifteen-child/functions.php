@@ -82,7 +82,7 @@ function articulo_init() {
   $args = array(
     'labels'            => $labels,
     'description'       => __('Description', 'your-plugin-textdomain'),
-    'taxonomies'        => array('category'),
+    'taxonomies'        => array('category', 'post_tag'),
     'public'            => true,
     'public_queryable'  => true,
     'show_ui'           => true,
