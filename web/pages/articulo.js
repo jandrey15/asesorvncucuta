@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 export default class Articulo extends Component {
   static async getInitialProps ({ res, query }) {
     const name = query.name
-
+    // https://rafarjonilla.com/tutorial/cambiar-foto-de-perfil-en-wordpress-gravatar/
     try {
       let req = await fetch(
         `http://api.docker.test/wp-json/wp/v2/articulo?slug=${name}&_embed`
@@ -64,12 +64,14 @@ export default class Articulo extends Component {
               {'-'}
               <div className='tags'>
                 {article._embedded['wp:term']
-                  ? article._embedded['wp:term'][1].map(item => (
+                  ? article._embedded['wp:term'][1].map((item, index) => (
                     <div className='tag' key={item.id}>
                       <Link href={`/tag/${item.slug}`}>
                         <a className='link'>{item.name}</a>
                       </Link>
-                      {', '}
+                      {index < article._embedded['wp:term'][1].length - 1
+                        ? ', '
+                        : null}
                     </div>
                   ))
                   : null}
@@ -85,6 +87,20 @@ export default class Articulo extends Component {
                 src={article._embedded.author[0].avatar_urls['48']}
                 alt={article._embedded.author[0].name}
               />
+              <div className='userName'>
+                <span className='name'>{article._embedded.author[0].name}</span>
+                {article._embedded.author[0].acf.instagram ? (
+                  <a
+                    className='profileWeb'
+                    href={`https://instagram.com/${
+                      article._embedded.author[0].acf.instagram
+                    }`}
+                    target='_blank'
+                  >
+                    @{article._embedded.author[0].acf.instagram}
+                  </a>
+                ) : null}
+              </div>
             </div>
           </div>
         </article>
@@ -100,8 +116,43 @@ export default class Articulo extends Component {
             width: 100%;
           }
 
+          .author img {
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            width: 50px;
+          }
+
+          .author {
+            width: 190px;
+            height: 68px;
+            background-color: #f1f1f1;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+          }
+
+          .author .userName {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .author .name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2e2e2e;
+            margin-bottom: 3px;
+          }
+
+          .author .profileWeb {
+            font-size: 14px;
+            color: #4987b6;
+            font-weight: 600;
+          }
+
           .title {
-            font-size: 28px;
+            font-size: 2em;
             font-weight: 600;
             margin: 0;
             line-height: 30px;
@@ -109,7 +160,7 @@ export default class Articulo extends Component {
           }
 
           .text {
-            margin-top: 30px;
+            margin: 30px 0;
           }
 
           .dateTags {
