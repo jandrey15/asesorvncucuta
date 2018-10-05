@@ -1,13 +1,14 @@
 import Link from 'next/link'
 
 const Article = props => {
-  const { article } = props
-
+  const { article, type } = props
+  // console.log(article._embedded['wp:featuredmedia'])
   return (
-    <div className='Article'>
+    <div className={`Article ${type || ''}`}>
       <Link href={`/articulo?name=${article.slug}`} prefetch>
         <a className='picture'>
           <img
+            className={type}
             src={
               article._embedded['wp:featuredmedia']
                 ? article._embedded['wp:featuredmedia'][0].source_url
@@ -29,15 +30,20 @@ const Article = props => {
         </Link>
         <div
           className='summary'
-          dangerouslySetInnerHTML={{ __html: article.excerpt.rendered }}
+          dangerouslySetInnerHTML={{
+            __html:
+              article.excerpt.rendered.substring(0, 160) ||
+              article.content.rendered.substring(0, 160)
+          }}
         />
       </div>
 
       <style jsx>{`
-        .Article {
+        .Article.column {
           margin-bottom: 25px;
           background-color: #f7f7f7;
         }
+
         img {
           max-width: 260px;
           object-fit: cover;
@@ -45,7 +51,7 @@ const Article = props => {
           transition: 0.3s;
         }
 
-        img:hover {
+        .Article .column:hover {
           transform: scale(1.3);
         }
 

@@ -11,7 +11,7 @@ const ArticlesColumn = props => {
           return (
             <div className='pauta' key={index}>
               <img src='/static/repuestos.jpg' alt='repuestos' />
-              <Article article={article} key={article.id} />
+              <Article article={article} key={article.id} type='column' />
             </div>
           )
         }
@@ -20,12 +20,12 @@ const ArticlesColumn = props => {
           return (
             <div className='pauta' key={index}>
               <p className='text'>Ayuda con sus tramites</p>
-              <Article article={article} key={article.id} />
+              <Article article={article} key={article.id} type='column' />
             </div>
           )
         }
 
-        return <Article article={article} key={article.id} />
+        return <Article article={article} key={article.id} type='column' />
       })}
       <style jsx>{`
         .Articles {

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import ReactDisqusComments from 'react-disqus-comments'
+import Article from '../components/Article'
 
 export default class Articulo extends Component {
   static async getInitialProps ({ res, query }) {
@@ -17,7 +18,7 @@ export default class Articulo extends Component {
       let reqMorePosts = await fetch(
         `http://api.docker.test/wp-json/wp/v2/articulo?author=${
           article.author
-        }&per_page=5&exclude=${article.id}&_embed`
+        }&per_page=3&exclude=${article.id}&_embed`
       )
 
       let posts = await reqMorePosts.json()
@@ -71,7 +72,7 @@ export default class Articulo extends Component {
               <time className='date' dateTime={article.date}>
                 {dateArticle}
               </time>
-              {'-'}
+              {article._embedded['wp:term'] && '-'}
               <div className='tags'>
                 {article._embedded['wp:term']
                   ? article._embedded['wp:term'][1].map((item, index) => (
@@ -137,38 +138,9 @@ export default class Articulo extends Component {
             )}
             {posts.length > 0 ? (
               <div className='articles'>
-                {posts.map(post => (
-                  <div className='article' key={post.id}>
-                    <Link href={`/articulo?name=${post.slug}`} prefetch>
-                      <a className='picture'>
-                        <img
-                          className='img'
-                          src={
-                            post._embedded['wp:featuredmedia']
-                              ? post._embedded['wp:featuredmedia'][0].source_url
-                              : '/static/default.jpg'
-                          }
-                          alt={
-                            post._embedded['wp:featuredmedia']
-                              ? post._embedded['wp:featuredmedia'][0].alt_text
-                              : post.title.rendered
-                          }
-                        />
-                      </a>
-                    </Link>
-                    <div className='info'>
-                      <Link href={`/articulo?name=${post.slug}`} prefetch>
-                        <a>
-                          <h2 className='title'>{post.title.rendered}</h2>
-                        </a>
-                      </Link>
-                      <div
-                        className='excerpt'
-                        dangerouslySetInnerHTML={{
-                          __html: post.excerpt.rendered
-                        }}
-                      />
-                    </div>
+                {posts.map(article => (
+                  <div className='article' key={article.id}>
+                    <Article article={article} />
                   </div>
                 ))}
               </div>
@@ -193,8 +165,8 @@ export default class Articulo extends Component {
 
           .article {
             background-color: #f7f7f7;
-            max-width: 225px;
             transition: 0.3s;
+            max-width: 260px;
           }
 
           .article:hover {
@@ -203,42 +175,14 @@ export default class Articulo extends Component {
 
           .articles {
             display: grid;
-            grid-template-columns: repeat(3, minmax(225px, 1fr));
-            grid-gap: 0 18px;
-          }
-
-          .picture .img {
-            max-width: 225px;
-            min-height: 225px;
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-            object-fit: cover;
-          }
-
-          .article .info {
-            padding: 15px 10px 20px;
-          }
-
-          .article .title {
-            font-size: 19px;
-            line-height: 21px;
-            font-weight: 600;
-            margin: 0 0 10px;
+            grid-template-columns: repeat(3, minmax(260px, 1fr));
+            grid-gap: 0 60px;
           }
 
           h4 {
             font-size: 28px;
             font-weight: 600;
             margin: 60px 0 20px;
-          }
-
-          .article .title:hover {
-            opacity: 0.9;
-          }
-
-          .article .info a {
-            text-decoration: none;
-            color: #2e2e2e;
           }
 
           figure {
