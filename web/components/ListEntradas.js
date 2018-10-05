@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export default props => {
-  const { entradas } = props
+  const { entradas, auto } = props
   // console.log(props)
   const formatNumber = {
     separador: '.', // separador para los miles
@@ -66,11 +66,11 @@ export default props => {
       ))}
       <style jsx>{`
         .ListEntradas {
-          margin-top: 25px;
+          margin-top: ${auto ? 0 : '25px'};
           grid-column: 2/3;
           display: grid;
           grid-gap: 30px 15px;
-          grid-template-columns: repeat(3, minmax(287px, 1fr));
+          grid-template-columns: repeat(${auto || 3}, minmax(287px, 1fr));
         }
 
         .entrada {

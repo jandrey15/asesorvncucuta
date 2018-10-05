@@ -33,7 +33,7 @@ export default class Tag extends Component {
 
     let nameTag
     tags[0]._embedded['wp:term'][1].filter(tag => {
-      console.log(tag.name)
+      // console.log(tag.name)
       if (tag.slug === name) {
         nameTag = tag.name
       }
@@ -70,7 +70,7 @@ export default class Tag extends Component {
           #Tags {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            grid-gap: 50px 53px;
+            grid-gap: 30px 53px;
           }
 
           .tag {

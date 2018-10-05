@@ -7,7 +7,7 @@ export default class Tag extends Component {
   static async getInitialProps ({ res }) {
     try {
       let req = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/posts?condicion=54&sticky=false&per_page=20&_embed`
+        `http://api.docker.test/wp-json/wp/v2/posts?condicion=55&sticky=false&per_page=20&_embed`
       )
 
       let entradas = await req.json()
@@ -36,7 +36,7 @@ export default class Tag extends Component {
             <a className='link'>carros-camionetas</a>
           </Link>
           <aside className='space'>&#10095;</aside>
-          <p>nuevos</p>
+          <p>usados</p>
         </div>
         <section id='Entradas' className='container'>
           <ListEntradas entradas={entradas} auto='auto-fill' />

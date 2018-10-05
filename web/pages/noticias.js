@@ -43,7 +43,7 @@ export default class Tag extends Component {
           #Articles {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            grid-gap: 50px 53px;
+            grid-gap: 30px 53px;
           }
 
           .article {
