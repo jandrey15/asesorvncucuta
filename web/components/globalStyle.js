@@ -16,8 +16,10 @@ export default css`
   .text img,
   .text figure img,
   .text .instagram-media,
-  .text iframe {
-    max-width: 1000px;
+  .text iframe,
+  .text figure {
+    max-width: 900px;
+    margin: 0;
     object-fit: contain;
   }
 

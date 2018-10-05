@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import ReactDisqusComments from 'react-disqus-comments'
 
 export default class Articulo extends Component {
   static async getInitialProps ({ res, query }) {
@@ -10,17 +11,26 @@ export default class Articulo extends Component {
       let req = await fetch(
         `http://api.docker.test/wp-json/wp/v2/articulo?slug=${name}&_embed`
       )
+
       let [article] = await req.json()
 
-      return { article, statusCode: 200 }
+      let reqMorePosts = await fetch(
+        `http://api.docker.test/wp-json/wp/v2/articulo?author=${
+          article.author
+        }&per_page=5&exclude=${article.id}&_embed`
+      )
+
+      let posts = await reqMorePosts.json()
+
+      return { article, posts, statusCode: 200 }
     } catch (err) {
       res.statusCode = 503
-      return { article: null, statusCode: 503 }
+      return { article: null, posts: [], statusCode: 503 }
     }
   }
 
   render () {
-    const { article, statusCode } = this.props
+    const { article, posts, statusCode } = this.props
     // console.log(article)
     if (statusCode !== 200) {
       console.log('error...')
@@ -66,7 +76,7 @@ export default class Articulo extends Component {
                 {article._embedded['wp:term']
                   ? article._embedded['wp:term'][1].map((item, index) => (
                     <div className='tag' key={item.id}>
-                      <Link href={`/tag/${item.slug}`}>
+                      <Link href={`/tag?name=${item.slug}&id=${item.id}`}>
                         <a className='link'>{item.name}</a>
                       </Link>
                       {index < article._embedded['wp:term'][1].length - 1
@@ -102,9 +112,135 @@ export default class Articulo extends Component {
                 ) : null}
               </div>
             </div>
+
+            <section className='disqus'>
+              <h4 className='titleDisqus'>Comparte tu Opinión</h4>
+              {/* <ReactDisqusComments
+                shortname='asesorvncucuta'
+                identifier={article.id}
+                title={article.title.rendered}
+                url={`http://localhost:8080/${article.slug}`}
+                onNewComment={this.handleNewComment}
+              /> */}
+
+              <ReactDisqusComments
+                shortname='example'
+                identifier='something-unique-12345'
+                title='Example Thread'
+                url='http://www.example.com/example-thread'
+                category_id='123456'
+                onNewComment={this.handleNewComment}
+              />
+            </section>
+            {posts.length > 0 && (
+              <h4 className='morePosts'>Más publicaciones</h4>
+            )}
+            {posts.length > 0 ? (
+              <div className='articles'>
+                {posts.map(post => (
+                  <div className='article' key={post.id}>
+                    <Link href={`/articulo?name=${post.slug}`} prefetch>
+                      <a className='picture'>
+                        <img
+                          className='img'
+                          src={
+                            post._embedded['wp:featuredmedia']
+                              ? post._embedded['wp:featuredmedia'][0].source_url
+                              : '/static/default.jpg'
+                          }
+                          alt={
+                            post._embedded['wp:featuredmedia']
+                              ? post._embedded['wp:featuredmedia'][0].alt_text
+                              : post.title.rendered
+                          }
+                        />
+                      </a>
+                    </Link>
+                    <div className='info'>
+                      <Link href={`/articulo?name=${post.slug}`} prefetch>
+                        <a>
+                          <h2 className='title'>{post.title.rendered}</h2>
+                        </a>
+                      </Link>
+                      <div
+                        className='excerpt'
+                        dangerouslySetInnerHTML={{
+                          __html: post.excerpt.rendered
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
         </article>
         <style jsx>{`
+          .container {
+            max-width: 900px;
+          }
+
+          .disqus {
+            margin-top 50px;
+          }
+
+          .titleDisqus {
+            margin: 0 0 20px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #2e2e2e;
+          }
+
+          .article {
+            background-color: #f7f7f7;
+            max-width: 225px;
+            transition: 0.3s;
+          }
+
+          .article:hover {
+            box-shadow: 0px 18px 18px 0px rgba(48, 48, 48, 0.3686274509803922);
+          }
+
+          .articles {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(225px, 1fr));
+            grid-gap: 0 18px;
+          }
+
+          .picture .img {
+            max-width: 225px;
+            min-height: 225px;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            object-fit: cover;
+          }
+
+          .article .info {
+            padding: 15px 10px 20px;
+          }
+
+          .article .title {
+            font-size: 19px;
+            line-height: 21px;
+            font-weight: 600;
+            margin: 0 0 10px;
+          }
+
+          h4 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 60px 0 20px;
+          }
+
+          .article .title:hover {
+            opacity: 0.9;
+          }
+
+          .article .info a {
+            text-decoration: none;
+            color: #2e2e2e;
+          }
+
           figure {
             margin: 0 0 50px;
             height: 600px;
@@ -182,12 +318,12 @@ export default class Articulo extends Component {
             margin-right: 5px;
           }
 
-          a {
+          .tag a {
             text-decoration: none;
             color: #2e2e2e;
           }
 
-          a:hover {
+          .tag a:hover {
             text-decoration: underline;
             color: #3399cc;
           }
