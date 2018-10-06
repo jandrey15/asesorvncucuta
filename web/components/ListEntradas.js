@@ -71,6 +71,7 @@ export default props => {
           display: grid;
           grid-gap: 30px 15px;
           grid-template-columns: repeat(${auto || 3}, minmax(287px, 1fr));
+          grid-template-rows: repeat(auto-fill, 391px);
         }
 
         .entrada {

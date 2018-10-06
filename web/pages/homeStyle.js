@@ -23,8 +23,8 @@ export default css`
   #sectionPrincipal {
     display: grid;
     grid-template-columns: 308px 1fr;
-    grid-template-rows: repeat(auto-fill, 360px);
-    height: 2300px;
+    // grid-template-rows: repeat(auto-fill, 360px);
+    // height: 2300px;
   }
 
   #postsNews,

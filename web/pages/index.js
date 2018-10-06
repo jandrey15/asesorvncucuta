@@ -96,15 +96,17 @@ export default class Home extends Component {
       <Layout title='Home'>
         <section id='Home'>
           <div className='dondeEstoy container'>
-            <span>Estoy en:</span> <p>carros nuevos</p>
+            <span>Estoy en:</span> <p>carros y camionetas</p>
           </div>
           <div id='sectionPrincipal' className='container'>
             <div className='column'>
               <Filter />
               <ArticlesColumn news={news} />
             </div>
-            <SlideShow entradas={entradasSlides} />
-            <ListEntradas entradas={entradas} />
+            <div className='columnRight'>
+              <SlideShow entradas={entradasSlides} />
+              <ListEntradas entradas={entradas} />
+            </div>
           </div>
           <div id='MorePosts' className='container'>
             {postsNew.length > 0 ? (
