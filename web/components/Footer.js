@@ -34,16 +34,33 @@ const Footer = props => {
             <div className='redes'>
               <ul className='ulRedes'>
                 <li className='instagram'>
-                  <a href='/instagram'>Instagram</a>
+                  <a
+                    href='https://www.instagram.com/asesorvncucuta'
+                    target='_blank'
+                  >
+                    Instagram
+                  </a>
                 </li>
                 <li className='facebook'>
-                  <a href='/facebook'>Facebook</a>
+                  <a
+                    href='https://www.facebook.com/asesorvncucuta'
+                    target='_blank'
+                  >
+                    Facebook
+                  </a>
                 </li>
                 <li className='whatsapp'>
-                  <a href='/whatsapp'>Whatsapp</a>
+                  <a href='tel:+573003482805' target='_blank'>
+                    Whatsapp
+                  </a>
                 </li>
                 <li className='youtube'>
-                  <a href='/youtube'>Youtube</a>
+                  <a
+                    href='https://www.youtube.com/asesorvncucuta'
+                    target='_blank'
+                  >
+                    Youtube
+                  </a>
                 </li>
               </ul>
             </div>

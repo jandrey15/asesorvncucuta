@@ -59,7 +59,7 @@ const Article = props => {
           margin: 0;
           font-size: 21px;
           font-weight: 600;
-          color: #282826;
+          color: #2d2d2a;
           line-height: 22px;
         }
 
@@ -79,7 +79,7 @@ const Article = props => {
 
         .summary {
           margin: 0;
-          color: #3b3b3b;
+          color: #3a3a38;
         }
       `}</style>
     </div>

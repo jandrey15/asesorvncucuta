@@ -183,6 +183,7 @@ export default class Articulo extends Component {
             font-size: 28px;
             font-weight: 600;
             margin: 60px 0 20px;
+            color: #2d2d2a;
           }
 
           figure {
@@ -206,7 +207,7 @@ export default class Articulo extends Component {
           .author {
             width: 190px;
             height: 68px;
-            background-color: #f1f1f1;
+            background-color: #f7f7f7;
             border-radius: 2px;
             display: flex;
             align-items: center;
@@ -221,13 +222,13 @@ export default class Articulo extends Component {
           .author .name {
             font-size: 18px;
             font-weight: 600;
-            color: #2e2e2e;
+            color: #2d2d2a;
             margin-bottom: 3px;
           }
 
           .author .profileWeb {
             font-size: 14px;
-            color: #4987b6;
+            color: #337ab7;
             font-weight: 600;
           }
 
@@ -236,16 +237,18 @@ export default class Articulo extends Component {
             font-weight: 600;
             margin: 0;
             line-height: 30px;
-            color: #2e2e2e;
+            color: #2d2d2a;
           }
 
           .text {
             margin: 30px 0;
+            color: #4c4c4c;
           }
 
           .dateTags {
             display: flex;
             margin-top: 5px;
+            color: #4c4c4c;
           }
 
           .date {

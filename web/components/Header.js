@@ -38,16 +38,27 @@ export default props => {
         <div className='redes'>
           <ul>
             <li className='instagram'>
-              <a href='/instagram'>Instagram</a>
+              <a
+                href='https://www.instagram.com/asesorvncucuta'
+                target='_blank'
+              >
+                Instagram
+              </a>
             </li>
             <li className='facebook'>
-              <a href='/facebook'>Facebook</a>
+              <a href='https://www.facebook.com/asesorvncucuta' target='_blank'>
+                Facebook
+              </a>
             </li>
             <li className='whatsapp'>
-              <a href='/whatsapp'>Whatsapp</a>
+              <a href='tel:+573003482805' target='_blank'>
+                Whatsapp
+              </a>
             </li>
             <li className='youtube'>
-              <a href='/youtube'>Youtube</a>
+              <a href='https://www.youtube.com/asesorvncucuta' target='_blank'>
+                Youtube
+              </a>
             </li>
           </ul>
         </div>
@@ -115,10 +126,10 @@ export default props => {
           border: none;
           padding: 0;
           border-radius: 2px;
-          border-left: 1px solid #707070;
+          border-left: 1px solid #4c4c4c;
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
-          background-color: #dbdbdb;
+          background-color: #dadbdb;
           position: absolute;
           right: 0;
           display: flex;

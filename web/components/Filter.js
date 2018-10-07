@@ -116,7 +116,7 @@ export default class Filter extends Component {
             align-items: center;
             cursor: pointer;
             color: #2d2d2a;
-            background-color: #cccccc;
+            background-color: #dadbdb;
             transition: 0.2s;
           }
 
@@ -128,7 +128,7 @@ export default class Filter extends Component {
           }
 
           .usados {
-            border-right: 1px solid #cccccc;
+            border-right: 1px solid #dadbdb;
           }
           .nuevos.is-active {
             color: #337ab7;
@@ -155,12 +155,12 @@ export default class Filter extends Component {
           }
 
           label {
-            color: #2c2c2a;
+            color: #2d2d2a;
           }
 
           select {
-            color: #2c2c2a;
-            border: 1px solid #cccccc;
+            color: #2d2d2a;
+            border: 1px solid #dadbdb;
             height: 29px;
             opacity: 0.6;
           }

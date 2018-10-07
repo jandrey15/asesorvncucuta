@@ -8,7 +8,6 @@ export default css`
     height: 40px;
     font-size: 13px;
     box-sizing: border-box;
-    color: #505050;
   }
 
   .dondeEstoy p {

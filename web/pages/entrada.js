@@ -436,6 +436,10 @@ export default class Entrada extends Component {
             font-size: 25px;
           }
 
+          .text {
+            color: #4c4c4c;
+          }
+
           .dondeEstoy {
             display: flex;
             align-items: center;
@@ -443,16 +447,11 @@ export default class Entrada extends Component {
             height: 40px;
             font-size: 13px;
             box-sizing: border-box;
-            color: #505050;
+            color: #4c4c4c;
           }
 
           .dondeEstoy p {
             margin: 0 5px;
-            color: #4c4c4c;
-          }
-
-          .dondeEstoy span {
-            color: #4c4c4c;
           }
 
           .listado {
@@ -479,6 +478,7 @@ export default class Entrada extends Component {
             font-size: 28px;
             font-weight: 600;
             margin: 60px 0 0;
+            color: #2d2d2a;
           }
 
           .morePosts {
@@ -504,6 +504,7 @@ export default class Entrada extends Component {
           .ficha span {
             font-size: 21px;
             font-weght: 600;
+            color: #2d2d2a;
           }
 
           .item {
@@ -516,6 +517,7 @@ export default class Entrada extends Component {
             margin: 0 0 5px;
             font-size: 18px;
             font-weight: 400;
+            color: #4c4c4c;
           }
 
           h2 {
@@ -523,6 +525,7 @@ export default class Entrada extends Component {
             font-weight: 600;
             margin: 0 0 20px;
             text-align: center;
+            color: #2d2d2a;
           }
 
           h1 {
@@ -530,6 +533,7 @@ export default class Entrada extends Component {
             line-height: 26px;
             font-weight: 400;
             margin: 0 0 15px;
+            color: #4c4c4c;
           }
 
           .kilo {
@@ -552,6 +556,7 @@ export default class Entrada extends Component {
             font-size: 14px;
             line-height: 16px;
             margin: 10px 0;
+            color: #4c4c4c;
             width: 85%;
           }
 
@@ -580,6 +585,11 @@ export default class Entrada extends Component {
             margin: 15px 0 20px;
             font-size: 18px;
             font-weight: 600;
+            color: #2d2d2a;
+          }
+
+          .seller span, .seller p {
+            color: #4c4c4c;
           }
 
           span {
@@ -597,7 +607,7 @@ export default class Entrada extends Component {
           .info hr {
             border: none;
             height: 1px;
-            background: #3399cc;
+            background: #4887b5;
             margin: 0;
             width: 100%;
           }
@@ -605,7 +615,7 @@ export default class Entrada extends Component {
           hr {
             border: none;
             height: 1px;
-            background: #3399cc;
+            background: #4887b5;
             margin: 0 auto;
             max-width: 1128px;
           }

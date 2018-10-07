@@ -88,7 +88,7 @@ const MorePosts = props => {
 
         p,
         aside {
-          color: #7a7a7a;
+          color: #4c4c4c;
           margin: 0;
         }
 
@@ -98,13 +98,13 @@ const MorePosts = props => {
 
         .kilo {
           font-size: 14px;
-          border-bottom: 1px solid #a5c4d9;
+          border-bottom: 1px solid #5b91b2;
           padding-bottom: 8px;
         }
 
         a {
           text-decoration: none;
-          color: #2e2e2e;
+          color: #2d2d2a;
         }
 
         h2 {

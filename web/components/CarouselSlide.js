@@ -78,7 +78,7 @@ const CarouselSlide = props => {
           padding: 10px;
           left: 12px;
           box-sizing: border-box;
-          background: rgba(51, 51, 51, 0.52);
+          background: rgba(76, 76, 76, 0.48);
         }
 
         a {
