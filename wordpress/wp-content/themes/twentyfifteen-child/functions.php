@@ -364,7 +364,7 @@ function tc_handle_upload_prefilter($file) {
     
     $img=getimagesize($file['tmp_name']);
     // $minimum = array('width' => '640', 'height' => '480');
-    $minimum = array('width' => '885', 'height' => '360');
+    $minimum = array('width' => '1200', 'height' => '900');
     $width= $img[0];
     $height =$img[1];
     
@@ -376,6 +376,3 @@ function tc_handle_upload_prefilter($file) {
     else
     return $file; 
 }
-
-add_filter('wp_handle_upload_prefilter','tc_handle_upload_prefilter');
-

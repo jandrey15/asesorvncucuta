@@ -2,10 +2,11 @@ import React from 'react'
 
 const CarouselIndicator = props => {
   const { slide, index, activeIndex, onClick, style } = props
+
   return (
     <li style={style}>
       <a onClick={onClick}>
-        <img src={slide.full_image_url} alt={slide.title} />
+        <img src={slide.thumbnail_image_url} alt={slide.title} />
         <aside
           className={index === activeIndex ? 'indicator active' : 'indicator'}
         />

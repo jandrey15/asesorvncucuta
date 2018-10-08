@@ -16,7 +16,8 @@ class Slides extends Component {
       stylesTranslate: {
         transform: 'translateX(0)'
       },
-      count: 0
+      count: 0,
+      modal: false
     }
   }
 
@@ -24,10 +25,12 @@ class Slides extends Component {
     this.state.auto
       ? (this.auto = setInterval(() => this.carouselAuto(), 3000))
       : setInterval(() => null, 0)
+    window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount () {
     this.state.auto ? clearTimeout(this.auto) : clearTimeout(null)
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
   carouselAuto = () => {
@@ -113,6 +116,36 @@ class Slides extends Component {
     }
   }
 
+  handleModal = e => {
+    e.preventDefault()
+
+    this.setState({
+      modal: true
+    })
+  }
+
+  handleClose = e => {
+    e.preventDefault()
+
+    this.setState({
+      modal: false
+    })
+  }
+
+  handleScroll = e => {
+    e.preventDefault()
+    // let lastScrollY = 0
+    // lastScrollY = window.scrollY
+    this.setState(prevState => {
+      // console.log(prevState.modal)
+      if (prevState.modal) {
+        return {
+          modal: !prevState.modal
+        }
+      }
+    })
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps !== this.props) {
       this.setState({
@@ -128,9 +161,11 @@ class Slides extends Component {
   }
 
   render () {
+    const { slides } = this.state
+
     if (this.props.type === 'galeria') {
       const styles = {
-        width: `${this.state.slides.length * 888}px`
+        width: `${slides.length * 888}px`
       }
 
       const styleButton = {
@@ -156,7 +191,7 @@ class Slides extends Component {
 
       let button
 
-      if (this.state.slides.length > 7 && this.state.count === 0) {
+      if (slides.length > 7 && this.state.count === 0) {
         styleButton.right = styleButtonRight.right
         styleButton.background = styleButtonRight.background
         button = (
@@ -185,19 +220,20 @@ class Slides extends Component {
       return (
         <SlideLayout>
           <ul className='carouselGaleria'>
-            {this.state.slides.map((slide, index) => (
+            {slides.map((slide, index) => (
               <CarouselGaleria
                 key={slide.id}
                 index={index}
                 activeIndex={this.state.activeIndex}
                 slide={slide}
                 animation={this.state.type}
+                modal={this.handleModal}
               />
             ))}
           </ul>
 
           <ul className='indicators' style={styles}>
-            {this.state.slides.map((slide, index) => (
+            {slides.map((slide, index) => (
               <CarouselIndicator
                 key={slide.id}
                 slide={slide}
@@ -210,11 +246,59 @@ class Slides extends Component {
 
             {button}
           </ul>
+          {this.state.modal && (
+            <div className='background'>
+              <aside className='index'>
+                {this.state.activeIndex + 1} / {slides.length}
+              </aside>
+              <ul
+                className='carouselGaleriaFull'
+                onClick={this.handleClose}
+                onScroll={this.handleClose}
+              >
+                {slides.map((slide, index) => (
+                  <CarouselGaleria
+                    key={slide.id}
+                    index={index}
+                    activeIndex={this.state.activeIndex}
+                    slide={slide}
+                    animation={this.state.type}
+                    full
+                  />
+                ))}
+              </ul>
+              <aside className='close' onClick={this.handleClose}>
+                <i className='icon' />
+              </aside>
+              <div className='controls'>
+                <button className='arrow left' onClick={this.handleClickLeft}>
+                  &#10094;
+                </button>
+                <button className='arrow right' onClick={this.handleClickRight}>
+                  &#10095;
+                </button>
+              </div>
+            </div>
+          )}
           <style jsx>{`
             .carouselGaleria {
               max-width: 885px;
               padding: 0;
               margin: 0 0 2px;
+            }
+
+            .close .icon {
+              background: url('/static/close.svg') no-repeat;
+              height: 25px;
+              display: block;
+              width: 25px;
+            }
+
+            .close {
+              position: absolute;
+              top: 20px;
+              right: 45px;
+              cursor: pointer;
             }
 
             .indicators {
@@ -224,6 +308,68 @@ class Slides extends Component {
               margin: 0;
               max-width: 885px;
               overflow: hidden;
+            }
+
+            .background .index {
+              position: absolute;
+              top: 20px;
+              left: 45px;
+              color: #ffffff;
+              font-size: 1.2rem;
+              font-weight: 600;
+            }
+
+            .background {
+              position: fixed;
+              top: 0;
+              left: 0;
+              right: 0;
+              background-color: rgba(0, 0, 0, 0.8);
+              width: 100vw;
+              height: 100vh;
+            }
+
+            .carouselGaleriaFull {
+              padding: 0;
+              margin: 0;
+              transition: 0.2s;
+              height: 100%;
+            }
+
+            .background .controls {
+              position: absolute;
+              top: 50%;
+              width: 100%;
+              z-index: 10;
+            }
+
+            .background .controls .arrow {
+              position: absolute;
+              top: 50%;
+              display: block;
+              font-size: 22px;
+              cursor: pointer;
+              border: none;
+              height: 30px;
+              width: 30px;
+              transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
+              text-indent: -9999px;
+            }
+            .background .controls .arrow:focus {
+              outline: 0;
+            }
+            .background .controls .arrow:hover {
+              opacity: 0.5;
+            }
+            .background .controls .arrow.left {
+              left: 40px;
+              background: url('/static/arrow-left.svg') no-repeat;
+              background-size: 100%;
+            }
+            .background .controls .arrow.right {
+              right: 40px;
+              background: url('/static/arrow-right.svg') no-repeat;
+              background-size: 100%;
             }
           `}</style>
         </SlideLayout>
