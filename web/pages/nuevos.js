@@ -76,6 +76,8 @@ export default class Tag extends Component {
 
           .dondeEstoy span {
             color: #4c4c4c;
+            font-size: 14px;
+            font-weight: 600;
           }
 
           .link {

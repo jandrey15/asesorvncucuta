@@ -80,7 +80,8 @@ export default class Entrada extends Component {
               <span>Volver al listado: </span>
             </a>
           </Link>
-          <p>carros nuevos</p>
+          <p>{entrada._embedded['wp:term'][0][0].name}</p>
+          <p>{entrada._embedded['wp:term'][2][0].name}</p>
         </div>
         <article id='Entrada' className='container'>
           <div className='content'>

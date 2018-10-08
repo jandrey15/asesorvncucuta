@@ -7,7 +7,6 @@ const CarouselSlide = props => {
   // console.log(slide.large_srcset)
   let slideImg
   slideImg = slide.large_srcset.split(' ', 5)
-  // console.log(slideImg)
   slideImg = slideImg[0]
 
   if (full) {
@@ -17,7 +16,11 @@ const CarouselSlide = props => {
           index === activeIndex ? `slide active ${animation}` : `slide`
         }
       >
-        <img className='full' src={slide.full_image_url} alt={slide.title} />
+        <img
+          className='full'
+          src={slide.full_image_url}
+          alt={slide.caption ? slide.caption : slide.title}
+        />
         <style jsx>{`
           .slide {
             display: none;
@@ -65,7 +68,11 @@ const CarouselSlide = props => {
         }
         onClick={modal}
       >
-        <img className='normal' src={slideImg} alt={slide.title} />
+        <img
+          className='normal'
+          src={slideImg}
+          alt={slide.caption ? slide.caption : slide.title}
+        />
 
         <style jsx>{`
           .slide {

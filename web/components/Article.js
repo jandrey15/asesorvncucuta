@@ -11,7 +11,9 @@ const Article = props => {
             className={type}
             src={
               article._embedded['wp:featuredmedia']
-                ? article._embedded['wp:featuredmedia'][0].source_url
+                ? article._embedded['wp:featuredmedia'][0].media_details.sizes[
+                  'thumbnail'
+                ].source_url
                 : '/static/default.jpg'
             }
             alt={

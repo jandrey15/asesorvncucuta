@@ -31,7 +31,8 @@ export default props => {
               <img
                 src={
                   entrada._embedded['wp:featuredmedia']
-                    ? entrada._embedded['wp:featuredmedia'][0].source_url
+                    ? entrada._embedded['wp:featuredmedia'][0].media_details
+                      .sizes['thumbnail'].source_url
                     : '/static/default.jpg'
                 }
                 alt={

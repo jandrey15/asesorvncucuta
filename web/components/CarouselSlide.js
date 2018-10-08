@@ -29,7 +29,8 @@ const CarouselSlide = props => {
       <img
         src={
           slide._embedded['wp:featuredmedia']
-            ? slide._embedded['wp:featuredmedia'][0].source_url
+            ? slide._embedded['wp:featuredmedia'][0].media_details.sizes['full']
+              .source_url
             : '/static/default.jpg'
         }
         alt={slide.title.rendered}
