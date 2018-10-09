@@ -91,14 +91,15 @@ export default class Tag extends Component {
 
           #Tags {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            grid-gap: 30px 53px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 30px 5px;
+            justify-items: center;
           }
 
           .tag {
             background-color: #f7f7f7;
             transition: 0.3s;
-            max-width: 260px;
+            max-width: 300px;
           }
 
           .tag:hover {

@@ -7,6 +7,7 @@ import Filter from '../components/Filter'
 import ArticlesColumn from '../components/ArticlesColumn'
 import homeStyle from './homeStyle'
 import MorePosts from '../components/MorePosts'
+import MenuLocation from '../components/MenuLocation'
 
 export default class Home extends Component {
   static async getInitialProps ({ res }) {
@@ -96,7 +97,8 @@ export default class Home extends Component {
       <Layout title='Asesorvncucuta'>
         <section id='Home'>
           <div className='dondeEstoy container'>
-            <span>Estoy en:</span> <p>carros y camionetas</p>
+            <span>Estoy en:</span>
+            <MenuLocation entradas={entradas} />
           </div>
           <div id='sectionPrincipal' className='container'>
             <div className='column'>

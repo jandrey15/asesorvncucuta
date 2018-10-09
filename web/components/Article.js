@@ -11,7 +11,9 @@ const Article = props => {
             className={type}
             src={
               article._embedded['wp:featuredmedia']
-                ? article._embedded['wp:featuredmedia'][0].media_details.sizes['thumbnail'].source_url
+                ? article._embedded['wp:featuredmedia'][0].media_details.sizes[
+                  'thumbnail'
+                ].source_url
                 : '/static/default.jpg'
             }
             alt={
@@ -45,7 +47,8 @@ const Article = props => {
         }
 
         img {
-          max-width: 260px;
+          min-width: 260px;
+          width: 100%;
           object-fit: cover;
           min-height: 136px;
           transition: 0.3s;
