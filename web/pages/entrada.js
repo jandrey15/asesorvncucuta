@@ -73,15 +73,33 @@ export default class Entrada extends Component {
     }
 
     return (
-      <Layout title={entrada.title.rendered}>
+      <Layout title={`${entrada.title.rendered} - Asesorvncucuta`}>
         <div className='dondeEstoy container'>
           <Link href='/'>
             <a className='listado'>
               <span>Volver al listado: </span>
             </a>
           </Link>
-          <p>{entrada._embedded['wp:term'][0][0].name}</p>
-          <p>{entrada._embedded['wp:term'][2][0].name}</p>
+          {
+            entrada._embedded['wp:term'][0][0] &&
+              <Link href={`/entradas?categoria=${entrada._embedded['wp:term'][0][0].id}&name=${entrada._embedded['wp:term'][0][0].slug}`}>
+                <a className='link'>{entrada._embedded['wp:term'][0][0].name}</a>
+              </Link>
+          }
+          <aside className='space'>&#10095;</aside>
+          {
+            entrada._embedded['wp:term'][2][0] &&
+              <Link href={`/entradas?marca=${entrada._embedded['wp:term'][2][0].id}&name=${entrada._embedded['wp:term'][2][0].slug}`}>
+                <a className='link'>{entrada._embedded['wp:term'][2][0].name}</a>
+              </Link>
+          }
+          <aside className='space'>&#10095;</aside>
+          {
+            entrada._embedded['wp:term'][2][1] &&
+              <Link href={`/entradas?modelo=${entrada._embedded['wp:term'][2][1].id}&name=${entrada._embedded['wp:term'][2][1].slug}`}>
+                <a className='link'>{entrada._embedded['wp:term'][2][1].name}</a>
+              </Link>
+          }
         </div>
         <article id='Entrada' className='container'>
           <div className='content'>
@@ -454,6 +472,16 @@ export default class Entrada extends Component {
             text-transform: uppercase;
             font-weight: 600;
             color: #ffffff;
+          }
+
+          .link {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #4c4c4c;
+          }
+
+          .link:hover {
+            text-decoration: underline;
           }
 
           .text {

@@ -7,7 +7,7 @@ const CarouselSlide = props => {
   // console.log(slide.large_srcset)
   let slideImg
   slideImg = slide.large_srcset.split(' ', 5)
-  console.log(slideImg)
+  // console.log(slideImg)
   slideImg = slideImg[4]
 
   if (full) {

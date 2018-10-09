@@ -40,7 +40,11 @@ export default class Tag extends Component {
     })
 
     return (
-      <Layout title={nameTag}>
+      <Layout
+        title={`${nameTag.charAt(0).toUpperCase()}${nameTag.slice(
+          1
+        )} - Asesorvncucuta`}
+      >
         <div className='dondeEstoy container'>
           <span>Estoy en:</span>
           <Link href='/noticias'>

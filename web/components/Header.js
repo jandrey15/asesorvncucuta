@@ -24,10 +24,10 @@ export default props => {
         <div className='menu'>
           <ul>
             <li>
-              <a href='/nuevos'>Nuevos</a>
+              <a href='entradas?condicion=54&name=nuevos'>Nuevos</a>
             </li>
             <li>
-              <a href='/usados'>Usados</a>
+              <a href='entradas?condicion=55&name=usados'>Usados</a>
             </li>
             <li>
               <a href='/noticias'>Noticias</a>
