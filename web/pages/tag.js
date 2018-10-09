@@ -49,14 +49,32 @@ export default class Tag extends Component {
           <aside className='space'>&#10095;</aside>
           <p>{nameTag}</p>
         </div>
-        <section id='Tags' className='container'>
-          {tags.map(tag => (
-            <div className='tag' key={tag.id}>
-              <Article article={tag} />
-            </div>
-          ))}
-        </section>
+        {tags.length > 0 ? (
+          <section id='Tags' className='container'>
+            {tags.map(tag => (
+              <div className='tag' key={tag.id}>
+                <Article article={tag} />
+              </div>
+            ))}
+          </section>
+        ) : (
+          <div className='nothing container'>
+            <h4>No hay noticias</h4>
+          </div>
+        )}
         <style jsx>{`
+          .nothing {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #2d2d2a;
+            font-weight: 600;
+          }
+
+          .nothing h4 {
+            margin: 0;
+          }
           .link {
             margin: 0 5px;
             text-decoration: none;
@@ -91,6 +109,7 @@ export default class Tag extends Component {
             font-size: 13px;
             box-sizing: border-box;
             color: #505050;
+            flex: 0;
           }
 
           .dondeEstoy p {

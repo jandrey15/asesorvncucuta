@@ -11,6 +11,15 @@ export default css`
   .container {
     margin: 0 auto;
     max-width: 1200px;
+    flex: 1;
+    width: 100%;
+  }
+
+  #Layout {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    min-height: 100vh;
   }
 
   .text img,

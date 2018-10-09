@@ -7,7 +7,8 @@ const CarouselSlide = props => {
   // console.log(slide.large_srcset)
   let slideImg
   slideImg = slide.large_srcset.split(' ', 5)
-  slideImg = slideImg[0]
+  console.log(slideImg)
+  slideImg = slideImg[4]
 
   if (full) {
     return (
@@ -88,8 +89,8 @@ const CarouselSlide = props => {
           }
           .slide .normal {
             object-fit: cover;
-            min-height: 500px;
-            max-height: 500px;
+            min-height: 576px;
+            max-height: 576px;
             width: 100%;
           }
 

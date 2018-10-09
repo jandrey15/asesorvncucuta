@@ -67,6 +67,7 @@ export default class Tag extends Component {
             font-size: 13px;
             box-sizing: border-box;
             color: #505050;
+            flex: 0;
           }
 
           .dondeEstoy p {

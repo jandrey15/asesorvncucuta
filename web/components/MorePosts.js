@@ -32,9 +32,7 @@ const MorePosts = props => {
               <img
                 src={
                   post._embedded['wp:featuredmedia']
-                    ? post._embedded['wp:featuredmedia'][0].media_details.sizes[
-                      'thumbnail'
-                    ].source_url
+                    ? post._embedded['wp:featuredmedia'][0].media_details.sizes['thumbnail'].source_url
                     : '/static/default.jpg'
                 }
                 alt={

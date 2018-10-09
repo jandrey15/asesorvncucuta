@@ -32,13 +32,19 @@ export default class Tag extends Component {
         <div className='dondeEstoy container'>
           <span>Estoy en:</span> <p>noticias</p>
         </div>
-        <section id='Articles' className='container'>
-          {articles.map(tag => (
-            <div className='article' key={tag.id}>
-              <Article article={tag} />
-            </div>
-          ))}
-        </section>
+        {articles.length > 0 ? (
+          <section id='Articles' className='container'>
+            {articles.map(tag => (
+              <div className='article' key={tag.id}>
+                <Article article={tag} />
+              </div>
+            ))}
+          </section>
+        ) : (
+          <div className='nothing container'>
+            <h4>No hay noticias</h4>
+          </div>
+        )}
         <style jsx>{`
           #Articles {
             display: grid;
@@ -56,6 +62,19 @@ export default class Tag extends Component {
             box-shadow: 0px 18px 18px 0px rgba(48, 48, 48, 0.3686274509803922);
           }
 
+          .nothing {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #2d2d2a;
+            font-weight: 600;
+          }
+
+          .nothing h4 {
+            margin: 0;
+          }
+
           .dondeEstoy {
             display: flex;
             align-items: center;
@@ -64,6 +83,7 @@ export default class Tag extends Component {
             font-size: 13px;
             box-sizing: border-box;
             color: #505050;
+            flex: 0;
           }
 
           .dondeEstoy p {

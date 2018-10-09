@@ -30,7 +30,7 @@ export default class Entrada extends Component {
         fetch(
           `http://api.docker.test/wp-json/wp/v2/posts?author=${
             entrada.author
-          }&per_page=5&exclude=${entrada.id}&_embed`
+          }&per_page=5&exclude=${entrada.id}&sticky=false&_embed`
         )
       ])
 
@@ -132,6 +132,10 @@ export default class Entrada extends Component {
                   </p>
                 </div>
               ) : null}
+
+              <div className='pauta300x118'>
+                <p>Pauta</p>
+              </div>
             </div>
           </div>
 
@@ -225,9 +229,9 @@ export default class Entrada extends Component {
             ) : null}
           </section>
           {entrada.exterior.length > 0 && <hr />}
-          <section className='ficha exterior'>
-            {entrada.exterior.length > 0
-              ? entrada.exterior.map((item, index) => {
+          {entrada.exterior.length > 0 && (
+            <section className='ficha exterior'>
+              {entrada.exterior.map((item, index) => {
                 switch (item) {
                   case 'estribos': {
                     return (
@@ -313,13 +317,14 @@ export default class Entrada extends Component {
                   default:
                     break
                 }
-              })
-              : null}
-          </section>
+              })}
+            </section>
+          )}
+
           {entrada.seguridad.length > 0 && <hr />}
-          <section className='ficha seguridad'>
-            {entrada.seguridad.length > 0
-              ? entrada.seguridad.map((item, index) => {
+          {entrada.seguridad.length > 0 && (
+            <section className='ficha seguridad'>
+              {entrada.seguridad.map((item, index) => {
                 switch (item) {
                   case 'frenos abs': {
                     return (
@@ -360,13 +365,14 @@ export default class Entrada extends Component {
                   default:
                     break
                 }
-              })
-              : null}
-          </section>
+              })}
+            </section>
+          )}
+
           {entrada.equipamiento.length > 0 && <hr />}
-          <section className='ficha equipamiento'>
-            {entrada.equipamiento.length > 0
-              ? entrada.equipamiento.map((item, index) => {
+          {entrada.equipamiento.length > 0 && (
+            <section className='ficha equipamiento'>
+              {entrada.equipamiento.map((item, index) => {
                 switch (item) {
                   case 'aire acondicionado': {
                     return (
@@ -407,9 +413,9 @@ export default class Entrada extends Component {
                   default:
                     break
                 }
-              })
-              : null}
-          </section>
+              })}
+            </section>
+          )}
 
           <h4>Descripción</h4>
           <div
@@ -435,6 +441,19 @@ export default class Entrada extends Component {
             color: #ffffff;
             text-transform: uppercase;
             font-size: 25px;
+          }
+
+          .pauta300x118 {
+            max-width: 300px;
+            height: 118px;
+            background: #9a3737;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #ffffff;
           }
 
           .text {
@@ -589,7 +608,8 @@ export default class Entrada extends Component {
             color: #2d2d2a;
           }
 
-          .seller span, .seller p {
+          .seller span,
+          .seller p {
             color: #4c4c4c;
           }
 
@@ -602,7 +622,7 @@ export default class Entrada extends Component {
           .seller .phone {
             font-size: 14px;
             font-weight: 400;
-            margin: 10px 0 20px;
+            margin: 5px 0 20px;
           }
 
           .info hr {
