@@ -1,48 +1,172 @@
 import React, { Component } from 'react'
+import 'isomorphic-fetch'
 
 export default class Filter extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      usado: true,
+      nuevo: false,
+      condicion: '',
+      marcas: [],
+      modelos: [],
+      anos: [],
+      color: [],
+      ciudades: [],
+      statusCode: 200
+    }
+  }
+
+  async componentDidMount () {
+    try {
+      let [
+        reqMarcas,
+        reqModelos,
+        reqAnos,
+        reqColor,
+        reqCiudades
+      ] = await Promise.all([
+        fetch(
+          'http://api.docker.test/wp-json/wp/v2/marcas?per_page=30&parent=0'
+        ),
+        fetch('http://api.docker.test/wp-json/wp/v2/marcas?per_page=30'),
+        fetch('http://api.docker.test/wp-json/wp/v2/anos?per_page=30'),
+        fetch('http://api.docker.test/wp-json/wp/v2/color?per_page=30'),
+        fetch('http://api.docker.test/wp-json/wp/v2/ciudades?per_page=30')
+      ])
+
+      if (reqMarcas.status >= 400) {
+        this.setState({
+          statusCode: reqMarcas.status
+        })
+      }
+
+      let marcas = await reqMarcas.json()
+      let modelos = await reqModelos.json()
+      let anos = await reqAnos.json()
+      let color = await reqColor.json()
+      let ciudades = await reqCiudades.json()
+
+      this.setState({
+        marcas,
+        modelos,
+        anos,
+        color,
+        ciudades,
+        statusCode: 200
+      })
+    } catch (err) {
+      this.setState({
+        marcas: [],
+        modelos: [],
+        anos: [],
+        color: [],
+        ciudades: [],
+        statusCode: 503
+      })
+    }
+  }
+
+  handleNew = () => {
+    // console.log('nuevo')
+    this.setState(prevState => ({
+      nuevo: !prevState.nuevo,
+      usado: !prevState.usado,
+      condicion: 'nuevo'
+    }))
+  }
+
+  handleUsed = () => {
+    // console.log('usado')
+    this.setState(prevState => ({
+      nuevo: !prevState.nuevo,
+      usado: !prevState.usado,
+      condicion: 'usado'
+    }))
+  }
+
   render () {
+    const {
+      usado,
+      nuevo,
+      condicion,
+      marcas,
+      modelos,
+      anos,
+      color,
+      ciudades,
+      statusCode
+    } = this.state
+    // console.log(marcas)
+
+    if (statusCode !== 200) {
+      console.log('error...' + statusCode)
+      // return <Error statusCode={ statusCode }/>
+    }
+
     return (
       <section className='Filter'>
         <nav>
-          <span className='usados is-active'>Usados</span>
-          <span className='nuevos'>Nuevos</span>
+          <span
+            className={usado ? `usados is-active` : `usados`}
+            onClick={this.handleUsed}
+          >
+            Usados
+          </span>
+          <span
+            className={nuevo ? `nuevos is-active` : `nuevos`}
+            onClick={this.handleNew}
+          >
+            Nuevos
+          </span>
         </nav>
         <form>
+          <input type='hidden' name='condicion' value={condicion} />
           <div className='form'>
             <label htmlFor='marca'>Marca:</label>
-            <select id='marca'>
-              <option value='null'>Alguna marca</option>
-              <option value='saab'>Saab</option>
-              <option value='mercedes'>Mercedes</option>
-              <option value='audi'>Audi</option>
+            <select id='marca' name='marca'>
+              <option value='null'>Todas las marcas</option>
+              {marcas.map(marca => (
+                <option value={marca.id} key={marca.id}>
+                  {marca.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className='form'>
             <label htmlFor='modelo'>Modelo:</label>
-            <select id='modelo'>
-              <option value='null'>Algun modelo</option>
-              <option value='saab'>Saab</option>
-              <option value='mercedes'>Mercedes</option>
-              <option value='audi'>Audi</option>
+            <select id='modelo' name='modelo'>
+              <option value='null'>Todos los modelos</option>
+              {modelos.map(
+                modelo =>
+                  modelo.parent !== 0 && (
+                    <option value={modelo.id} key={modelo.id}>
+                      {modelo.name}
+                    </option>
+                  )
+              )}
             </select>
           </div>
           <div className='form'>
             <label htmlFor='ciudad'>Ciudad:</label>
-            <select id='ciudad'>
-              <option value='null'>Alguna ciudad</option>
-              <option value='saab'>Saab</option>
-              <option value='mercedes'>Mercedes</option>
-              <option value='audi'>Audi</option>
+            <select id='ciudad' name='ciudad'>
+              <option value='null'>Todas las ciudades</option>
+              {ciudades.map(ciudad => (
+                <option value={ciudad.id} key={ciudad.id}>
+                  {ciudad.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className='form'>
             <label htmlFor='color'>Color:</label>
-            <select id='color'>
-              <option value='null'>Algun color</option>
-              <option value='saab'>Saab</option>
-              <option value='mercedes'>Mercedes</option>
-              <option value='audi'>Audi</option>
+            <select id='color' name='color'>
+              <option value='null'>Todos los colores</option>
+              {color.map(color => (
+                <option value={color.id} key={color.id}>
+                  {color.name}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -52,18 +176,22 @@ export default class Filter extends Component {
                 <label htmlFor='minAno'>Min año:</label>
                 <select id='minAno'>
                   <option value='null'>Min</option>
-                  <option value='saab'>Saab</option>
-                  <option value='mercedes'>Mercedes</option>
-                  <option value='audi'>Audi</option>
+                  {anos.map(ano => (
+                    <option value={ano.id} key={ano.id}>
+                      {ano.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className='content'>
                 <label htmlFor='maxAno'>Max año:</label>
                 <select id='maxAno'>
                   <option value='null'>Max</option>
-                  <option value='saab'>Saab</option>
-                  <option value='mercedes'>Mercedes</option>
-                  <option value='audi'>Audi</option>
+                  {anos.map(ano => (
+                    <option value={ano.id} key={ano.id}>
+                      {ano.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

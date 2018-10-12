@@ -91,8 +91,8 @@ export default class Tag extends Component {
 
           #Tags {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            grid-gap: 30px 5px;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            grid-gap: 30px 10px;
             justify-items: center;
           }
 

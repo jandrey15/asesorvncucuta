@@ -13,8 +13,8 @@ export default props => {
         </figure>
 
         <div className='search'>
-          <form className='formHeader'>
-            <input type='text' placeholder='Mazda' />
+          <form className='formHeader' action='/search' method='GET'>
+            <input type='text' name='as_word' placeholder='Mazda' />
             <button className='btnSearch'>
               <i className='icon' />
             </button>

@@ -88,6 +88,7 @@ const Footer = props => {
           background-color: #3a3a38;
           height: 235px;
           margin-top: 150px;
+          position: relative;
         }
 
         .container {
