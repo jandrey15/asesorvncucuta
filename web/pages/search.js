@@ -9,11 +9,52 @@ import MenuLocation from '../components/MenuLocation'
 export default class Home extends Component {
   static async getInitialProps ({ res, query }) {
     const word = query.as_word
+    const condicion = query.condicion
+    const marca = query.marca
+    const modelo = query.modelo
+    const ciudad = query.ciudad
+    const color = query.color
+
     let search
     // console.log(word)
+    // console.log(query)
     if (word !== '') {
       search = `search=${word}&orderby=relevance`
     }
+
+    if (condicion) {
+      if (
+        condicion &&
+        marca !== '0' &&
+        modelo !== 'null' &&
+        ciudad !== 'null' &&
+        color !== 'null'
+      ) {
+        search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}&ciudades=${ciudad}&color=${color}`
+      } else if (
+        condicion &&
+        marca !== '0' &&
+        modelo !== 'null' &&
+        ciudad !== 'null'
+      ) {
+        search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}&ciudades=${ciudad}`
+      } else if (condicion && marca !== '0' && modelo !== 'null') {
+        search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}`
+      } else if (
+        (condicion && marca !== '0') ||
+        (condicion && modelo !== 'null')
+      ) {
+        search = `condicion=${condicion}&marcas=${
+          marca !== '0' ? marca : modelo
+        }`
+      } else if (condicion && ciudad !== 'null') {
+        search = `condicion=${condicion}&ciudades=${ciudad}`
+      } else {
+        search = `condicion=${condicion}`
+      }
+    }
+    console.log(search)
+
     try {
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance&color=59

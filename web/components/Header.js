@@ -14,7 +14,7 @@ export default props => {
 
         <div className='search'>
           <form className='formHeader' action='/search' method='GET'>
-            <input type='text' name='as_word' placeholder='Mazda' />
+            <input type='text' name='as_word' placeholder='Kia picanto' />
             <button className='btnSearch'>
               <i className='icon' />
             </button>

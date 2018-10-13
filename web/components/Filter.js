@@ -7,7 +7,7 @@ export default class Filter extends Component {
     this.state = {
       usado: true,
       nuevo: false,
-      condicion: '',
+      condicion: 55,
       marcas: [],
       modelos: [],
       anos: [],
@@ -72,7 +72,7 @@ export default class Filter extends Component {
     this.setState(prevState => ({
       nuevo: !prevState.nuevo,
       usado: !prevState.usado,
-      condicion: 'nuevo'
+      condicion: 54
     }))
   }
 
@@ -81,8 +81,33 @@ export default class Filter extends Component {
     this.setState(prevState => ({
       nuevo: !prevState.nuevo,
       usado: !prevState.usado,
-      condicion: 'usado'
+      condicion: 55
     }))
+  }
+
+  handleChange = event => {
+    // console.log(event.target.value)
+    const marcaParent = event.target.value
+    this.modelos(marcaParent)
+  }
+
+  async modelos (value) {
+    let parent
+    if (value !== '0') {
+      parent = `parent=${value}`
+    }
+    // console.log(parent)
+    try {
+      let req = await fetch(
+        `http://api.docker.test/wp-json/wp/v2/marcas?${parent}`
+      )
+      let modelos = await req.json()
+      this.setState({
+        modelos
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   render () {
@@ -120,12 +145,12 @@ export default class Filter extends Component {
             Nuevos
           </span>
         </nav>
-        <form>
+        <form action='/search' method='GET'>
           <input type='hidden' name='condicion' value={condicion} />
           <div className='form'>
             <label htmlFor='marca'>Marca:</label>
-            <select id='marca' name='marca'>
-              <option value='null'>Todas las marcas</option>
+            <select id='marca' name='marca' onChange={this.handleChange}>
+              <option value='0'>Todas las marcas</option>
               {marcas.map(marca => (
                 <option value={marca.id} key={marca.id}>
                   {marca.name}
@@ -270,6 +295,15 @@ export default class Filter extends Component {
 
           .group {
             display: flex;
+            justify-content: space-between;
+          }
+
+          .group .content select {
+            width: 95px;
+          }
+
+          .group .content {
+            width: 95px;
           }
 
           form {
