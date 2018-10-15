@@ -14,6 +14,8 @@ export default class Home extends Component {
     const modelo = query.modelo
     const ciudad = query.ciudad
     const color = query.color
+    const minAno = query.minAno
+    const maxAno = query.maxAno
 
     let search
     // console.log(word)
@@ -40,6 +42,8 @@ export default class Home extends Component {
         search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}&ciudades=${ciudad}`
       } else if (condicion && marca !== '0' && modelo !== 'null') {
         search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}`
+      } else if (condicion && marca !== '0' && color !== 'null') {
+        search = `condicion=${condicion}&marcas=${marca}&color=${color}`
       } else if (
         (condicion && marca !== '0') ||
         (condicion && modelo !== 'null')
@@ -49,6 +53,8 @@ export default class Home extends Component {
         }`
       } else if (condicion && ciudad !== 'null') {
         search = `condicion=${condicion}&ciudades=${ciudad}`
+      } else if (condicion && color !== 'null') {
+        search = `condicion=${condicion}&color=${color}`
       } else {
         search = `condicion=${condicion}`
       }
@@ -78,6 +84,22 @@ export default class Home extends Component {
 
       let entradas = await reqEntradas.json()
       let news = await reqNews.json()
+
+      if (minAno !== 'null' && maxAno !== 'null') {
+        entradas = entradas.reduce((accumulator, item) => {
+          // console.log(item._embedded['wp:term'][3][0])
+          if (item._embedded['wp:term'][3][0]) {
+            let num = parseInt(item._embedded['wp:term'][3][0].name)
+            // console.log(num) // 2016, 2018 - 2017 y 2019
+            if (parseInt(minAno) <= num && num <= parseInt(maxAno)) {
+              // console.log(num)
+              accumulator.push(item)
+            }
+          }
+          // console.log(accumulator)
+          return accumulator
+        }, [])
+      }
 
       return {
         entradas,

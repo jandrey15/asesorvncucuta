@@ -199,10 +199,10 @@ export default class Filter extends Component {
             <div className='group'>
               <div className='content'>
                 <label htmlFor='minAno'>Min año:</label>
-                <select id='minAno'>
+                <select id='minAno' name='minAno'>
                   <option value='null'>Min</option>
                   {anos.map(ano => (
-                    <option value={ano.id} key={ano.id}>
+                    <option value={ano.name} key={ano.id}>
                       {ano.name}
                     </option>
                   ))}
@@ -210,10 +210,10 @@ export default class Filter extends Component {
               </div>
               <div className='content'>
                 <label htmlFor='maxAno'>Max año:</label>
-                <select id='maxAno'>
+                <select id='maxAno' name='maxAno'>
                   <option value='null'>Max</option>
                   {anos.map(ano => (
-                    <option value={ano.id} key={ano.id}>
+                    <option value={ano.name} key={ano.id}>
                       {ano.name}
                     </option>
                   ))}
