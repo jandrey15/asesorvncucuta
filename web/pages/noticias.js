@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Article from '../components/Article'
 import Layout from '../components/Layout'
+import Error from './_error'
 
 export default class Tag extends Component {
   static async getInitialProps ({ res }) {
@@ -23,8 +24,8 @@ export default class Tag extends Component {
     // console.log(articles)
 
     if (statusCode !== 200) {
-      console.log('error...')
-      // return <Error statusCode={ statusCode }/>
+      // console.log('error...')
+      return <Error statusCode={statusCode} />
     }
 
     return (

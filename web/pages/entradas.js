@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import Filter from '../components/Filter'
 import ArticlesColumn from '../components/ArticlesColumn'
 import MenuLocationEntradas from '../components/MenuLocationEntradas'
+import Error from './_error'
 
 export default class Entradas extends Component {
   static async getInitialProps ({ res, query }) {
@@ -46,16 +47,17 @@ export default class Entradas extends Component {
     // console.log(entradas)
 
     if (statusCode !== 200) {
-      console.log('error...')
-      // return <Error statusCode={ statusCode }/>
+      // console.log('error...')
+      return <Error statusCode={statusCode} />
+    }
+    let title = 'Carros'
+
+    if (name) {
+      title = name.charAt(0).toUpperCase() + name.slice(1)
     }
 
     return (
-      <Layout
-        title={`${name.charAt(0).toUpperCase()}${name.slice(
-          1
-        )} - Asesorvncucuta`}
-      >
+      <Layout title={`${title} - Asesorvncucuta`}>
         <div className='dondeEstoy container'>
           <span>Estoy en:</span>
           <MenuLocationEntradas entradas={entradas} name={name} />

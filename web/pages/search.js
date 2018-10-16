@@ -14,8 +14,10 @@ export default class Home extends Component {
     const modelo = query.modelo
     const ciudad = query.ciudad
     const color = query.color
-    const minAno = query.minAno
-    const maxAno = query.maxAno
+    const minAno = query.minAno || 'null'
+    const maxAno = query.maxAno || 'null'
+    const minPrecio = query.minPrecio || 'null'
+    const maxPrecio = query.maxPrecio || 'null'
 
     let search
     // console.log(word)
@@ -59,7 +61,7 @@ export default class Home extends Component {
         search = `condicion=${condicion}`
       }
     }
-    console.log(search)
+    // console.log(search)
 
     try {
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance
@@ -85,13 +87,60 @@ export default class Home extends Component {
       let entradas = await reqEntradas.json()
       let news = await reqNews.json()
 
-      if (minAno !== 'null' && maxAno !== 'null') {
+      if (
+        (minAno !== 'null' && maxAno !== 'null') ||
+        minAno !== 'null' ||
+        maxAno !== 'null'
+      ) {
         entradas = entradas.reduce((accumulator, item) => {
           // console.log(item._embedded['wp:term'][3][0])
           if (item._embedded['wp:term'][3][0]) {
             let num = parseInt(item._embedded['wp:term'][3][0].name)
             // console.log(num) // 2016, 2018 - 2017 y 2019
-            if (parseInt(minAno) <= num && num <= parseInt(maxAno)) {
+            if (minAno !== 'null' && maxAno !== 'null') {
+              if (parseInt(minAno) <= num && num <= parseInt(maxAno)) {
+                // console.log(num)
+                accumulator.push(item)
+              }
+            } else if (minAno !== 'null') {
+              if (parseInt(minAno) <= num) {
+                // console.log(num)
+                accumulator.push(item)
+              }
+            } else {
+              if (num <= parseInt(maxAno)) {
+                // console.log(num)
+                accumulator.push(item)
+              }
+            }
+          }
+          // console.log(accumulator)
+          return accumulator
+        }, [])
+      }
+
+      if (
+        (minPrecio !== 'null' && maxPrecio !== 'null') ||
+        minPrecio !== 'null' ||
+        maxPrecio !== 'null'
+      ) {
+        entradas = entradas.reduce((accumulator, item) => {
+          let precio = item.precio
+          if (minPrecio !== 'null' && maxPrecio !== 'null') {
+            if (
+              parseInt(minPrecio) <= precio &&
+              precio <= parseInt(maxPrecio)
+            ) {
+              // console.log(num)
+              accumulator.push(item)
+            }
+          } else if (minPrecio !== 'null') {
+            if (parseInt(minPrecio) <= precio) {
+              // console.log(num)
+              accumulator.push(item)
+            }
+          } else if (maxPrecio !== 'null') {
+            if (precio <= parseInt(maxPrecio)) {
               // console.log(num)
               accumulator.push(item)
             }

@@ -8,6 +8,7 @@ import ArticlesColumn from '../components/ArticlesColumn'
 import homeStyle from './homeStyle'
 import MorePosts from '../components/MorePosts'
 import MenuLocation from '../components/MenuLocation'
+import Error from './_error'
 
 export default class Home extends Component {
   static async getInitialProps ({ res }) {
@@ -89,8 +90,8 @@ export default class Home extends Component {
     // console.log(entradas)
 
     if (statusCode !== 200) {
-      console.log('error...')
-      // return <Error statusCode={ statusCode }/>
+      // console.log('error...')
+      return <Error statusCode={statusCode} />
     }
 
     return (

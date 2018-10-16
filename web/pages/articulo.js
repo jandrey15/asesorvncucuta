@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/Layout'
 import ReactDisqusComments from 'react-disqus-comments'
 import Article from '../components/Article'
+import Error from './_error'
 
 export default class Articulo extends Component {
   static async getInitialProps ({ res, query }) {
@@ -34,8 +35,8 @@ export default class Articulo extends Component {
     const { article, posts, statusCode } = this.props
     // console.log(article)
     if (statusCode !== 200) {
-      console.log('error...')
-      // return <Error statusCode={ statusCode }/>
+      // console.log('error...')
+      return <Error statusCode={statusCode} />
     }
 
     let d = new Date(article.date)

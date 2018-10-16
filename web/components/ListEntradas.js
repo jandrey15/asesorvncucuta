@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default props => {
+const ListEntradas = props => {
   const { entradas, auto } = props
   // console.log(props)
   const formatNumber = {
@@ -132,3 +132,5 @@ export default props => {
     </section>
   )
 }
+
+export default ListEntradas

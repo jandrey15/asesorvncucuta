@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default props => {
+const Header = props => {
   return (
     <header>
       <div className='container'>
@@ -236,3 +236,5 @@ export default props => {
     </header>
   )
 }
+
+export default Header

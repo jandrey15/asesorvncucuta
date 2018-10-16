@@ -195,7 +195,10 @@ export default class Filter extends Component {
             </select>
           </div>
 
-          <div className='form'>
+          <div
+            className='form'
+            style={this.state.nuevo ? { display: 'none' } : null}
+          >
             <div className='group'>
               <div className='content'>
                 <label htmlFor='minAno'>Min año:</label>
@@ -225,22 +228,26 @@ export default class Filter extends Component {
             <div className='group'>
               <div className='content'>
                 <label htmlFor='minPrecio'>Min precio:</label>
-                <select id='minPrecio'>
-                  <option value='null'>Min</option>
-                  <option value='saab'>Saab</option>
-                  <option value='mercedes'>Mercedes</option>
-                  <option value='audi'>Audi</option>
-                </select>
+                <input
+                  type='number'
+                  id='minPrecio'
+                  name='minPrecio'
+                  placeholder='Mínimo'
+                  min='0'
+                  step='1000000'
+                />
               </div>
 
               <div className='content'>
                 <label htmlFor='maxPrecio'>Max precio:</label>
-                <select id='maxPrecio'>
-                  <option value='null'>Max</option>
-                  <option value='saab'>Saab</option>
-                  <option value='mercedes'>Mercedes</option>
-                  <option value='audi'>Audi</option>
-                </select>
+                <input
+                  type='number'
+                  id='maxPrecio'
+                  name='maxPrecio'
+                  placeholder='Máximo'
+                  min='0'
+                  step='1000000'
+                />
               </div>
             </div>
           </div>
@@ -298,7 +305,8 @@ export default class Filter extends Component {
             justify-content: space-between;
           }
 
-          .group .content select {
+          .group .content select,
+          .group .content input {
             width: 95px;
           }
 
@@ -320,11 +328,16 @@ export default class Filter extends Component {
             color: #2d2d2a;
           }
 
-          select {
+          select,
+          input {
             color: #2d2d2a;
             border: 1px solid #dadbdb;
             height: 29px;
             opacity: 0.6;
+          }
+
+          input {
+            padding-left: 5px;
           }
 
           button {

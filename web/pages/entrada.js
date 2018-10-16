@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import SlideShow from '../components/SlideShow'
 import MorePosts from '../components/MorePosts'
 import Link from 'next/link'
+import Error from './_error'
 
 export default class Entrada extends Component {
   static async getInitialProps ({ res, query }) {
@@ -47,8 +48,8 @@ export default class Entrada extends Component {
     const { entrada, galeria, posts, statusCode } = this.props
     // console.log(entrada)
     if (statusCode !== 200) {
-      console.log('error...')
-      // return <Error statusCode={ statusCode }/>
+      // console.log('error...')
+      return <Error statusCode={statusCode} />
     }
 
     const formatNumber = {
