@@ -58,4 +58,37 @@ export default css`
     text-align: center;
     padding: 0 5px;
   }
+
+  @media screen and (max-width: 768px) {
+    #sectionPrincipal {
+      grid-template-columns: 1fr;
+    }
+
+    .column {
+      display: none;
+    }
+
+    hr {
+      display: none;
+    }
+
+    #postsUsed h3,
+    #postsNews h3 {
+      max-width: 320px;
+      font-size: 1.6rem;
+    }
+  }
+
+  @media screen and (max-width: 380px) {
+    .dondeEstoy {
+      padding: 20px 0;
+      height: auto;
+      background-color: #f1f1f1;
+      justify-content: center;
+    }
+
+    .dondeEstoy span {
+      display: none;
+    }
+  }
 `

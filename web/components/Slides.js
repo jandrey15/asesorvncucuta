@@ -17,7 +17,8 @@ class Slides extends Component {
         transform: 'translateX(0)'
       },
       count: 0,
-      modal: false
+      modal: false,
+      media: 0
     }
   }
 
@@ -26,6 +27,9 @@ class Slides extends Component {
       ? (this.auto = setInterval(() => this.carouselAuto(), 3000))
       : setInterval(() => null, 0)
     window.addEventListener('scroll', this.handleScroll)
+    this.setState({
+      media: window.innerWidth
+    })
   }
 
   componentWillUnmount () {
@@ -191,30 +195,32 @@ class Slides extends Component {
 
       let button
 
-      if (slides.length > 7 && this.state.count === 0) {
-        styleButton.right = styleButtonRight.right
-        styleButton.background = styleButtonRight.background
-        button = (
-          <button
-            className='arrow right'
-            style={styleButton}
-            onClick={this.handleNext}
-          >
-            &#10095;
-          </button>
-        )
-      } else if (this.state.count > 0) {
-        styleButton.right = styleButtonLeft.right
-        styleButton.background = styleButtonLeft.background
-        button = (
-          <button
-            className='arrow left'
-            style={styleButton}
-            onClick={this.handlePrev}
-          >
-            &#10094;
-          </button>
-        )
+      if (this.state.media > 768) {
+        if (slides.length > 7 && this.state.count === 0) {
+          styleButton.right = styleButtonRight.right
+          styleButton.background = styleButtonRight.background
+          button = (
+            <button
+              className='arrow right'
+              style={styleButton}
+              onClick={this.handleNext}
+            >
+              &#10095;
+            </button>
+          )
+        } else if (this.state.count > 0) {
+          styleButton.right = styleButtonLeft.right
+          styleButton.background = styleButtonLeft.background
+          button = (
+            <button
+              className='arrow left'
+              style={styleButton}
+              onClick={this.handlePrev}
+            >
+              &#10094;
+            </button>
+          )
+        }
       }
 
       return (
@@ -285,6 +291,7 @@ class Slides extends Component {
               max-width: 885px;
               padding: 0;
               margin: 0 0 2px;
+              list-style: none;
             }
 
             .close .icon {
@@ -370,6 +377,15 @@ class Slides extends Component {
               right: 40px;
               background: url('/static/arrow-right.svg') no-repeat;
               background-size: 100%;
+            }
+
+            @media screen and (max-width: 768px) {
+              .indicators {
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 100%;
+                justify-content: center;
+              }
             }
           `}</style>
         </SlideLayout>

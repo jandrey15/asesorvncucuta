@@ -275,6 +275,76 @@ const Footer = props => {
           text-decoration: none;
           color: #ffffff;
         }
+
+        @media screen and (max-width: 768px) {
+          footer {
+            height: auto;
+          }
+          .container {
+            grid-template-columns: 1fr;
+          }
+
+          .left {
+            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+            grid-template-rows: 1fr;
+            padding: 20px;
+            grid-gap: 20px 0;
+          }
+
+          .info {
+            align-items: center;
+          }
+
+          .copy {
+            margin-top: 20px;
+          }
+
+          .menu,
+          .redes {
+            margin-bottom: 30px;
+          }
+
+          .right {
+            grid-row: 1 /2;
+            padding: 40px 20px;
+          }
+
+          .right p {
+            margin: 10px 0;
+          }
+        }
+
+        @media screen and (max-width: 400px) {
+          .left,
+          .right {
+            grid-template-columns: 1fr;
+            padding: 40px 5px;
+            width: 100%;
+            box-sizing: border-box;
+          }
+
+          h3 {
+            width: 100%;
+          }
+
+          .right p {
+            width: 100%;
+          }
+
+          .contact {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 320px;
+            justify-content: space-evenly;
+          }
+
+          .copy {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 272px;
+            justify-content: space-evenly;
+          }
+        }
       `}</style>
     </footer>
   )

@@ -32,7 +32,9 @@ const MorePosts = props => {
               <img
                 src={
                   post._embedded['wp:featuredmedia']
-                    ? post._embedded['wp:featuredmedia'][0].media_details.sizes['thumbnail'].source_url
+                    ? post._embedded['wp:featuredmedia'][0].media_details.sizes[
+                      'thumbnail'
+                    ].source_url
                     : '/static/default.jpg'
                 }
                 alt={
@@ -124,6 +126,14 @@ const MorePosts = props => {
           border-top-left-radius: 2px;
           border-top-right-radius: 2px;
           object-fit: cover;
+        }
+
+        @media screen and (max-width: 768px) {
+          .posts {
+            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+            justify-items: center;
+            grid-gap: 30px 18px;
+          }
         }
       `}</style>
     </article>

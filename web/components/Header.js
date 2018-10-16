@@ -259,6 +259,36 @@ const Header = props => {
           height: 100%;
           text-indent: -9999px;
         }
+
+        @media screen and (max-width: 768px) {
+          header {
+            height: auto;
+            padding: 20px 0;
+          }
+
+          .container {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            grid-gap: 20px 0px;
+          }
+
+          .menu,
+          .logo,
+          .search,
+          .redes {
+            grid-column: 1 / 2;
+            justify-self: center;
+          }
+
+          .menu,
+          .redes {
+            display: none;
+          }
+
+          .search {
+            max-width: 320px;
+          }
+        }
       `}</style>
     </header>
   )

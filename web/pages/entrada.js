@@ -669,6 +669,31 @@ export default class Entrada extends Component {
             margin: 0 auto;
             max-width: 1128px;
           }
+
+          @media screen and (max-width: 768px) {
+            .content {
+              grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+              grid-gap: 30px 0;
+            }
+
+            .info {
+              max-width: 300px;
+              justify-self: center;
+            }
+          }
+
+          @media screen and (max-width: 380px) {
+            .dondeEstoy {
+              padding: 20px 0;
+              height: auto;
+              background-color: #f1f1f1;
+              justify-content: center;
+            }
+
+            .dondeEstoy span{
+              display: none;
+            }
+          }
         `}</style>
       </Layout>
     )

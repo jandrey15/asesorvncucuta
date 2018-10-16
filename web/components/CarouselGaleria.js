@@ -58,6 +58,12 @@ const CarouselSlide = props => {
               opacity: 1;
             }
           }
+
+          @media screen and (max-width: 768px) {
+            .slide .full {
+              width: 100%;
+            }
+          }
         `}</style>
       </li>
     )
@@ -100,6 +106,17 @@ const CarouselSlide = props => {
             }
             to {
               opacity: 1;
+            }
+          }
+
+          @media screen and (max-width: 768px) {
+            .slide {
+              max-height: 100%;
+              min-height: 100%;
+            }
+            .slide .normal {
+              max-height: 100%;
+              min-height: 100%;
             }
           }
         `}</style>

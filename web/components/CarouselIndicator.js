@@ -50,6 +50,12 @@ const CarouselIndicator = props => {
         .indicator.active {
           background: transparent;
         }
+
+        @media screen and (max-width: 768px) {
+          li {
+            margin: 0px 2px 2px 0;
+          }
+        }
       `}</style>
     </li>
   )

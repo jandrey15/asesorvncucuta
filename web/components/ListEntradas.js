@@ -128,6 +128,13 @@ const ListEntradas = props => {
           border-top-right-radius: 2px;
           object-fit: cover;
         }
+
+        @media screen and (max-width: 768px) {
+          .ListEntradas {
+            grid-template-columns: repeat(auto-fill, minmax(287px, 1fr));
+            justify-items: center;
+          }
+        }
       `}</style>
     </section>
   )
