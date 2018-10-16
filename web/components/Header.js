@@ -25,12 +25,15 @@ const Header = props => {
           <ul>
             <li>
               <a href='entradas?condicion=54&name=nuevos'>Nuevos</a>
+              <span className='bar' />
             </li>
             <li>
               <a href='entradas?condicion=55&name=usados'>Usados</a>
+              <span className='bar' />
             </li>
             <li>
               <a href='/noticias'>Noticias</a>
+              <span className='bar' />
             </li>
           </ul>
         </div>
@@ -73,6 +76,34 @@ const Header = props => {
         header a {
           color: #ffffff;
           text-decoration: none;
+        }
+
+        .menu a:hover ~ .bar:before,
+        .menu a:hover ~ .bar:after {
+          width: 50%;
+        }
+
+        .menu .bar {
+          position: relative;
+          display: block;
+        }
+        .menu .bar:after,
+        .menu .bar:before {
+          content: '';
+          height: 1px;
+          width: 0;
+          bottom: 0;
+          position: absolute;
+          background: #ffffff;
+          transition: 0.5s ease all;
+          -moz-transition: 0.5s ease all;
+          -webkit-transition: 0.5s ease all;
+        }
+        .menu .bar:after {
+          left: 50%;
+        }
+        .menu .bar:before {
+          right: 50%;
         }
 
         .container {
@@ -171,10 +202,6 @@ const Header = props => {
 
         .menu ul li:last-child {
           border-right: 1px solid #4c4c4c;
-        }
-
-        .menu ul li a:hover {
-          text-decoration: underline;
         }
 
         .redes {
