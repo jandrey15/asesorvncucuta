@@ -20,16 +20,21 @@ export default class Hamburger extends Component {
     const { active } = this.state
     return (
       <div>
-        <button
-          className={`hamburger hamburger--elastic
-            ${active ? 'is-active' : null}`}
-          type='button'
-          onClick={this.handleActive}
+        <nav
+          className={`btnHamburger
+              ${active ? 'active' : null}`}
         >
-          <span className='hamburger-box'>
-            <span className='hamburger-inner' />
-          </span>
-        </button>
+          <button
+            className={`hamburger hamburger--elastic
+              ${active ? 'is-active' : null}`}
+            type='button'
+            onClick={this.handleActive}
+          >
+            <span className='hamburger-box'>
+              <span className='hamburger-inner' />
+            </span>
+          </button>
+        </nav>
         <nav id='navigation' className={active ? 'activeNav' : null}>
           <div className={`filter ${active ? 'activeNav' : null}`}>
             <Filter movil='movil' />
@@ -78,6 +83,15 @@ export default class Hamburger extends Component {
           }
 
           @media screen and (max-width: 1024px) {
+            .btnHamburger.active {
+              height: 50px;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 300px;
+              background: #c73737;
+              z-index: 2;
+            }
             #navigation {
               display: block;
               position: fixed;
