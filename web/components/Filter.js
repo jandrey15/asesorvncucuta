@@ -69,20 +69,24 @@ export default class Filter extends Component {
 
   handleNew = () => {
     // console.log('nuevo')
-    this.setState(prevState => ({
-      nuevo: !prevState.nuevo,
-      usado: !prevState.usado,
-      condicion: 54
-    }))
+    if (!this.state.nuevo) {
+      this.setState(prevState => ({
+        nuevo: !prevState.nuevo,
+        usado: !prevState.usado,
+        condicion: 54
+      }))
+    }
   }
 
   handleUsed = () => {
     // console.log('usado')
-    this.setState(prevState => ({
-      nuevo: !prevState.nuevo,
-      usado: !prevState.usado,
-      condicion: 55
-    }))
+    if (!this.state.usado) {
+      this.setState(prevState => ({
+        nuevo: !prevState.nuevo,
+        usado: !prevState.usado,
+        condicion: 55
+      }))
+    }
   }
 
   handleChange = event => {
@@ -122,6 +126,8 @@ export default class Filter extends Component {
       ciudades,
       statusCode
     } = this.state
+
+    const { movil } = this.props
     // console.log(marcas)
 
     if (statusCode !== 200) {
@@ -130,7 +136,7 @@ export default class Filter extends Component {
     }
 
     return (
-      <section className='Filter'>
+      <section className='Filter' style={movil ? { margin: '0' } : null}>
         <nav>
           <span
             className={usado ? `usados is-active` : `usados`}

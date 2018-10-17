@@ -670,7 +670,7 @@ export default class Entrada extends Component {
             max-width: 1128px;
           }
 
-          @media screen and (max-width: 768px) {
+          @media screen and (max-width: 1024px) {
             .content {
               grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
               grid-gap: 30px 0;

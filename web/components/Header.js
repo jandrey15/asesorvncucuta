@@ -263,7 +263,7 @@ const Header = props => {
           text-indent: -9999px;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1024px) {
           header {
             height: auto;
             padding: 20px 0;

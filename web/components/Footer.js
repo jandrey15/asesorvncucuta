@@ -276,7 +276,7 @@ const Footer = props => {
           color: #ffffff;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1024px) {
           footer {
             height: auto;
           }
@@ -285,7 +285,7 @@ const Footer = props => {
           }
 
           .left {
-            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             grid-template-rows: 1fr;
             padding: 20px;
             grid-gap: 20px 0;
@@ -311,6 +311,11 @@ const Footer = props => {
 
           .right p {
             margin: 10px 0;
+          }
+
+          #newsletter {
+            justify-content: flex-start;
+            max-width: 500px;
           }
         }
 

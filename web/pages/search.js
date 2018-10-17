@@ -249,7 +249,7 @@ export default class Home extends Component {
             text-decoration: underline;
           }
 
-          @media screen and (max-width: 768px) {
+          @media screen and (max-width: 1024px) {
             #Entradas {
               grid-template-columns: 1fr;
             }
