@@ -1,4 +1,6 @@
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 
 const ListEntradas = props => {
   const { entradas, auto } = props
@@ -26,7 +28,30 @@ const ListEntradas = props => {
     <section className='ListEntradas'>
       {entradas.map(entrada => (
         <div className='entrada' key={entrada.id}>
-          <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+          {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+            <a className='picture'>
+              <img
+                src={
+                  entrada._embedded['wp:featuredmedia']
+                    ? entrada._embedded['wp:featuredmedia'][0].media_details
+                      .sizes['thumbnail'].source_url
+                    : '/static/default.jpg'
+                }
+                alt={
+                  entrada._embedded['wp:featuredmedia']
+                    ? entrada._embedded['wp:featuredmedia'][0].alt_text
+                    : entrada.title.rendered
+                }
+              />
+            </a>
+          </Link> */}
+          <Link
+            route='entrada'
+            prefetch
+            params={{
+              name: slug(entrada.slug)
+            }}
+          >
             <a className='picture'>
               <img
                 src={
@@ -51,7 +76,18 @@ const ListEntradas = props => {
                 : '0'}{' '}
               - {formatNumber.new(entrada.recorrido)} km
             </p>
-            <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+            {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+              <a className='title'>
+                <h2>{entrada.title.rendered}</h2>
+              </a>
+            </Link> */}
+            <Link
+              route='entrada'
+              prefetch
+              params={{
+                name: slug(entrada.slug)
+              }}
+            >
               <a className='title'>
                 <h2>{entrada.title.rendered}</h2>
               </a>
