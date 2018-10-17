@@ -73,7 +73,9 @@ export default class Articulo extends Component {
               <time className='date' dateTime={article.date}>
                 {dateArticle}
               </time>
-              {article._embedded['wp:term'] && '-'}
+              {article._embedded['wp:term'] && (
+                <aside className='space'>-</aside>
+              )}
               <div className='tags'>
                 {article._embedded['wp:term']
                   ? article._embedded['wp:term'][1].map((item, index) => (
@@ -274,6 +276,48 @@ export default class Articulo extends Component {
           .tag a:hover {
             text-decoration: underline;
             color: #3399cc;
+          }
+
+          @media screen and (max-width: 768px) {
+            .container {
+              margin: 0 2%;
+              width: 96%;
+            }
+
+            figure {
+              height: auto;
+              margin-bottom: 30px;
+            }
+
+            figure img {
+              height: auto;
+            }
+
+            .articles {
+              grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+              grid-gap: 30px 0;
+              justify-items: center;
+            }
+
+            .dateTags {
+              flex-direction: column;
+            }
+
+            .date {
+              margin: 0 0 5px;
+            }
+            .space {
+              display: none;
+            }
+
+            .tags {
+              margin: 0;
+              flex-wrap: wrap;
+            }
+
+            .tag {
+              margin-bottom: 5px;
+            }
           }
         `}</style>
       </Layout>

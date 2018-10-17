@@ -110,6 +110,29 @@ export default class Entradas extends Component {
           .link:hover {
             text-decoration: underline;
           }
+
+          @media screen and (max-width: 768px) {
+            #Entradas {
+              grid-template-columns: 1fr;
+            }
+
+            .column {
+              display: none;
+            }
+          }
+
+          @media screen and (max-width: 380px) {
+            .dondeEstoy {
+              padding: 20px 0;
+              height: auto;
+              background-color: #f1f1f1;
+              justify-content: center;
+            }
+
+            .dondeEstoy span {
+              display: none;
+            }
+          }
         `}</style>
       </Layout>
     )

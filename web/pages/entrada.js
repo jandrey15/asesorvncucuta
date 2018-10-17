@@ -680,6 +680,18 @@ export default class Entrada extends Component {
               max-width: 300px;
               justify-self: center;
             }
+
+            .ficha {
+              padding: 0 10px;
+            }
+
+            .text {
+              margin: 0 10px;
+            }
+
+            h4 {
+              padding: 0 10px;
+            }
           }
 
           @media screen and (max-width: 380px) {

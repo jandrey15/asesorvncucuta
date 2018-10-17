@@ -1,8 +1,10 @@
 import Link from 'next/link'
+import Hamburger from './Hamburger'
 
 const Header = props => {
   return (
     <header>
+      <Hamburger />
       <div className='container'>
         <figure className='logo'>
           <Link href='/'>
@@ -72,6 +74,7 @@ const Header = props => {
           color: #ffffff;
           background: #3399cc;
           height: 50px;
+          position: relative;
         }
         header a {
           color: #ffffff;
@@ -267,7 +270,7 @@ const Header = props => {
           }
 
           .container {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr;
             grid-gap: 20px 0px;
           }
@@ -280,13 +283,34 @@ const Header = props => {
             justify-self: center;
           }
 
-          .menu,
+          .logo {
+            grid-row: 1;
+            grid-column: 1 /2;
+          }
+
           .redes {
             display: none;
           }
 
           .search {
             max-width: 320px;
+            grid-column: 1 / 3;
+          }
+
+          .menu {
+            grid-row: 1;
+            grid-column: 2 / 3;
+          }
+        }
+
+        @media screen and (max-width: 480px) {
+          .logo {
+            grid-column: 1 / 3;
+          }
+
+          .menu {
+            grid-row: 2;
+            grid-column: 1 / 3;
           }
         }
       `}</style>

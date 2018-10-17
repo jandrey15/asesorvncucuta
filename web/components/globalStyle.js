@@ -101,4 +101,17 @@ export default css`
       transform: rotate(360deg);
     }
   }
+
+  @media screen and (max-width: 768px) {
+    .text img,
+    .text figure img,
+    .text .instagram-media,
+    .text iframe,
+    .text figure {
+      width: 100% !important;
+      margin: 0 auto;
+      height: auto;
+      object-fit: none;
+    }
+  }
 `

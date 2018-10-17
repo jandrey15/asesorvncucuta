@@ -133,6 +133,7 @@ const ListEntradas = props => {
           .ListEntradas {
             grid-template-columns: repeat(auto-fill, minmax(287px, 1fr));
             justify-items: center;
+            grid-column: 1;
           }
         }
       `}</style>
