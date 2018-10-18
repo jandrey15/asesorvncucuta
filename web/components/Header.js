@@ -1,6 +1,6 @@
 // import Link from 'next/link'
 import { Link } from '../routes'
-import slug from '../helpers/slug'
+// import slug from '../helpers/slug'
 import Hamburger from './Hamburger'
 
 const Header = props => {
@@ -28,11 +28,27 @@ const Header = props => {
         <div className='menu'>
           <ul>
             <li>
-              <a href='entradas?condicion=54&name=nuevos'>Nuevos</a>
+              {/* <a href='entradas?condicion=54&name=nuevos'>Nuevos</a> */}
+              <Link
+                route='entradas'
+                params={{
+                  slug: 'nuevos'
+                }}
+              >
+                <a className='link'>Nuevos</a>
+              </Link>
               <span className='bar' />
             </li>
             <li>
-              <a href='entradas?condicion=55&name=usados'>Usados</a>
+              {/* <a href='entradas?condicion=55&name=usados'>Usados</a> */}
+              <Link
+                route='entradas'
+                params={{
+                  slug: 'usados'
+                }}
+              >
+                <a className='link'>Usados</a>
+              </Link>
               <span className='bar' />
             </li>
             <li>

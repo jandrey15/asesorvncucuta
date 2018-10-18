@@ -9,20 +9,32 @@ import Error from './_error'
 export default class Entradas extends Component {
   static async getInitialProps ({ res, query }) {
     let taxonomy
-    const name = query.name
-    // console.log(query)
-
-    if (query.condicion) {
-      taxonomy = `condicion=${query.condicion}`
-    } else if (query.marca) {
-      taxonomy = `marcas=${query.marca}`
-    } else if (query.categoria) {
-      taxonomy = `categories=${query.categoria}`
-    } else if (query.modelo) {
-      taxonomy = `marcas=${query.modelo}`
-    }
+    const name = query.slug
+    console.log(query)
 
     try {
+      if (name === 'nuevos') {
+        let reqSlug = await fetch(
+          `http://api.docker.test/wp-json/wp/v2/condicion?slug=nuevo`
+        )
+        let [{ id }] = await reqSlug.json()
+        taxonomy = `condicion=${id}`
+      } else if (name === 'usados') {
+        let reqSlug = await fetch(
+          `http://api.docker.test/wp-json/wp/v2/condicion?slug=usado`
+        )
+        let [{ id }] = await reqSlug.json()
+        taxonomy = `condicion=${id}`
+      } else if (name === 'carros-y-camionetas' || name === 'otros-vehiculos') {
+        let reqSlug = await fetch(
+          `http://api.docker.test/wp-json/wp/v2/categories?slug=${name}`
+        )
+        let [{ id }] = await reqSlug.json()
+        taxonomy = `categories=${id}`
+      } else if (query.id) {
+        taxonomy = `marcas=${query.id}`
+      }
+
       let [req, reqNews] = await Promise.all([
         fetch(
           `http://api.docker.test/wp-json/wp/v2/posts?${taxonomy}&sticky=false&per_page=20&_embed`

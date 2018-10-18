@@ -47,10 +47,10 @@ const ListEntradas = props => {
           </Link> */}
           <Link
             route='entrada'
-            prefetch
             params={{
               name: slug(entrada.slug)
             }}
+            prefetch
           >
             <a className='picture'>
               <img

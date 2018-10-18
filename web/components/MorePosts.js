@@ -1,4 +1,6 @@
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 
 const MorePosts = props => {
   const { posts } = props
@@ -27,7 +29,13 @@ const MorePosts = props => {
     <article className='posts'>
       {posts.map(post => (
         <div className='post' key={post.id}>
-          <Link href={`/entrada?name=${post.slug}`} prefetch>
+          <Link
+            route='entrada'
+            params={{
+              name: slug(post.slug)
+            }}
+            prefetch
+          >
             <a className='picture'>
               <img
                 src={
@@ -53,7 +61,13 @@ const MorePosts = props => {
                 : '0'}{' '}
               - {post.recorrido} km
             </p>
-            <Link href={`/entrada?name=${post.slug}`} prefetch>
+            <Link
+              route='entrada'
+              params={{
+                name: slug(post.slug)
+              }}
+              prefetch
+            >
               <a className='title'>
                 <h2>{post.title.rendered}</h2>
               </a>

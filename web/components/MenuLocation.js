@@ -1,5 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 
 const MenuLocation = props => {
   const { entradas } = props
@@ -10,9 +12,10 @@ const MenuLocation = props => {
       <div id='MenuLocation'>
         {entradas[numRandom]._embedded['wp:term'][0][0] && (
           <Link
-            href={`/entradas?categoria=${
-              entradas[numRandom]._embedded['wp:term'][0][0].id
-            }&name=${entradas[numRandom]._embedded['wp:term'][0][0].slug}`}
+            route='entradas'
+            params={{
+              slug: slug(entradas[numRandom]._embedded['wp:term'][0][0].slug)
+            }}
           >
             <a className='link'>
               {entradas[numRandom]._embedded['wp:term'][0][0].name}
@@ -23,9 +26,10 @@ const MenuLocation = props => {
           <div className='item'>
             <aside className='space'>&#10095;</aside>
             <Link
-              href={`/entradas?marca=${
-                entradas[numRandom]._embedded['wp:term'][2][0].id
-              }&name=${entradas[numRandom]._embedded['wp:term'][2][0].slug}`}
+              route='entradas'
+              params={{
+                slug: slug(entradas[numRandom]._embedded['wp:term'][2][0].slug)
+              }}
             >
               <a className='link'>
                 {entradas[numRandom]._embedded['wp:term'][2][0].name}
@@ -38,9 +42,16 @@ const MenuLocation = props => {
           <div className='item'>
             <aside className='space'>&#10095;</aside>
             <Link
-              href={`/entradas?modelo=${
-                entradas[numRandom]._embedded['wp:term'][2][1].id
-              }&name=${entradas[numRandom]._embedded['wp:term'][2][1].slug}`}
+              route='entradasMarcas'
+              params={{
+                slugMarca: slug(
+                  entradas[numRandom]._embedded['wp:term'][2][1].slug
+                ),
+                slugModelo: slug(
+                  entradas[numRandom]._embedded['wp:term'][2][0].slug
+                ),
+                id: entradas[numRandom]._embedded['wp:term'][2][1].id
+              }}
             >
               <a className='link'>
                 {entradas[numRandom]._embedded['wp:term'][2][1].name}
