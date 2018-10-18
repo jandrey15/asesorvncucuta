@@ -6,7 +6,7 @@ import Filter from '../components/Filter'
 import ArticlesColumn from '../components/ArticlesColumn'
 import MenuLocation from '../components/MenuLocation'
 
-export default class Home extends Component {
+export default class Search extends Component {
   static async getInitialProps ({ res, query }) {
     const word = query.as_word
     const condicion = query.condicion

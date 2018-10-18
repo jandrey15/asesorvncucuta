@@ -1,7 +1,12 @@
 const routes = require('next-routes')
 
 // .add(nombre, url, archivo.js)
+// .add('channel', '/:slug.:id', 'channel')
 module.exports = routes()
   .add('index')
+  // .add('podcast', '/:slugChannel.:idChannel/:slung.:id', 'podcast')
+  .add('noticias', '/noticias', 'noticias')
+  .add('noticia', '/noticias/:name', 'articulo')
+  .add('tags', '/tags', 'tags')
+  .add('tag', '/tags/:slug', 'tag')
   .add('entrada', '/:name', 'entrada')
-  .add('podcast', '/:slugChannel.:idChannel/:slung.:id', 'podcast')

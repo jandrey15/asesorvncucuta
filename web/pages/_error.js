@@ -37,6 +37,7 @@ export default class Error extends Component {
           .message {
             padding: 100px 30px;
             text-align: center;
+            flex: 1;
           }
           h1 {
             margin-bottom: 3rem;

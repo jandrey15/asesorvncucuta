@@ -1,36 +1,27 @@
 import React, { Component } from 'react'
-import Article from '../components/Article'
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 import Layout from '../components/Layout'
 import Error from './_error'
 
-export default class Tag extends Component {
-  static async getInitialProps ({ res, query }) {
-    const name = query.slug
-    // console.log(name)
-    // const id = query.id
-
+export default class Tags extends Component {
+  static async getInitialProps ({ res }) {
     try {
-      let reqTag = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/tags?slug=${name}`
-      )
-
-      let [{ id: tagId }] = await reqTag.json()
-
       let req = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/articulo?tags=${tagId}&per_page=20&_embed`
+        'http://api.docker.test/wp-json/wp/v2/tags?hide_empty=true'
       )
 
       let tags = await req.json()
-      return { tags, name, statusCode: 200 }
+      return { tags, statusCode: 200 }
     } catch (err) {
       res.statusCode = 503
-      return { tags: [], name: null, statusCode: 503 }
+      return { tags: [], statusCode: 503 }
     }
   }
 
   render () {
-    const { tags, name, statusCode } = this.props
+    const { tags, statusCode } = this.props
     // console.log(tags)
 
     if (statusCode !== 200) {
@@ -38,41 +29,32 @@ export default class Tag extends Component {
       return <Error statusCode={statusCode} />
     }
 
-    let nameTag
-
-    if (tags.length > 0) {
-      tags[0]._embedded['wp:term'][1].filter(tag => {
-        // console.log(tag.name)
-        if (tag.slug === name) {
-          nameTag = tag.name
-        }
-      })
-      nameTag = `${nameTag.charAt(0).toUpperCase()}${nameTag.slice(1)}`
-    } else {
-      nameTag = name
-    }
-
     return (
-      <Layout title={`${nameTag} - Asesorvncucuta`}>
+      <Layout title={`Tags - Asesorvncucuta`}>
         <div className='dondeEstoy container'>
           <span>Estoy en:</span>
-          <Link href='/tags'>
+          <Link route='/tags'>
             <a className='link'>tags</a>
           </Link>
-          <aside className='space'>&#10095;</aside>
-          <p>{nameTag}</p>
         </div>
         {tags.length > 0 ? (
           <section id='Tags' className='container'>
             {tags.map(tag => (
               <div className='tag' key={tag.id}>
-                <Article article={tag} />
+                <Link
+                  route='tag'
+                  params={{
+                    slug: slug(tag.slug)
+                  }}
+                >
+                  <a className='link'>{tag.name}</a>
+                </Link>
               </div>
             ))}
           </section>
         ) : (
           <div className='nothing container'>
-            <h4>No hay noticias</h4>
+            <h4>No hay tags</h4>
           </div>
         )}
         <style jsx>{`
@@ -100,7 +82,7 @@ export default class Tag extends Component {
 
           #Tags {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             grid-gap: 30px 10px;
             justify-items: center;
           }
@@ -108,7 +90,11 @@ export default class Tag extends Component {
           .tag {
             background-color: #f7f7f7;
             transition: 0.3s;
-            max-width: 300px;
+            height: 50px;
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
 
           .tag:hover {

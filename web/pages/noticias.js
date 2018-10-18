@@ -3,7 +3,7 @@ import Article from '../components/Article'
 import Layout from '../components/Layout'
 import Error from './_error'
 
-export default class Tag extends Component {
+export default class Noticias extends Component {
   static async getInitialProps ({ res }) {
     try {
       let req = await fetch(

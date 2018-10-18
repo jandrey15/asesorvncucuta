@@ -112,21 +112,21 @@ export default class Home extends Component {
             </div>
           </div>
           <div id='MorePosts' className='container'>
-            {postsNew.length > 0 ? (
+            {postsNew.length > 0 && (
               <div id='postsNews'>
                 <h3>Publicaciones destacadas de carros nuevos</h3>
                 <hr />
                 <MorePosts posts={postsNew} />
               </div>
-            ) : null}
+            )}
 
-            {postsUsed.length > 0 ? (
+            {postsUsed.length > 0 && (
               <div id='postsUsed'>
                 <h3>Publicaciones destacadas de carros usados</h3>
                 <hr />
                 <MorePosts posts={postsUsed} />
               </div>
-            ) : null}
+            )}
           </div>
         </section>
         <style jsx>{homeStyle}</style>

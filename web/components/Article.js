@@ -1,11 +1,19 @@
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 
 const Article = props => {
   const { article, type } = props
   // console.log(article._embedded['wp:featuredmedia'])
   return (
     <div className={`Article ${type || ''}`}>
-      <Link href={`/articulo?name=${article.slug}`} prefetch>
+      <Link
+        route='noticia'
+        params={{
+          name: slug(article.slug)
+        }}
+        prefetch
+      >
         <a className='picture'>
           <img
             className={type}
@@ -25,7 +33,13 @@ const Article = props => {
         </a>
       </Link>
       <div className='info'>
-        <Link href={`/articulo?name=${article.slug}`} prefetch>
+        <Link
+          route='noticia'
+          params={{
+            name: slug(article.slug)
+          }}
+          prefetch
+        >
           <a className='title'>
             <h2>{article.title.rendered}</h2>
           </a>

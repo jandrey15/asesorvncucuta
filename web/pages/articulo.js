@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 import Layout from '../components/Layout'
 import ReactDisqusComments from 'react-disqus-comments'
 import Article from '../components/Article'
@@ -80,7 +82,12 @@ export default class Articulo extends Component {
                 {article._embedded['wp:term']
                   ? article._embedded['wp:term'][1].map((item, index) => (
                     <div className='tag' key={item.id}>
-                      <Link href={`/tag?name=${item.slug}&id=${item.id}`}>
+                      <Link
+                        route='tag'
+                        params={{
+                          slug: slug(item.slug)
+                        }}
+                      >
                         <a className='link'>{item.name}</a>
                       </Link>
                       {index < article._embedded['wp:term'][1].length - 1

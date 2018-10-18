@@ -1,4 +1,6 @@
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 import Hamburger from './Hamburger'
 
 const Header = props => {
@@ -7,7 +9,7 @@ const Header = props => {
       <Hamburger />
       <div className='container'>
         <figure className='logo'>
-          <Link href='/'>
+          <Link route='/'>
             <a className='linkLogo'>
               <img src='/static/logo.png' alt='asesorvncucuta' />
             </a>
@@ -34,7 +36,9 @@ const Header = props => {
               <span className='bar' />
             </li>
             <li>
-              <a href='/noticias'>Noticias</a>
+              <Link route='noticias'>
+                <a className='link'>Noticias</a>
+              </Link>
               <span className='bar' />
             </li>
           </ul>

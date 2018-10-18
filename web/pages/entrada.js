@@ -8,7 +8,6 @@ import Error from './_error'
 export default class Entrada extends Component {
   static async getInitialProps ({ res, query }) {
     const name = query.name
-
     try {
       // let req = await fetch('https://api.audioboom.com/channels/recommended')
       // http://api.docker.test/wp-json/acf/v3/pages/POST_ID/galeria?type=photo_gallery
