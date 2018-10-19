@@ -8,7 +8,7 @@ const Article = props => {
   return (
     <div className={`Article ${type || ''}`}>
       <Link
-        route='noticia'
+        route='articulo'
         params={{
           name: slug(article.slug)
         }}
@@ -34,7 +34,7 @@ const Article = props => {
       </Link>
       <div className='info'>
         <Link
-          route='noticia'
+          route='articulo'
           params={{
             name: slug(article.slug)
           }}

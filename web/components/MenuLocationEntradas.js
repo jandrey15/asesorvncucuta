@@ -1,70 +1,112 @@
 import React from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 
 const MenuLocationEntradas = props => {
   const { entradas, name } = props
+
+  let marcaSlug
+  let marcaName
+  let modeloSlug
+  let modeloName
+
+  if (
+    entradas[0]._embedded['wp:term'][2][0] &&
+    entradas[0]._embedded['wp:term'][2][1]
+  ) {
+    if (entradas[0]._embedded['wp:term'][2][1].acf.padre) {
+      marcaSlug = entradas[0]._embedded['wp:term'][2][1].slug
+      modeloSlug = entradas[0]._embedded['wp:term'][2][0].slug
+      marcaName = entradas[0]._embedded['wp:term'][2][1].name
+      modeloName = entradas[0]._embedded['wp:term'][2][0].name
+    } else {
+      marcaSlug = entradas[0]._embedded['wp:term'][2][0].slug
+      modeloSlug = entradas[0]._embedded['wp:term'][2][1].slug
+      marcaName = entradas[0]._embedded['wp:term'][2][0].name
+      modeloName = entradas[0]._embedded['wp:term'][2][1].name
+    }
+  }
 
   return (
     <div id='MenuLocationEntradas'>
       {entradas[0]._embedded['wp:term'][0][0] && (
         <Link
-          href={`/entradas?categoria=${
-            entradas[0]._embedded['wp:term'][0][0].id
-          }&name=${entradas[0]._embedded['wp:term'][0][0].slug}`}
+          route='entradas'
+          params={{
+            slug: slug(entradas[0]._embedded['wp:term'][0][0].slug)
+          }}
         >
           <a className='link'>{entradas[0]._embedded['wp:term'][0][0].name}</a>
         </Link>
       )}
 
-      {name === 'nuevos' ? (
+      {name === 'nuevos' && (
         <div className='item'>
           <aside className='space'>&#10095;</aside>
-          <Link href={'entradas?condicion=54&name=nuevos'}>
+          <Link route='entradas' params={{ slug: 'nuevos' }}>
             <a className='link'>nuevos</a>
           </Link>
         </div>
-      ) : null}
+      )}
 
-      {name === 'usados' ? (
+      {name === 'usados' && (
         <div className='item'>
           <aside className='space'>&#10095;</aside>
-          <Link href={'entradas?condicion=55&name=usados'}>
+          <Link route='entradas' params={{ slug: 'usados' }}>
             <a className='link'>usados</a>
           </Link>
         </div>
-      ) : null}
+      )}
 
-      {entradas[0]._embedded['wp:term'][2][0] &&
-        (name === entradas[0]._embedded['wp:term'][2][0].slug ? (
+      {console.log(name)}
+
+      {name === marcaSlug &&
+        marcaSlug.length > 0 && (
+        <div className='item'>
+          <aside className='space'>&#10095;</aside>
+          <Link
+            route='entradas'
+            params={{
+              slug: slug(marcaSlug)
+            }}
+          >
+            <a className='link'>{marcaName}</a>
+          </Link>
+        </div>
+      )}
+
+      {name === undefined &&
+        (marcaSlug.length > 0 && (
           <div className='item'>
             <aside className='space'>&#10095;</aside>
             <Link
-              href={`/entradas?marca=${
-                entradas[0]._embedded['wp:term'][2][0].id
-              }&name=${entradas[0]._embedded['wp:term'][2][0].slug}`}
+              route='entradas'
+              params={{
+                slug: slug(marcaSlug)
+              }}
             >
-              <a className='link'>
-                {entradas[0]._embedded['wp:term'][2][0].name}
-              </a>
+              <a className='link'>{marcaName}</a>
             </Link>
           </div>
-        ) : null)}
+        ))}
 
-      {entradas[0]._embedded['wp:term'][2][1] &&
-        (name === entradas[0]._embedded['wp:term'][2][1].slug ? (
+      {name === undefined &&
+        (modeloSlug.length > 0 && (
           <div className='item'>
             <aside className='space'>&#10095;</aside>
             <Link
-              href={`/entradas?modelo=${
-                entradas[0]._embedded['wp:term'][2][1].id
-              }&name=${entradas[0]._embedded['wp:term'][2][1].slug}`}
+              route='entradasMarcas'
+              params={{
+                slugMarca: slug(marcaSlug),
+                slugModelo: slug(modeloSlug)
+              }}
             >
-              <a className='link'>
-                {entradas[0]._embedded['wp:term'][2][1].name}
-              </a>
+              <a className='link'>{modeloName}</a>
             </Link>
           </div>
-        ) : null)}
+        ))}
+
       <style jsx>{`
         #MenuLocationEntradas {
           display: flex;

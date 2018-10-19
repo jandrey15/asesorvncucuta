@@ -4,8 +4,31 @@ import { Link } from '../routes'
 import slug from '../helpers/slug'
 
 const MenuLocation = props => {
-  const { entradas } = props
-  const numRandom = Math.floor(Math.random() * (entradas.length - 0) + 0)
+  const { entradas, numRandom } = props
+  // const numRandom = Math.floor(Math.random() * (entradas.length - 0) + 0)
+  // const numRandom = 0
+  // console.log(numRandom)
+  let marcaSlug
+  let marcaName
+  let modeloSlug
+  let modeloName
+
+  if (
+    entradas[numRandom]._embedded['wp:term'][2][0] &&
+    entradas[numRandom]._embedded['wp:term'][2][1]
+  ) {
+    if (entradas[numRandom]._embedded['wp:term'][2][1].acf.padre) {
+      marcaSlug = entradas[numRandom]._embedded['wp:term'][2][1].slug
+      modeloSlug = entradas[numRandom]._embedded['wp:term'][2][0].slug
+      marcaName = entradas[numRandom]._embedded['wp:term'][2][1].name
+      modeloName = entradas[numRandom]._embedded['wp:term'][2][0].name
+    } else {
+      marcaSlug = entradas[numRandom]._embedded['wp:term'][2][0].slug
+      modeloSlug = entradas[numRandom]._embedded['wp:term'][2][1].slug
+      marcaName = entradas[numRandom]._embedded['wp:term'][2][0].name
+      modeloName = entradas[numRandom]._embedded['wp:term'][2][1].name
+    }
+  }
 
   if (entradas.length > 0) {
     return (
@@ -22,40 +45,32 @@ const MenuLocation = props => {
             </a>
           </Link>
         )}
-        {entradas[numRandom]._embedded['wp:term'][2][0] && (
+
+        {marcaSlug.length > 0 && (
           <div className='item'>
             <aside className='space'>&#10095;</aside>
             <Link
               route='entradas'
               params={{
-                slug: slug(entradas[numRandom]._embedded['wp:term'][2][0].slug)
+                slug: slug(marcaSlug)
               }}
             >
-              <a className='link'>
-                {entradas[numRandom]._embedded['wp:term'][2][0].name}
-              </a>
+              <a className='link'>{marcaName}</a>
             </Link>
           </div>
         )}
 
-        {entradas[numRandom]._embedded['wp:term'][2][1] && (
+        {modeloSlug.length > 0 && (
           <div className='item'>
             <aside className='space'>&#10095;</aside>
             <Link
               route='entradasMarcas'
               params={{
-                slugMarca: slug(
-                  entradas[numRandom]._embedded['wp:term'][2][1].slug
-                ),
-                slugModelo: slug(
-                  entradas[numRandom]._embedded['wp:term'][2][0].slug
-                ),
-                id: entradas[numRandom]._embedded['wp:term'][2][1].id
+                slugMarca: slug(marcaSlug),
+                slugModelo: slug(modeloSlug)
               }}
             >
-              <a className='link'>
-                {entradas[numRandom]._embedded['wp:term'][2][1].name}
-              </a>
+              <a className='link'>{modeloName}</a>
             </Link>
           </div>
         )}

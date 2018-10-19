@@ -3,7 +3,7 @@ import Article from '../components/Article'
 import Layout from '../components/Layout'
 import Error from './_error'
 
-export default class Noticias extends Component {
+export default class Articulos extends Component {
   static async getInitialProps ({ res }) {
     try {
       let req = await fetch(
@@ -29,9 +29,9 @@ export default class Noticias extends Component {
     }
 
     return (
-      <Layout title='Noticias'>
+      <Layout title='Artículos'>
         <div className='dondeEstoy container'>
-          <span>Estoy en:</span> <p>noticias</p>
+          <span>Estoy en:</span> <p>Artículos</p>
         </div>
         {articles.length > 0 ? (
           <section id='Articles' className='container'>
@@ -43,7 +43,7 @@ export default class Noticias extends Component {
           </section>
         ) : (
           <div className='nothing container'>
-            <h4>No hay noticias</h4>
+            <h4>No hay artículos</h4>
           </div>
         )}
         <style jsx>{`

@@ -51,9 +51,9 @@ const Header = props => {
               </Link>
               <span className='bar' />
             </li>
-            <li>
-              <Link route='noticias'>
-                <a className='link'>Noticias</a>
+            <li style={{ width: '63px' }}>
+              <Link route='articulos'>
+                <a className='link'>Artículos</a>
               </Link>
               <span className='bar' />
             </li>

@@ -10,10 +10,7 @@ export default class Error extends Component {
 
   render () {
     const { statusCode } = this.props
-    let title
-    statusCode === 404
-      ? (title = '404 - Asesorvncucuta')
-      : (title = '500 - Asesorvncucuta')
+    let title = `${statusCode} - Asesorvncucuta`
 
     return (
       <Layout title={title}>
@@ -29,6 +26,7 @@ export default class Error extends Component {
           </div>
         ) : (
           <div className='message'>
+            <h2>{statusCode}</h2>
             <h1>Hubo un problema</h1>
             <p>Intenta nuevamente en unos segundos</p>
           </div>

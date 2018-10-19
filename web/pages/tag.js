@@ -57,7 +57,7 @@ export default class Tag extends Component {
         <div className='dondeEstoy container'>
           <span>Estoy en:</span>
           <Link href='/tags'>
-            <a className='link'>tags</a>
+            <a className='link'>Tags</a>
           </Link>
           <aside className='space'>&#10095;</aside>
           <p>{nameTag}</p>
@@ -72,7 +72,7 @@ export default class Tag extends Component {
           </section>
         ) : (
           <div className='nothing container'>
-            <h4>No hay noticias</h4>
+            <h4>No hay artículos</h4>
           </div>
         )}
         <style jsx>{`

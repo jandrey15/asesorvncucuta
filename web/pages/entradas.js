@@ -13,15 +13,12 @@ export default class Entradas extends Component {
     console.log(query)
 
     try {
-      if (name === 'nuevos') {
+      if (name === 'nuevos' || name === 'usados') {
+        let condicion
+        name === 'nuevos' ? (condicion = 'nuevo') : (condicion = 'usado')
+
         let reqSlug = await fetch(
-          `http://api.docker.test/wp-json/wp/v2/condicion?slug=nuevo`
-        )
-        let [{ id }] = await reqSlug.json()
-        taxonomy = `condicion=${id}`
-      } else if (name === 'usados') {
-        let reqSlug = await fetch(
-          `http://api.docker.test/wp-json/wp/v2/condicion?slug=usado`
+          `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
         )
         let [{ id }] = await reqSlug.json()
         taxonomy = `condicion=${id}`
@@ -31,8 +28,18 @@ export default class Entradas extends Component {
         )
         let [{ id }] = await reqSlug.json()
         taxonomy = `categories=${id}`
-      } else if (query.id) {
-        taxonomy = `marcas=${query.id}`
+      } else if (name || query.slugModelo) {
+        let marcas
+        if (query.slugModelo) {
+          marcas = `slug=${query.slugModelo}`
+        } else {
+          marcas = `slug=${name}`
+        }
+        let reqSlug = await fetch(
+          `http://api.docker.test/wp-json/wp/v2/marcas?${marcas}`
+        )
+        let [{ id }] = await reqSlug.json()
+        taxonomy = `marcas=${id}`
       }
 
       let [req, reqNews] = await Promise.all([

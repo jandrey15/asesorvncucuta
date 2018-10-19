@@ -34,7 +34,7 @@ export default class Tags extends Component {
         <div className='dondeEstoy container'>
           <span>Estoy en:</span>
           <Link route='/tags'>
-            <a className='link'>tags</a>
+            <a className='link'>Tags</a>
           </Link>
         </div>
         {tags.length > 0 ? (

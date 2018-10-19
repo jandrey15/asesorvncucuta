@@ -47,6 +47,7 @@ export default class Home extends Component {
           news: [],
           postsNew: [],
           postsUsed: [],
+          numRandom: null,
           statusCode: reqEntradas.status
         }
       }
@@ -57,22 +58,27 @@ export default class Home extends Component {
       let postsNew = await reqPostsNew.json()
       let postsUsed = await reqPostsused.json()
 
+      const numRandom = Math.floor(Math.random() * (entradas.length - 0) + 0)
+
       return {
         entradas,
         entradasSlides,
         news,
         postsNew,
         postsUsed,
+        numRandom,
         statusCode: 200
       }
     } catch (err) {
       res.statusCode = 503
+      const numRandom = null
       return {
         entradas: [],
         entradasSlides: [],
         news: [],
         postsNew: [],
         postsUsed: [],
+        numRandom,
         statusCode: 503
       }
     }
@@ -85,6 +91,7 @@ export default class Home extends Component {
       news,
       postsNew,
       postsUsed,
+      numRandom,
       statusCode
     } = this.props
     // console.log(entradas)
@@ -99,7 +106,7 @@ export default class Home extends Component {
         <section id='Home'>
           <div className='dondeEstoy container'>
             <span>Estoy en:</span>
-            <MenuLocation entradas={entradas} />
+            <MenuLocation entradas={entradas} numRandom={numRandom} />
           </div>
           <div id='sectionPrincipal' className='container'>
             <div className='column'>
