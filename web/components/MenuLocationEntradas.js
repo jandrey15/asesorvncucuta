@@ -59,8 +59,6 @@ const MenuLocationEntradas = props => {
         </div>
       )}
 
-      {console.log(name)}
-
       {name === marcaSlug &&
         marcaSlug.length > 0 && (
         <div className='item'>

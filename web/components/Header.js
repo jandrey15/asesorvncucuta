@@ -51,7 +51,7 @@ const Header = props => {
               </Link>
               <span className='bar' />
             </li>
-            <li style={{ width: '63px' }}>
+            <li>
               <Link route='articulos'>
                 <a className='link'>Artículos</a>
               </Link>
@@ -211,11 +211,11 @@ const Header = props => {
           padding: 0;
           list-style: none;
           display: grid;
-          grid-template-columns: repeat(3, 70px);
+          grid-template-columns: repeat(3, 1fr);
           grid-template-rows: 25px;
           margin: 0;
           align-items: center;
-          justify-content: center;
+          justify-items: center;
         }
 
         .menu ul li {

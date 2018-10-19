@@ -10,7 +10,7 @@ export default class Entradas extends Component {
   static async getInitialProps ({ res, query }) {
     let taxonomy
     const name = query.slug
-    console.log(query)
+    // console.log(query)
 
     try {
       if (name === 'nuevos' || name === 'usados') {

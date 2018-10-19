@@ -4,6 +4,15 @@ import Head from 'next/head'
 import Header from './Header'
 import Footer from './Footer'
 
+import NProgress from 'nprogress'
+import Router from 'next/router'
+
+Router.onRouteChangeStart = url => {
+  NProgress.start()
+}
+Router.onRouteChangeComplete = () => NProgress.done()
+Router.onRouteChangeError = () => NProgress.done()
+
 export default props => {
   const { children, title } = props
   return (

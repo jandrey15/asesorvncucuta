@@ -1,4 +1,6 @@
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+// import slug from '../helpers/slug'
 
 const Footer = props => {
   return (
@@ -21,13 +23,34 @@ const Footer = props => {
             <div className='menu'>
               <ul className='ulMenu'>
                 <li>
-                  <a href='entradas?condicion=54&name=nuevos'>Nuevos</a>
+                  {/* <a href='entradas?condicion=54&name=nuevos'>Nuevos</a> */}
+                  <Link
+                    route='entradas'
+                    params={{
+                      slug: 'nuevos'
+                    }}
+                  >
+                    <a className='link'>Nuevos</a>
+                  </Link>
+                  <span className='bar' />
                 </li>
                 <li>
-                  <a href='entradas?condicion=55&name=usados'>Usados</a>
+                  {/* <a href='entradas?condicion=55&name=usados'>Usados</a> */}
+                  <Link
+                    route='entradas'
+                    params={{
+                      slug: 'usados'
+                    }}
+                  >
+                    <a className='link'>Usados</a>
+                  </Link>
+                  <span className='bar' />
                 </li>
                 <li>
-                  <a href='/noticias'>Noticias</a>
+                  <Link route='articulos'>
+                    <a className='link'>Artículos</a>
+                  </Link>
+                  <span className='bar' />
                 </li>
               </ul>
             </div>
@@ -251,11 +274,11 @@ const Footer = props => {
           padding: 0;
           list-style: none;
           display: grid;
-          grid-template-columns: repeat(3, 70px);
+          grid-template-columns: repeat(3, 1fr);
           grid-template-rows: 25px;
           margin: 0;
           align-items: center;
-          justify-content: center;
+          justify-items: center;
         }
 
         .menu .ulMenu li {

@@ -1,5 +1,7 @@
-import Link from 'next/link'
 import React from 'react'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 
 const CarouselSlide = props => {
   const { slide, index, activeIndex, animation } = props
@@ -37,7 +39,13 @@ const CarouselSlide = props => {
       />
 
       <div className='info'>
-        <Link href={`/entrada?name=${slide.slug}`} prefetch>
+        <Link
+          route='entrada'
+          params={{
+            name: slug(slide.slug)
+          }}
+          prefetch
+        >
           <a className='car'>
             <h1>{slide.title.rendered}</h1>
           </a>

@@ -344,6 +344,7 @@ export default class Filter extends Component {
 
           input {
             padding-left: 5px;
+            box-sizing: border-box;
           }
 
           button {

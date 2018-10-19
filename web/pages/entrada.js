@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import Layout from '../components/Layout'
 import SlideShow from '../components/SlideShow'
 import MorePosts from '../components/MorePosts'
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
+import entradaStyle from './entradaStyle'
 import Error from './_error'
 
 export default class Entrada extends Component {
@@ -16,11 +19,6 @@ export default class Entrada extends Component {
       )
       let [entrada] = await req.json()
 
-      // let reqGaleria = await fetch(
-      //   `http://api.docker.test/wp-json/acf/v3/pages/${
-      //     entrada.id
-      //   }/galeria?type=photo_gallery`
-      // )
       let [reqGaleria, reqMorePosts] = await Promise.all([
         fetch(
           `http://api.docker.test/wp-json/acf/v3/pages/${
@@ -72,34 +70,69 @@ export default class Entrada extends Component {
       }
     }
 
+    let marcaSlug
+    let marcaName
+    let modeloSlug
+    let modeloName
+
+    if (
+      entrada._embedded['wp:term'][2][0] &&
+      entrada._embedded['wp:term'][2][1]
+    ) {
+      if (entrada._embedded['wp:term'][2][1].acf.padre) {
+        marcaSlug = entrada._embedded['wp:term'][2][1].slug
+        modeloSlug = entrada._embedded['wp:term'][2][0].slug
+        marcaName = entrada._embedded['wp:term'][2][1].name
+        modeloName = entrada._embedded['wp:term'][2][0].name
+      } else {
+        marcaSlug = entrada._embedded['wp:term'][2][0].slug
+        modeloSlug = entrada._embedded['wp:term'][2][1].slug
+        marcaName = entrada._embedded['wp:term'][2][0].name
+        modeloName = entrada._embedded['wp:term'][2][1].name
+      }
+    }
+
     return (
       <Layout title={`${entrada.title.rendered} - Asesorvncucuta`}>
         <div className='dondeEstoy container'>
-          <Link href='/'>
+          <Link route='/'>
             <a className='listado'>
               <span>Volver al listado: </span>
             </a>
           </Link>
           {
             entrada._embedded['wp:term'][0][0] &&
-              <Link href={`/entradas?categoria=${entrada._embedded['wp:term'][0][0].id}&name=${entrada._embedded['wp:term'][0][0].slug}`}>
+              <Link route='entradas' params={{ slug: slug(entrada._embedded['wp:term'][0][0].slug) }}>
                 <a className='link'>{entrada._embedded['wp:term'][0][0].name}</a>
               </Link>
           }
-          <aside className='space'>&#10095;</aside>
-          {
-            entrada._embedded['wp:term'][2][0] &&
-              <Link href={`/entradas?marca=${entrada._embedded['wp:term'][2][0].id}&name=${entrada._embedded['wp:term'][2][0].slug}`}>
-                <a className='link'>{entrada._embedded['wp:term'][2][0].name}</a>
+          {marcaSlug.length > 0 && (
+            <div className='item'>
+              <aside className='space'>&#10095;</aside>
+              <Link
+                route='entradas'
+                params={{
+                  slug: slug(marcaSlug)
+                }}
+              >
+                <a className='link'>{marcaName}</a>
               </Link>
-          }
-          <aside className='space'>&#10095;</aside>
-          {
-            entrada._embedded['wp:term'][2][1] &&
-              <Link href={`/entradas?modelo=${entrada._embedded['wp:term'][2][1].id}&name=${entrada._embedded['wp:term'][2][1].slug}`}>
-                <a className='link'>{entrada._embedded['wp:term'][2][1].name}</a>
+            </div>
+          )}
+          {modeloSlug.length > 0 && (
+            <div className='item'>
+              <aside className='space'>&#10095;</aside>
+              <Link
+                route='entradasMarcas'
+                params={{
+                  slugMarca: slug(marcaSlug),
+                  slugModelo: slug(modeloSlug)
+                }}
+              >
+                <a className='link'>{modeloName}</a>
               </Link>
-          }
+            </div>
+          )}
         </div>
         <article id='Entrada' className='container'>
           <div className='content'>
@@ -162,89 +195,96 @@ export default class Entrada extends Component {
           </div>
 
           <section className='ficha'>
-            {entrada._embedded['wp:term'][2][0] ? (
+            {entrada._embedded['wp:term'][2][0] && (
               <div className='item marca'>
                 <h6>Marca</h6>
                 <span>{entrada._embedded['wp:term'][2][0].name}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada._embedded['wp:term'][2][1] ? (
+            {entrada._embedded['wp:term'][2][1] && (
               <div className='item modelo'>
                 <h6>Modelo</h6>
                 <span>{entrada._embedded['wp:term'][2][1].name}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada._embedded['wp:term'][5][0] ? (
+            {entrada._embedded['wp:term'][5][0] && (
               <div className='item color'>
                 <h6>Color</h6>
                 <span>{entrada._embedded['wp:term'][5][0].name}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada.combustible.length > 0 ? (
+            {entrada.combustible.length > 0 && (
               <div className='item combustible'>
                 <h6>Combustible</h6>
                 <span>{entrada.combustible}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada.recorrido.length > 1 ? (
+            {entrada.recorrido.length > 1 && (
               <div className='item recorrido'>
                 <h6>Recorrido</h6>
-                <span>{entrada.recorrido} Km</span>
+                <span>{formatNumber.new(entrada.recorrido)} Km</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada.placa.length > 0 ? (
+            {entrada.unico_dueno.length > 1 && (
+              <div className='item unico'>
+                <h6>Único dueño</h6>
+                <span>{entrada.unico_dueno}</span>
+              </div>
+            )}
+
+            {entrada.placa.length > 0 && (
               <div className='item placa'>
                 <h6>Placa</h6>
                 <span>{entrada.placa}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada._embedded['wp:term'][3][0] ? (
+            {entrada._embedded['wp:term'][3][0] && (
               <div className='item ano'>
                 <h6>Año</h6>
                 <span>{entrada._embedded['wp:term'][3][0].name}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada.direccion.length > 0 ? (
+            {entrada.direccion.length > 0 && (
               <div className='item direccion'>
                 <h6>Dirección</h6>
                 <span>{entrada.direccion}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada.doy_financiamiento.length > 0 ? (
+            {entrada.doy_financiamiento.length > 0 && (
               <div className='item doy_financiamiento'>
                 <h6>Doy financiamiento</h6>
                 <span>{entrada.doy_financiamiento}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada.motor.length > 0 ? (
+            {entrada.motor.length > 0 && (
               <div className='item motor'>
                 <h6>Motor</h6>
                 <span>{entrada.motor}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada.negosiable.length > 0 ? (
+            {entrada.negosiable.length > 0 && (
               <div className='item negosiable'>
                 <h6>Negosiable</h6>
                 <span>{entrada.negosiable}</span>
               </div>
-            ) : null}
+            )}
 
-            {entrada.transmision.length > 0 ? (
+            {entrada.transmision.length > 0 && (
               <div className='item transmision'>
                 <h6>Transmisión</h6>
                 <span>{entrada.transmision}</span>
               </div>
-            ) : null}
+            )}
           </section>
           {entrada.exterior.length > 0 && <hr />}
           {entrada.exterior.length > 0 && (
@@ -434,278 +474,23 @@ export default class Entrada extends Component {
               })}
             </section>
           )}
-
-          <h4>Descripción</h4>
-          <div
-            className='text'
-            dangerouslySetInnerHTML={{ __html: entrada.content.rendered }}
-          />
-          {posts.length > 0 ? (
+          {entrada.content.rendered.length > 0 &&
+            <article>
+              <h4>Descripción</h4>
+              <div
+                className='text'
+                dangerouslySetInnerHTML={{ __html: entrada.content.rendered }}
+              />
+            </article>
+          }
+          {posts.length > 0 && (
             <div className='posts'>
               <h4 className='morePosts'>Más publicaciones</h4>
               <MorePosts posts={posts} />
             </div>
-          ) : null}
+          )}
         </article>
-        <style jsx>{`
-          .pauta {
-            max-width: 800px;
-            height: 150px;
-            background-color: #505050;
-            margin: 20px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-            text-transform: uppercase;
-            font-size: 25px;
-          }
-
-          .pauta300x118 {
-            max-width: 300px;
-            height: 118px;
-            background: #9a3737;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: #ffffff;
-          }
-
-          .link {
-            margin: 0 5px;
-            text-decoration: none;
-            color: #4c4c4c;
-          }
-
-          .link:hover {
-            text-decoration: underline;
-          }
-
-          .text {
-            color: #4c4c4c;
-          }
-
-          .dondeEstoy {
-            display: flex;
-            align-items: center;
-            padding-left: 20px;
-            height: 40px;
-            font-size: 13px;
-            box-sizing: border-box;
-            color: #4c4c4c;
-          }
-
-          .dondeEstoy p {
-            margin: 0 5px;
-          }
-
-          .listado {
-            color: #4c4c4c;
-            text-decoration: none;
-          }
-
-          .listado:hover {
-            text-decoration: underline;
-          }
-
-          .content {
-            display: grid;
-            grid-template-columns: 885px 300px;
-            grid-gap: 0 15px;
-          }
-
-          .info {
-            background-color: #f7f7f7;
-            padding: 25px 15px;
-          }
-
-          h4 {
-            font-size: 28px;
-            font-weight: 600;
-            margin: 60px 0 0;
-            color: #2d2d2a;
-          }
-
-          .morePosts {
-            font-size: 28px;
-            font-weight: 600;
-            margin: 60px 0 20px;
-          }
-
-          .ficha {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            grid-gap: 20px 10px;
-            max-width: 1128px;
-            margin: 50px auto;
-          }
-
-          .ficha.exterior,
-          .ficha.seguridad,
-          .ficha.equipamiento {
-            margin: 20px auto;
-          }
-
-          .ficha span {
-            font-size: 21px;
-            font-weght: 600;
-            color: #2d2d2a;
-          }
-
-          .item {
-            background-color: #f7f7f7;
-            height: 70px;
-            padding: 10px 15px;
-          }
-
-          h6 {
-            margin: 0 0 5px;
-            font-size: 18px;
-            font-weight: 400;
-            color: #4c4c4c;
-          }
-
-          h2 {
-            font-size: 36px;
-            font-weight: 600;
-            margin: 0 0 20px;
-            text-align: center;
-            color: #2d2d2a;
-          }
-
-          h1 {
-            font-size: 24px;
-            line-height: 26px;
-            font-weight: 400;
-            margin: 0 0 15px;
-            color: #4c4c4c;
-          }
-
-          .kilo {
-            font-size: 14px;
-            font-weight: 400;
-            color: #4c4c4c;
-            margin: 0 0 15px;
-          }
-
-          .financing .logo {
-            margin: 0;
-            max-width: 60px;
-          }
-
-          .financing .logo img {
-            width: 100%;
-          }
-
-          .financing p {
-            font-size: 14px;
-            line-height: 16px;
-            margin: 10px 0;
-            color: #4c4c4c;
-            width: 85%;
-          }
-
-          .financing {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            flex-direction: column;
-          }
-
-          .location {
-            display: flex;
-            align-items: flex-end;
-            font-size: 14px;
-            margin: 0 0 15px;
-          }
-
-          .location .icon {
-            background: url('/static/locationGPS.svg') no-repeat;
-            height: 25px;
-            display: block;
-            width: 20px;
-          }
-
-          h3 {
-            margin: 15px 0 20px;
-            font-size: 18px;
-            font-weight: 600;
-            color: #2d2d2a;
-          }
-
-          .seller span,
-          .seller p {
-            color: #4c4c4c;
-          }
-
-          span {
-            font-size: 14px;
-            font-weight: 600;
-          }
-
-          .seller .name,
-          .seller .phone {
-            font-size: 14px;
-            font-weight: 400;
-            margin: 5px 0 20px;
-          }
-
-          .info hr {
-            border: none;
-            height: 1px;
-            background: #4887b5;
-            margin: 0;
-            width: 100%;
-          }
-
-          hr {
-            border: none;
-            height: 1px;
-            background: #4887b5;
-            margin: 0 auto;
-            max-width: 1128px;
-          }
-
-          @media screen and (max-width: 1024px) {
-            .content {
-              grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-              grid-gap: 30px 0;
-            }
-
-            .info {
-              max-width: 300px;
-              justify-self: center;
-            }
-
-            .ficha {
-              padding: 0 10px;
-            }
-
-            .text {
-              margin: 0 10px;
-            }
-
-            h4 {
-              padding: 0 10px;
-            }
-          }
-
-          @media screen and (max-width: 380px) {
-            .dondeEstoy {
-              padding: 20px 0;
-              height: auto;
-              background-color: #f1f1f1;
-              justify-content: center;
-            }
-
-            .dondeEstoy span{
-              display: none;
-            }
-          }
-        `}</style>
+        <style jsx>{entradaStyle}</style>
       </Layout>
     )
   }

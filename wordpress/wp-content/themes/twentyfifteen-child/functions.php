@@ -299,7 +299,7 @@ function register_custom_fields() {
         array( 'get_callback' => 'show_fields')
     );
 
-    register_rest_field('post', 'único_dueño',
+    register_rest_field('post', 'unico_dueno',
         array( 'get_callback' => 'show_fields')
     );
 
