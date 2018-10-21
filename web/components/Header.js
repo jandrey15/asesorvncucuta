@@ -30,9 +30,9 @@ const Header = props => {
             <li>
               {/* <a href='entradas?condicion=54&name=nuevos'>Nuevos</a> */}
               <Link
-                route='entradas'
+                route='entradasCondicion'
                 params={{
-                  slug: 'nuevos'
+                  slugCondicion: 'nuevos'
                 }}
               >
                 <a className='link'>Nuevos</a>
@@ -42,9 +42,9 @@ const Header = props => {
             <li>
               {/* <a href='entradas?condicion=55&name=usados'>Usados</a> */}
               <Link
-                route='entradas'
+                route='entradasCondicion'
                 params={{
-                  slug: 'usados'
+                  slugCondicion: 'usados'
                 }}
               >
                 <a className='link'>Usados</a>

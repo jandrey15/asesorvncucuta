@@ -10,24 +10,19 @@ export default class Entradas extends Component {
   static async getInitialProps ({ res, query }) {
     let taxonomy
     const name = query.slug
-    // console.log(query)
+    const categoria = query.slugCondicion
+    console.log(query)
 
     try {
-      if (name === 'nuevos' || name === 'usados') {
+      if (categoria === 'nuevos' || categoria === 'usados') {
         let condicion
-        name === 'nuevos' ? (condicion = 'nuevo') : (condicion = 'usado')
+        categoria === 'nuevos' ? (condicion = 'nuevo') : (condicion = 'usado')
 
         let reqSlug = await fetch(
           `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
         )
         let [{ id }] = await reqSlug.json()
         taxonomy = `condicion=${id}`
-      } else if (name === 'carros-y-camionetas' || name === 'otros-vehiculos') {
-        let reqSlug = await fetch(
-          `http://api.docker.test/wp-json/wp/v2/categories?slug=${name}`
-        )
-        let [{ id }] = await reqSlug.json()
-        taxonomy = `categories=${id}`
       } else if (name || query.slugModelo) {
         let marcas
         if (query.slugModelo) {
@@ -39,7 +34,18 @@ export default class Entradas extends Component {
           `http://api.docker.test/wp-json/wp/v2/marcas?${marcas}`
         )
         let [{ id }] = await reqSlug.json()
-        taxonomy = `marcas=${id}`
+
+        let reqSlugCategoria = await fetch(
+          `http://api.docker.test/wp-json/wp/v2/categories?slug=${categoria}`
+        )
+        let [{ id: idCategoria }] = await reqSlugCategoria.json()
+        taxonomy = `marcas=${id}&categories=${idCategoria}`
+      } else if (categoria) {
+        let reqSlug = await fetch(
+          `http://api.docker.test/wp-json/wp/v2/categories?slug=${categoria}`
+        )
+        let [{ id }] = await reqSlug.json()
+        taxonomy = `categories=${id}`
       }
 
       let [req, reqNews] = await Promise.all([

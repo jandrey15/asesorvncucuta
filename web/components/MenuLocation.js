@@ -35,9 +35,11 @@ const MenuLocation = props => {
       <div id='MenuLocation'>
         {entradas[numRandom]._embedded['wp:term'][0][0] && (
           <Link
-            route='entradas'
+            route='entradasCondicion'
             params={{
-              slug: slug(entradas[numRandom]._embedded['wp:term'][0][0].slug)
+              slugCondicion: slug(
+                entradas[numRandom]._embedded['wp:term'][0][0].slug
+              )
             }}
           >
             <a className='link'>
@@ -52,6 +54,9 @@ const MenuLocation = props => {
             <Link
               route='entradas'
               params={{
+                slugCondicion: slug(
+                  entradas[numRandom]._embedded['wp:term'][0][0].slug
+                ),
                 slug: slug(marcaSlug)
               }}
             >
@@ -66,6 +71,9 @@ const MenuLocation = props => {
             <Link
               route='entradasMarcas'
               params={{
+                slugCondicion: slug(
+                  entradas[numRandom]._embedded['wp:term'][0][0].slug
+                ),
                 slugMarca: slug(marcaSlug),
                 slugModelo: slug(modeloSlug)
               }}

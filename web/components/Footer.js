@@ -22,8 +22,7 @@ const Footer = props => {
           <div className='redes'>
             <div className='menu'>
               <ul className='ulMenu'>
-                <li>
-                  {/* <a href='entradas?condicion=54&name=nuevos'>Nuevos</a> */}
+                {/* <li>
                   <Link
                     route='entradas'
                     params={{
@@ -35,7 +34,6 @@ const Footer = props => {
                   <span className='bar' />
                 </li>
                 <li>
-                  {/* <a href='entradas?condicion=55&name=usados'>Usados</a> */}
                   <Link
                     route='entradas'
                     params={{
@@ -51,7 +49,7 @@ const Footer = props => {
                     <a className='link'>Artículos</a>
                   </Link>
                   <span className='bar' />
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className='redes'>

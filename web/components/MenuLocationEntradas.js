@@ -32,9 +32,9 @@ const MenuLocationEntradas = props => {
     <div id='MenuLocationEntradas'>
       {entradas[0]._embedded['wp:term'][0][0] && (
         <Link
-          route='entradas'
+          route='entradasCondicion'
           params={{
-            slug: slug(entradas[0]._embedded['wp:term'][0][0].slug)
+            slugCondicion: slug(entradas[0]._embedded['wp:term'][0][0].slug)
           }}
         >
           <a className='link'>{entradas[0]._embedded['wp:term'][0][0].name}</a>
@@ -44,7 +44,7 @@ const MenuLocationEntradas = props => {
       {name === 'nuevos' && (
         <div className='item'>
           <aside className='space'>&#10095;</aside>
-          <Link route='entradas' params={{ slug: 'nuevos' }}>
+          <Link route='entradasCondicion' params={{ slugCondicion: 'nuevos' }}>
             <a className='link'>nuevos</a>
           </Link>
         </div>
@@ -53,7 +53,7 @@ const MenuLocationEntradas = props => {
       {name === 'usados' && (
         <div className='item'>
           <aside className='space'>&#10095;</aside>
-          <Link route='entradas' params={{ slug: 'usados' }}>
+          <Link route='entradasCondicion' params={{ slugCondicion: 'usados' }}>
             <a className='link'>usados</a>
           </Link>
         </div>
@@ -66,6 +66,9 @@ const MenuLocationEntradas = props => {
           <Link
             route='entradas'
             params={{
+              slugCondicion: slug(
+                entradas[0]._embedded['wp:term'][0][0].slug
+              ),
               slug: slug(marcaSlug)
             }}
           >
@@ -81,6 +84,9 @@ const MenuLocationEntradas = props => {
             <Link
               route='entradas'
               params={{
+                slugCondicion: slug(
+                  entradas[0]._embedded['wp:term'][0][0].slug
+                ),
                 slug: slug(marcaSlug)
               }}
             >
@@ -96,6 +102,9 @@ const MenuLocationEntradas = props => {
             <Link
               route='entradasMarcas'
               params={{
+                slugCondicion: slug(
+                  entradas[0]._embedded['wp:term'][0][0].slug
+                ),
                 slugMarca: slug(marcaSlug),
                 slugModelo: slug(modeloSlug)
               }}
