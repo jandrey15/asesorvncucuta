@@ -45,7 +45,7 @@ export default class Error extends Component {
           h2 {
             font-size: 10rem;
             margin: 0;
-            color: #e74c3c;
+            color: #ef1424;
           }
 
           a {

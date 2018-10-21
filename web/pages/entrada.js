@@ -11,6 +11,7 @@ import Error from './_error'
 export default class Entrada extends Component {
   static async getInitialProps ({ res, query }) {
     const name = query.name
+    // console.log(name)
     try {
       // let req = await fetch('https://api.audioboom.com/channels/recommended')
       // http://api.docker.test/wp-json/acf/v3/pages/POST_ID/galeria?type=photo_gallery
@@ -18,6 +19,10 @@ export default class Entrada extends Component {
         `http://api.docker.test/wp-json/wp/v2/posts?slug=${name}&_embed`
       )
       let [entrada] = await req.json()
+
+      if (entrada === undefined) {
+        return { entrada: null, galeria: [], posts: [], statusCode: 404 }
+      }
 
       let [reqGaleria, reqMorePosts] = await Promise.all([
         fetch(
@@ -36,7 +41,9 @@ export default class Entrada extends Component {
       let posts = await reqMorePosts.json()
 
       return { entrada, galeria, posts, statusCode: 200 }
+
     } catch (err) {
+      // console.log(err)
       res.statusCode = 503
       return { entrada: null, galeria: [], posts: [], statusCode: 503 }
     }

@@ -223,6 +223,10 @@ const Header = props => {
           padding: 4px 5px;
         }
 
+        .menu ul li:first-child {
+          padding-left: 7px;
+        }
+
         .menu ul li:last-child {
           border-right: 1px solid #4c4c4c;
         }

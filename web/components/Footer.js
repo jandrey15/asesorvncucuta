@@ -286,6 +286,10 @@ const Footer = props => {
           padding: 4px 5px;
         }
 
+        .menu .ulMenu li:first-child {
+          padding-left: 8px;
+        }
+
         .menu .ulMenu li:last-child {
           border-right: 1px solid #4987b6;
         }

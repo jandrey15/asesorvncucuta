@@ -48,6 +48,8 @@ const CarouselSlide = props => {
             max-width: 1200px;
             margin: 0 auto;
             display: block;
+            max-height: 900px;
+            height: 100%;
           }
 
           @keyframes opacity {
