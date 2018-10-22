@@ -13,24 +13,24 @@ const MenuLocation = props => {
   let modeloSlug
   let modeloName
 
-  if (
-    entradas[numRandom]._embedded['wp:term'][2][0] &&
-    entradas[numRandom]._embedded['wp:term'][2][1]
-  ) {
-    if (entradas[numRandom]._embedded['wp:term'][2][1].acf.padre) {
-      marcaSlug = entradas[numRandom]._embedded['wp:term'][2][1].slug
-      modeloSlug = entradas[numRandom]._embedded['wp:term'][2][0].slug
-      marcaName = entradas[numRandom]._embedded['wp:term'][2][1].name
-      modeloName = entradas[numRandom]._embedded['wp:term'][2][0].name
-    } else {
-      marcaSlug = entradas[numRandom]._embedded['wp:term'][2][0].slug
-      modeloSlug = entradas[numRandom]._embedded['wp:term'][2][1].slug
-      marcaName = entradas[numRandom]._embedded['wp:term'][2][0].name
-      modeloName = entradas[numRandom]._embedded['wp:term'][2][1].name
-    }
-  }
-
   if (entradas.length > 0) {
+    if (
+      entradas[numRandom]._embedded['wp:term'][2][0] &&
+      entradas[numRandom]._embedded['wp:term'][2][1]
+    ) {
+      if (entradas[numRandom]._embedded['wp:term'][2][1].acf.padre) {
+        marcaSlug = entradas[numRandom]._embedded['wp:term'][2][1].slug
+        modeloSlug = entradas[numRandom]._embedded['wp:term'][2][0].slug
+        marcaName = entradas[numRandom]._embedded['wp:term'][2][1].name
+        modeloName = entradas[numRandom]._embedded['wp:term'][2][0].name
+      } else {
+        marcaSlug = entradas[numRandom]._embedded['wp:term'][2][0].slug
+        modeloSlug = entradas[numRandom]._embedded['wp:term'][2][1].slug
+        marcaName = entradas[numRandom]._embedded['wp:term'][2][0].name
+        modeloName = entradas[numRandom]._embedded['wp:term'][2][1].name
+      }
+    }
+
     return (
       <div id='MenuLocation'>
         {entradas[numRandom]._embedded['wp:term'][0][0] && (

@@ -9,11 +9,11 @@ import MenuLocation from '../components/MenuLocation'
 export default class Search extends Component {
   static async getInitialProps ({ res, query }) {
     const word = query.slug
-    const condicion = query.condicion
-    const marca = query.marca
-    const modelo = query.modelo
-    const ciudad = query.ciudad
-    const color = query.color
+    const condicion = query.slugCondicion
+    const marca = query.slugMarca
+    const modelo = query.slugModelo
+    const ciudad = query.ciudad || 'null'
+    const color = query.color || 'null'
     const minAno = query.minAno || 'null'
     const maxAno = query.maxAno || 'null'
     const minPrecio = query.minPrecio || 'null'
@@ -22,7 +22,7 @@ export default class Search extends Component {
     let search
     console.log(word)
     // console.log(query)
-    if (word !== '') {
+    if (word) {
       search = `search=${word}&orderby=relevance`
     }
 

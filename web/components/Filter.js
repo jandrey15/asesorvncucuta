@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import 'isomorphic-fetch'
+import { Router } from '../routes'
 
 export default class Filter extends Component {
   constructor (props) {
@@ -13,6 +14,8 @@ export default class Filter extends Component {
       anos: [],
       color: [],
       ciudades: [],
+      valueMarca: '',
+      valueModelo: '',
       statusCode: 200
     }
   }
@@ -91,6 +94,9 @@ export default class Filter extends Component {
 
   handleChange = event => {
     // console.log(event.target.value)
+    this.setState({ valueMarca: event.target.value })
+    console.log('marca ' + event.target.value)
+
     const marcaParent = event.target.value
     this.modelos(marcaParent)
   }
@@ -114,6 +120,26 @@ export default class Filter extends Component {
     }
   }
 
+  handleChangeModelo = event => {
+    this.setState({ valueModelo: event.target.value })
+    console.log('modelo' + event.target.value)
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    console.log(this.state.valueMarca)
+    console.log(this.state.condicion)
+    if (this.state.valueMarca === '') {
+      Router.pushRoute('/search')
+    } else {
+      Router.pushRoute('searchFilter', {
+        slugCondicion: this.state.condicion,
+        slugMarca: this.state.valueMarca,
+        slugModelo: this.state.valueModelo
+      })
+    }
+  }
+
   render () {
     const {
       usado,
@@ -128,7 +154,7 @@ export default class Filter extends Component {
     } = this.state
 
     const { movil } = this.props
-    // console.log(marcas)
+    console.log(this.state.valueMarca)
 
     if (statusCode !== 200) {
       console.log('error...' + statusCode)
@@ -151,14 +177,14 @@ export default class Filter extends Component {
             Nuevos
           </span>
         </nav>
-        <form action='/search' method='GET'>
+        <form action='/search' method='GET' onSubmit={this.handleSubmit}>
           <input type='hidden' name='condicion' value={condicion} />
           <div className='form'>
             <label htmlFor='marca'>Marca:</label>
             <select id='marca' name='marca' onChange={this.handleChange}>
               <option value='0'>Todas las marcas</option>
               {marcas.map(marca => (
-                <option value={marca.id} key={marca.id}>
+                <option key={marca.id} value={marca.id}>
                   {marca.name}
                 </option>
               ))}
@@ -166,7 +192,11 @@ export default class Filter extends Component {
           </div>
           <div className='form'>
             <label htmlFor='modelo'>Modelo:</label>
-            <select id='modelo' name='modelo'>
+            <select
+              id='modelo'
+              name='modelo'
+              onChange={this.handleChangeModelo}
+            >
               <option value='null'>Todos los modelos</option>
               {modelos.map(
                 modelo =>

@@ -5,7 +5,12 @@ const routes = require('next-routes')
 module.exports = routes()
   .add('index')
   // .add('podcast', '/:slugChannel.:idChannel/:slung.:id', 'podcast')
-  .add('searchIndex', '/search', 'index')
+  .add('searchIndex', '/search', 'search')
+  .add(
+    'searchFilter',
+    '/search/:slugCondicion-:slugMarca-:slugModelo',
+    'search'
+  )
   .add('search', '/search/:slug', 'search')
   .add('articulos', '/articulos', 'articulos')
   .add('articulo', '/articulos/:name', 'articulo')
