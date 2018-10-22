@@ -41,7 +41,6 @@ export default class Entrada extends Component {
       let posts = await reqMorePosts.json()
 
       return { entrada, galeria, posts, statusCode: 200 }
-
     } catch (err) {
       // console.log(err)
       res.statusCode = 503
@@ -107,18 +106,23 @@ export default class Entrada extends Component {
               <span>Volver al listado: </span>
             </a>
           </Link>
-          {
-            entrada._embedded['wp:term'][0][0] &&
-              <Link route='entradas' params={{ slug: slug(entrada._embedded['wp:term'][0][0].slug) }}>
-                <a className='link'>{entrada._embedded['wp:term'][0][0].name}</a>
-              </Link>
-          }
+          {entrada._embedded['wp:term'][0][0] && (
+            <Link
+              route='entradasCondicion'
+              params={{
+                slugCondicion: slug(entrada._embedded['wp:term'][0][0].slug)
+              }}
+            >
+              <a className='link'>{entrada._embedded['wp:term'][0][0].name}</a>
+            </Link>
+          )}
           {marcaSlug.length > 0 && (
             <div className='item'>
               <aside className='space'>&#10095;</aside>
               <Link
                 route='entradas'
                 params={{
+                  slugCondicion: slug(entrada._embedded['wp:term'][0][0].slug),
                   slug: slug(marcaSlug)
                 }}
               >
@@ -132,6 +136,7 @@ export default class Entrada extends Component {
               <Link
                 route='entradasMarcas'
                 params={{
+                  slugCondicion: slug(entrada._embedded['wp:term'][0][0].slug),
                   slugMarca: slug(marcaSlug),
                   slugModelo: slug(modeloSlug)
                 }}
@@ -481,7 +486,7 @@ export default class Entrada extends Component {
               })}
             </section>
           )}
-          {entrada.content.rendered.length > 0 &&
+          {entrada.content.rendered.length > 0 && (
             <article>
               <h4>Descripción</h4>
               <div
@@ -489,7 +494,7 @@ export default class Entrada extends Component {
                 dangerouslySetInnerHTML={{ __html: entrada.content.rendered }}
               />
             </article>
-          }
+          )}
           {posts.length > 0 && (
             <div className='posts'>
               <h4 className='morePosts'>Más publicaciones</h4>

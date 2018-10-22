@@ -8,7 +8,7 @@ import MenuLocation from '../components/MenuLocation'
 
 export default class Search extends Component {
   static async getInitialProps ({ res, query }) {
-    const word = query.as_word
+    const word = query.slug
     const condicion = query.condicion
     const marca = query.marca
     const modelo = query.modelo
@@ -20,7 +20,7 @@ export default class Search extends Component {
     const maxPrecio = query.maxPrecio || 'null'
 
     let search
-    // console.log(word)
+    console.log(word)
     // console.log(query)
     if (word !== '') {
       search = `search=${word}&orderby=relevance`
@@ -61,7 +61,7 @@ export default class Search extends Component {
         search = `condicion=${condicion}`
       }
     }
-    // console.log(search)
+    console.log(search)
 
     try {
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance
@@ -80,6 +80,7 @@ export default class Search extends Component {
         return {
           entradas: [],
           news: [],
+          numRandom: null,
           statusCode: reqEntradas.status
         }
       }
@@ -150,9 +151,12 @@ export default class Search extends Component {
         }, [])
       }
 
+      const numRandom = Math.floor(Math.random() * (entradas.length - 0) + 0)
+
       return {
         entradas,
         news,
+        numRandom,
         statusCode: 200
       }
     } catch (err) {
@@ -160,13 +164,14 @@ export default class Search extends Component {
       return {
         entradas: [],
         news: [],
+        numRandom: null,
         statusCode: 503
       }
     }
   }
 
   render () {
-    const { entradas, news, statusCode } = this.props
+    const { entradas, news, numRandom, statusCode } = this.props
     // console.log(entradas)
 
     if (statusCode !== 200) {
@@ -179,7 +184,7 @@ export default class Search extends Component {
         <section id='Home'>
           <div className='dondeEstoy container'>
             <span>Estoy en:</span>
-            <MenuLocation entradas={entradas} />
+            <MenuLocation entradas={entradas} numRandom={numRandom} />
           </div>
           <div id='Entradas' className='container'>
             <div className='column'>

@@ -107,7 +107,12 @@ const MenuLocation = props => {
   } else {
     return (
       <div id='MenuLocation'>
-        <Link href={`/entradas?categoria=73&name=carros-y-camionetas`}>
+        <Link
+          route='entradasCondicion'
+          params={{
+            slugCondicion: 'carros-y-camionetas'
+          }}
+        >
           <a className='link'>Carros y Camionetas</a>
         </Link>
         <style jsx>{`

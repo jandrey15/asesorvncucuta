@@ -11,7 +11,7 @@ export default class Entradas extends Component {
     let taxonomy
     const name = query.slug
     const categoria = query.slugCondicion
-    console.log(query)
+    // console.log(query)
 
     try {
       if (categoria === 'nuevos' || categoria === 'usados') {
@@ -30,15 +30,17 @@ export default class Entradas extends Component {
         } else {
           marcas = `slug=${name}`
         }
-        let reqSlug = await fetch(
-          `http://api.docker.test/wp-json/wp/v2/marcas?${marcas}`
-        )
-        let [{ id }] = await reqSlug.json()
 
-        let reqSlugCategoria = await fetch(
-          `http://api.docker.test/wp-json/wp/v2/categories?slug=${categoria}`
-        )
+        let [reqSlug, reqSlugCategoria] = await Promise.all([
+          fetch(`http://api.docker.test/wp-json/wp/v2/marcas?${marcas}`),
+          fetch(
+            `http://api.docker.test/wp-json/wp/v2/categories?slug=${categoria}`
+          )
+        ])
+
+        let [{ id }] = await reqSlug.json()
         let [{ id: idCategoria }] = await reqSlugCategoria.json()
+
         taxonomy = `marcas=${id}&categories=${idCategoria}`
       } else if (categoria) {
         let reqSlug = await fetch(
@@ -60,8 +62,16 @@ export default class Entradas extends Component {
       let entradas = await req.json()
       let news = await reqNews.json()
 
+      if (entradas === undefined) {
+        return { entrada: null, news: [], name: null, statusCode: 404 }
+      }
+
       return { entradas, news, name, statusCode: 200 }
     } catch (err) {
+      // console.log(err.message)
+      if (err.message === `Cannot read property 'id' of undefined`) {
+        return { entradas: null, news: [], name: null, statusCode: 404 }
+      }
       res.statusCode = 503
       return { entradas: [], news: [], name: null, statusCode: 503 }
     }

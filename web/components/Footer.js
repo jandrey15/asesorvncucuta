@@ -22,11 +22,12 @@ const Footer = props => {
           <div className='redes'>
             <div className='menu'>
               <ul className='ulMenu'>
-                {/* <li>
+                <li>
+                  {/* <a href='entradas?condicion=54&name=nuevos'>Nuevos</a> */}
                   <Link
-                    route='entradas'
+                    route='entradasCondicion'
                     params={{
-                      slug: 'nuevos'
+                      slugCondicion: 'nuevos'
                     }}
                   >
                     <a className='link'>Nuevos</a>
@@ -34,10 +35,11 @@ const Footer = props => {
                   <span className='bar' />
                 </li>
                 <li>
+                  {/* <a href='entradas?condicion=55&name=usados'>Usados</a> */}
                   <Link
-                    route='entradas'
+                    route='entradasCondicion'
                     params={{
-                      slug: 'usados'
+                      slugCondicion: 'usados'
                     }}
                   >
                     <a className='link'>Usados</a>
@@ -49,7 +51,7 @@ const Footer = props => {
                     <a className='link'>Artículos</a>
                   </Link>
                   <span className='bar' />
-                </li> */}
+                </li>
               </ul>
             </div>
             <div className='redes'>
