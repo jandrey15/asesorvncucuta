@@ -8,7 +8,7 @@ export default class Filter extends Component {
     this.state = {
       usado: true,
       nuevo: false,
-      condicion: 55,
+      condicion: 'usado',
       marcas: [],
       modelos: [],
       anos: [],
@@ -16,6 +16,8 @@ export default class Filter extends Component {
       ciudades: [],
       valueMarca: '',
       valueModelo: '',
+      valueCiudad: '',
+      valueColor: '',
       statusCode: 200
     }
   }
@@ -30,12 +32,12 @@ export default class Filter extends Component {
         reqCiudades
       ] = await Promise.all([
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/marcas?per_page=30&parent=0'
+          'http://api.docker.test/wp-json/wp/v2/marcas?per_page=50&parent=0'
         ),
-        fetch('http://api.docker.test/wp-json/wp/v2/marcas?per_page=30'),
-        fetch('http://api.docker.test/wp-json/wp/v2/anos?per_page=30'),
-        fetch('http://api.docker.test/wp-json/wp/v2/color?per_page=30'),
-        fetch('http://api.docker.test/wp-json/wp/v2/ciudades?per_page=30')
+        fetch('http://api.docker.test/wp-json/wp/v2/marcas?per_page=50'),
+        fetch('http://api.docker.test/wp-json/wp/v2/anos?per_page=50'),
+        fetch('http://api.docker.test/wp-json/wp/v2/color?per_page=50'),
+        fetch('http://api.docker.test/wp-json/wp/v2/ciudades?per_page=50')
       ])
 
       if (reqMarcas.status >= 400) {
@@ -76,7 +78,7 @@ export default class Filter extends Component {
       this.setState(prevState => ({
         nuevo: !prevState.nuevo,
         usado: !prevState.usado,
-        condicion: 54
+        condicion: 'nuevo'
       }))
     }
   }
@@ -87,7 +89,7 @@ export default class Filter extends Component {
       this.setState(prevState => ({
         nuevo: !prevState.nuevo,
         usado: !prevState.usado,
-        condicion: 55
+        condicion: 'usado'
       }))
     }
   }
@@ -95,7 +97,7 @@ export default class Filter extends Component {
   handleChange = event => {
     // console.log(event.target.value)
     this.setState({ valueMarca: event.target.value })
-    console.log('marca ' + event.target.value)
+    console.log('marca -> ' + event.target.value)
 
     const marcaParent = event.target.value
     this.modelos(marcaParent)
@@ -103,15 +105,23 @@ export default class Filter extends Component {
 
   async modelos (value) {
     let parent
-    if (value !== '0') {
-      parent = `parent=${value}`
-    }
+
     // console.log(parent)
     try {
+      if (value !== '0') {
+        let reqParent = await fetch(
+          `http://api.docker.test/wp-json/wp/v2/marcas?slug=${value}`
+        )
+        let [{ id }] = await reqParent.json()
+        parent = `parent=${id}`
+      }
+
       let req = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/marcas?${parent}`
+        `http://api.docker.test/wp-json/wp/v2/marcas?${parent}&per_page=50`
       )
+
       let modelos = await req.json()
+
       this.setState({
         modelos
       })
@@ -122,20 +132,35 @@ export default class Filter extends Component {
 
   handleChangeModelo = event => {
     this.setState({ valueModelo: event.target.value })
-    console.log('modelo' + event.target.value)
+    console.log('modelo -> ' + event.target.value)
+  }
+
+  handleChangeCiudad = event => {
+    this.setState({ valueCiudad: event.target.value })
+    console.log('ciudad -> ' + event.target.value)
+  }
+
+  handleChangeColor = event => {
+    this.setState({ valueColor: event.target.value })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    console.log(this.state.valueMarca)
     console.log(this.state.condicion)
+    console.log(this.state.valueMarca)
+    console.log(this.state.valueModelo)
+    console.log(this.state.valueCiudad)
+    console.log(this.state.valueColor)
+
     if (this.state.valueMarca === '') {
       Router.pushRoute('/search')
     } else {
       Router.pushRoute('searchFilter', {
         slugCondicion: this.state.condicion,
         slugMarca: this.state.valueMarca,
-        slugModelo: this.state.valueModelo
+        slugModelo: this.state.valueModelo,
+        slugCiudad: this.state.valueCiudad,
+        slugColor: this.state.valueColor
       })
     }
   }
@@ -154,7 +179,6 @@ export default class Filter extends Component {
     } = this.state
 
     const { movil } = this.props
-    console.log(this.state.valueMarca)
 
     if (statusCode !== 200) {
       console.log('error...' + statusCode)
@@ -184,7 +208,7 @@ export default class Filter extends Component {
             <select id='marca' name='marca' onChange={this.handleChange}>
               <option value='0'>Todas las marcas</option>
               {marcas.map(marca => (
-                <option key={marca.id} value={marca.id}>
+                <option value={marca.slug} key={marca.id}>
                   {marca.name}
                 </option>
               ))}
@@ -201,7 +225,7 @@ export default class Filter extends Component {
               {modelos.map(
                 modelo =>
                   modelo.parent !== 0 && (
-                    <option value={modelo.id} key={modelo.id}>
+                    <option value={modelo.slug} key={modelo.id}>
                       {modelo.name}
                     </option>
                   )
@@ -210,10 +234,14 @@ export default class Filter extends Component {
           </div>
           <div className='form'>
             <label htmlFor='ciudad'>Ciudad:</label>
-            <select id='ciudad' name='ciudad'>
+            <select
+              id='ciudad'
+              name='ciudad'
+              onChange={this.handleChangeCiudad}
+            >
               <option value='null'>Todas las ciudades</option>
               {ciudades.map(ciudad => (
-                <option value={ciudad.id} key={ciudad.id}>
+                <option value={ciudad.slug} key={ciudad.id}>
                   {ciudad.name}
                 </option>
               ))}
@@ -221,10 +249,10 @@ export default class Filter extends Component {
           </div>
           <div className='form'>
             <label htmlFor='color'>Color:</label>
-            <select id='color' name='color'>
+            <select id='color' name='color' onChange={this.handleChangeColor}>
               <option value='null'>Todos los colores</option>
               {color.map(color => (
-                <option value={color.id} key={color.id}>
+                <option value={color.slug} key={color.id}>
                   {color.name}
                 </option>
               ))}

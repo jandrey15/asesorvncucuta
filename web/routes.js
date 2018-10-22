@@ -8,7 +8,7 @@ module.exports = routes()
   .add('searchIndex', '/search', 'search')
   .add(
     'searchFilter',
-    '/search/:slugCondicion-:slugMarca-:slugModelo',
+    '/search/:slugCondicion/:slugMarca/:slugModelo/:slugCiudad-:slugColor',
     'search'
   )
   .add('search', '/search/:slug', 'search')

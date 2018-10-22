@@ -5,6 +5,7 @@ import ListEntradas from '../components/ListEntradas'
 import Filter from '../components/Filter'
 import ArticlesColumn from '../components/ArticlesColumn'
 import MenuLocation from '../components/MenuLocation'
+import Error from './_error'
 
 export default class Search extends Component {
   static async getInitialProps ({ res, query }) {
@@ -12,58 +13,102 @@ export default class Search extends Component {
     const condicion = query.slugCondicion
     const marca = query.slugMarca
     const modelo = query.slugModelo
-    const ciudad = query.ciudad || 'null'
-    const color = query.color || 'null'
+    const ciudad = query.slugCiudad || 'null'
+    const color = query.slugColor || 'null'
     const minAno = query.minAno || 'null'
     const maxAno = query.maxAno || 'null'
     const minPrecio = query.minPrecio || 'null'
     const maxPrecio = query.maxPrecio || 'null'
 
     let search
-    console.log(word)
-    // console.log(query)
+    // console.log(word)
+    console.log(query)
     if (word) {
       search = `search=${word}&orderby=relevance`
     }
 
-    if (condicion) {
-      if (
-        condicion &&
-        marca !== '0' &&
-        modelo !== 'null' &&
-        ciudad !== 'null' &&
-        color !== 'null'
-      ) {
-        search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}&ciudades=${ciudad}&color=${color}`
-      } else if (
-        condicion &&
-        marca !== '0' &&
-        modelo !== 'null' &&
-        ciudad !== 'null'
-      ) {
-        search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}&ciudades=${ciudad}`
-      } else if (condicion && marca !== '0' && modelo !== 'null') {
-        search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}`
-      } else if (condicion && marca !== '0' && color !== 'null') {
-        search = `condicion=${condicion}&marcas=${marca}&color=${color}`
-      } else if (
-        (condicion && marca !== '0') ||
-        (condicion && modelo !== 'null')
-      ) {
-        search = `condicion=${condicion}&marcas=${
-          marca !== '0' ? marca : modelo
-        }`
-      } else if (condicion && ciudad !== 'null') {
-        search = `condicion=${condicion}&ciudades=${ciudad}`
-      } else if (condicion && color !== 'null') {
-        search = `condicion=${condicion}&color=${color}`
-      } else {
-        search = `condicion=${condicion}`
-      }
-    }
-    console.log(search)
-
     try {
+      if (condicion) {
+        let [
+          reqCondicion,
+          reqMarca,
+          reqModelo,
+          reqColor,
+          reqCiudad
+        ] = await Promise.all([
+          fetch(
+            `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+          ),
+          fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
+          fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`),
+          fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`),
+          fetch(`http://api.docker.test/wp-json/wp/v2/ciudades?slug=${ciudad}`)
+        ])
+        let [{ id: idCondicion }] = await reqCondicion.json()
+        let [{ id: idMarca }] = await reqMarca.json()
+        let [{ id: idModelo }] = await reqModelo.json()
+        let [{ id: idColor }] = await reqColor.json()
+        let [{ id: idCiudad }] = await reqCiudad.json()
+        console.log(`Este es el id -> ${idCondicion}`)
+        search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}&ciudades=${idCiudad}&color=${idColor}`
+        // if (
+        //   condicion &&
+        //   marca !== '0' &&
+        //   modelo !== 'null' &&
+        //   ciudad !== 'null' &&
+        //   color !== 'null'
+        // ) {
+        //   let [
+        //     reqCondicion,
+        //     reqMarca,
+        //     reqModelo,
+        //     reqColor,
+        //     reqCiudad
+        //   ] = await Promise.all([
+        //     fetch(
+        //       `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+        //     ),
+        //     fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
+        //     fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`),
+        //     fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`),
+        //     fetch(
+        //       `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${ciudad}`
+        //     )
+        //   ])
+        //   let [{ id: idCondicion }] = await reqCondicion.json()
+        //   let [{ id: idMarca }] = await reqMarca.json()
+        //   let [{ id: idModelo }] = await reqModelo.json()
+        //   let [{ id: idColor }] = await reqColor.json()
+        //   let [{ id: idCiudad }] = await reqCiudad.json()
+        //   console.log(`Este es el id -> ${idCondicion}`)
+        //   search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}&ciudades=${idCiudad}&color=${idColor}`
+        // } else if (
+        //   condicion &&
+        //   marca !== '0' &&
+        //   modelo !== 'null' &&
+        //   ciudad !== 'null'
+        // ) {
+        //   search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}&ciudades=${ciudad}`
+        // } else if (condicion && marca !== '0' && modelo !== 'null') {
+        //   search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}`
+        // } else if (condicion && marca !== '0' && color !== 'null') {
+        //   search = `condicion=${condicion}&marcas=${marca}&color=${color}`
+        // } else if (
+        //   (condicion && marca !== '0') ||
+        //   (condicion && modelo !== 'null')
+        // ) {
+        //   search = `condicion=${condicion}&marcas=${
+        //     marca !== '0' ? marca : modelo
+        //   }`
+        // } else if (condicion && ciudad !== 'null') {
+        //   search = `condicion=${condicion}&ciudades=${ciudad}`
+        // } else if (condicion && color !== 'null') {
+        //   search = `condicion=${condicion}&color=${color}`
+        // } else {
+        //   search = `condicion=${condicion}`
+        // }
+      }
+      console.log(search)
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance&color=59
       let [reqEntradas, reqNews] = await Promise.all([
@@ -175,8 +220,8 @@ export default class Search extends Component {
     // console.log(entradas)
 
     if (statusCode !== 200) {
-      console.log('error...')
-      // return <Error statusCode={ statusCode }/>
+      // console.log('error...')
+      return <Error statusCode={statusCode} />
     }
 
     return (
