@@ -97,7 +97,7 @@ export default class Filter extends Component {
   handleChange = event => {
     // console.log(event.target.value)
     this.setState({ valueMarca: event.target.value })
-    console.log('marca -> ' + event.target.value)
+    // console.log('marca -> ' + event.target.value)
 
     const marcaParent = event.target.value
     this.modelos(marcaParent)
@@ -132,12 +132,12 @@ export default class Filter extends Component {
 
   handleChangeModelo = event => {
     this.setState({ valueModelo: event.target.value })
-    console.log('modelo -> ' + event.target.value)
+    // console.log('modelo -> ' + event.target.value)
   }
 
   handleChangeCiudad = event => {
     this.setState({ valueCiudad: event.target.value })
-    console.log('ciudad -> ' + event.target.value)
+    // console.log('ciudad -> ' + event.target.value)
   }
 
   handleChangeColor = event => {
@@ -156,13 +156,6 @@ export default class Filter extends Component {
     } = this.state
 
     if (
-      valueMarca === '' &&
-      valueModelo === '' &&
-      valueCiudad === '' &&
-      valueColor === ''
-    ) {
-      Router.pushRoute('/search')
-    } else if (
       valueMarca !== '' &&
       valueModelo !== '' &&
       valueCiudad !== '' &&
@@ -222,6 +215,37 @@ export default class Filter extends Component {
         slugCondicion: condicion,
         slugMarca: valueMarca
       })
+    } else if (valueModelo !== '' && valueCiudad !== '' && valueColor !== '') {
+      Router.pushRoute('searchFilterAnything3', {
+        slugCondicion: condicion,
+        slugModelo: valueModelo,
+        slugCiudad: valueCiudad,
+        slugColor: valueColor
+      })
+    } else if ((valueModelo !== '' && valueCiudad !== '') || (valueModelo !== '' && valueColor !== '')) {
+      if (valueCiudad !== '') {
+        Router.pushRoute('searchFilterAnything2', {
+          slugCondicion: condicion,
+          slugModelo: valueModelo,
+          slugAnything: valueCiudad
+        })
+      } else {
+        Router.pushRoute('searchFilterAnything2', {
+          slugCondicion: condicion,
+          slugModelo: valueModelo,
+          slugAnything: valueColor
+        })
+      }
+    } else if (valueModelo !== '') {
+      Router.pushRoute('searchFilterAnything', {
+        slugCondicion: condicion,
+        slugAnything: valueModelo
+      })
+    } else if (valueCiudad !== '' && valueColor !== '') {
+      Router.pushRoute('searchFilterAnything', {
+        slugCondicion: condicion,
+        slugAnything: `${valueCiudad} ${valueColor}`
+      })
     } else if (valueCiudad !== '') {
       Router.pushRoute('searchFilterAnything', {
         slugCondicion: condicion,
@@ -231,6 +255,10 @@ export default class Filter extends Component {
       Router.pushRoute('searchFilterAnything', {
         slugCondicion: condicion,
         slugAnything: valueColor
+      })
+    } else if (condicion) {
+      Router.pushRoute('search', {
+        slug: condicion
       })
     }
   }

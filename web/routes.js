@@ -27,6 +27,16 @@ module.exports = routes()
     'search'
   )
   .add('searchFilterMarca', '/search/:slugCondicion/:slugMarca', 'search')
+  .add(
+    'searchFilterAnything3',
+    '/search/:slugCondicion-:slugModelo-:slugCiudad-:slugColor',
+    'search'
+  )
+  .add(
+    'searchFilterAnything2',
+    '/search/:slugCondicion-:slugModelo-:slugAnything',
+    'search'
+  )
   .add('searchFilterAnything', '/search/:slugCondicion-:slugAnything', 'search')
   .add('search', '/search/:slug', 'search')
   .add('articulos', '/articulos', 'articulos')
