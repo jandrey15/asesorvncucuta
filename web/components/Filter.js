@@ -108,7 +108,7 @@ export default class Filter extends Component {
 
     // console.log(parent)
     try {
-      if (value !== '0') {
+      if (value !== '') {
         let reqParent = await fetch(
           `http://api.docker.test/wp-json/wp/v2/marcas?slug=${value}`
         )
@@ -146,21 +146,91 @@ export default class Filter extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    console.log(this.state.condicion)
-    console.log(this.state.valueMarca)
-    console.log(this.state.valueModelo)
-    console.log(this.state.valueCiudad)
-    console.log(this.state.valueColor)
 
-    if (this.state.valueMarca === '') {
+    const {
+      condicion,
+      valueMarca,
+      valueModelo,
+      valueCiudad,
+      valueColor
+    } = this.state
+
+    if (
+      valueMarca === '' &&
+      valueModelo === '' &&
+      valueCiudad === '' &&
+      valueColor === ''
+    ) {
       Router.pushRoute('/search')
-    } else {
+    } else if (
+      valueMarca !== '' &&
+      valueModelo !== '' &&
+      valueCiudad !== '' &&
+      valueColor !== ''
+    ) {
       Router.pushRoute('searchFilter', {
-        slugCondicion: this.state.condicion,
-        slugMarca: this.state.valueMarca,
-        slugModelo: this.state.valueModelo,
-        slugCiudad: this.state.valueCiudad,
-        slugColor: this.state.valueColor
+        slugCondicion: condicion,
+        slugMarca: valueMarca,
+        slugModelo: valueModelo,
+        slugCiudad: valueCiudad,
+        slugColor: valueColor
+      })
+    } else if (
+      (valueMarca !== '' && valueModelo !== '' && valueColor !== '') ||
+      (valueMarca !== '' && valueModelo !== '' && valueCiudad !== '')
+    ) {
+      if (valueColor !== '') {
+        Router.pushRoute('searchFilterColorCiudad', {
+          slugCondicion: condicion,
+          slugMarca: valueMarca,
+          slugModelo: valueModelo,
+          slugColorCiudad: valueColor
+        })
+      } else {
+        Router.pushRoute('searchFilterColorCiudad', {
+          slugCondicion: condicion,
+          slugMarca: valueMarca,
+          slugModelo: valueModelo,
+          slugColorCiudad: valueCiudad
+        })
+      }
+    } else if (
+      (valueMarca !== '' && valueColor !== '') ||
+      (valueMarca !== '' && valueCiudad !== '')
+    ) {
+      if (valueColor !== '') {
+        Router.pushRoute('searchFilterMcolorCiudad', {
+          slugCondicion: condicion,
+          slugMarca: valueMarca,
+          slugColorCiudad: valueColor
+        })
+      } else {
+        Router.pushRoute('searchFilterMcolorCiudad', {
+          slugCondicion: condicion,
+          slugMarca: valueMarca,
+          slugColorCiudad: valueCiudad
+        })
+      }
+    } else if (valueMarca !== '' && valueModelo !== '') {
+      Router.pushRoute('searchFilterModelo', {
+        slugCondicion: condicion,
+        slugMarca: valueMarca,
+        slugModelo: valueModelo
+      })
+    } else if (valueMarca !== '') {
+      Router.pushRoute('searchFilterMarca', {
+        slugCondicion: condicion,
+        slugMarca: valueMarca
+      })
+    } else if (valueCiudad !== '') {
+      Router.pushRoute('searchFilterAnything', {
+        slugCondicion: condicion,
+        slugAnything: valueCiudad
+      })
+    } else if (valueColor !== '') {
+      Router.pushRoute('searchFilterAnything', {
+        slugCondicion: condicion,
+        slugAnything: valueColor
       })
     }
   }
@@ -206,7 +276,7 @@ export default class Filter extends Component {
           <div className='form'>
             <label htmlFor='marca'>Marca:</label>
             <select id='marca' name='marca' onChange={this.handleChange}>
-              <option value='0'>Todas las marcas</option>
+              <option value=''>Todas las marcas</option>
               {marcas.map(marca => (
                 <option value={marca.slug} key={marca.id}>
                   {marca.name}
@@ -221,7 +291,7 @@ export default class Filter extends Component {
               name='modelo'
               onChange={this.handleChangeModelo}
             >
-              <option value='null'>Todos los modelos</option>
+              <option value=''>Todos los modelos</option>
               {modelos.map(
                 modelo =>
                   modelo.parent !== 0 && (
@@ -239,7 +309,7 @@ export default class Filter extends Component {
               name='ciudad'
               onChange={this.handleChangeCiudad}
             >
-              <option value='null'>Todas las ciudades</option>
+              <option value=''>Todas las ciudades</option>
               {ciudades.map(ciudad => (
                 <option value={ciudad.slug} key={ciudad.id}>
                   {ciudad.name}
@@ -250,7 +320,7 @@ export default class Filter extends Component {
           <div className='form'>
             <label htmlFor='color'>Color:</label>
             <select id='color' name='color' onChange={this.handleChangeColor}>
-              <option value='null'>Todos los colores</option>
+              <option value=''>Todos los colores</option>
               {color.map(color => (
                 <option value={color.slug} key={color.id}>
                   {color.name}

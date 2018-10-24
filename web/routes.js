@@ -11,13 +11,34 @@ module.exports = routes()
     '/search/:slugCondicion/:slugMarca/:slugModelo/:slugCiudad-:slugColor',
     'search'
   )
+  .add(
+    'searchFilterColorCiudad',
+    '/search/:slugCondicion/:slugMarca/:slugModelo/:slugColorCiudad',
+    'search'
+  )
+  .add(
+    'searchFilterModelo',
+    '/search/:slugCondicion/:slugMarca/:slugModelo',
+    'search'
+  )
+  .add(
+    'searchFilterMcolorCiudad',
+    '/search/:slugCondicion/:slugMarca-:slugColorCiudad',
+    'search'
+  )
+  .add('searchFilterMarca', '/search/:slugCondicion/:slugMarca', 'search')
+  .add('searchFilterAnything', '/search/:slugCondicion-:slugAnything', 'search')
   .add('search', '/search/:slug', 'search')
   .add('articulos', '/articulos', 'articulos')
   .add('articulo', '/articulos/:name', 'articulo')
   .add('tags', '/tags', 'tags')
   .add('tag', '/tags/:slug', 'tag')
-  .add('entradaIndex', '/vehiculos', 'index')
-  .add('entrada', '/vehiculos/:name', 'entrada')
-  .add('entradasMarcas', '/:slugCondicion/:slugMarca/:slugModelo', 'entradas')
-  .add('entradas', '/:slugCondicion/:slug', 'entradas')
-  .add('entradasCondicion', '/:slugCondicion', 'entradas')
+  .add('entradaIndex', '/vehiculos', 'entradas')
+  .add(
+    'entradasMarcas',
+    '/vehiculos/:slugCondicion/:slugMarca/:slugModelo',
+    'entradas'
+  )
+  .add('entradas', '/vehiculos/:slugCondicion/:slug', 'entradas')
+  .add('entradasCondicion', '/vehiculos/:slugCondicion', 'entradas')
+  .add('entrada', '/:name', 'entrada')

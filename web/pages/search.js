@@ -11,10 +11,13 @@ export default class Search extends Component {
   static async getInitialProps ({ res, query }) {
     const word = query.slug
     const condicion = query.slugCondicion
-    const marca = query.slugMarca
-    const modelo = query.slugModelo
+    const marca = query.slugMarca || 'null'
+    const modelo = query.slugModelo || 'null'
     const ciudad = query.slugCiudad || 'null'
     const color = query.slugColor || 'null'
+    const colorCiudad = query.slugColorCiudad || 'null'
+    const anyThing = query.slugAnything || 'null'
+
     const minAno = query.minAno || 'null'
     const maxAno = query.maxAno || 'null'
     const minPrecio = query.minPrecio || 'null'
@@ -29,84 +32,196 @@ export default class Search extends Component {
 
     try {
       if (condicion) {
-        let [
-          reqCondicion,
-          reqMarca,
-          reqModelo,
-          reqColor,
-          reqCiudad
-        ] = await Promise.all([
-          fetch(
-            `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-          ),
-          fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
-          fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`),
-          fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`),
-          fetch(`http://api.docker.test/wp-json/wp/v2/ciudades?slug=${ciudad}`)
-        ])
-        let [{ id: idCondicion }] = await reqCondicion.json()
-        let [{ id: idMarca }] = await reqMarca.json()
-        let [{ id: idModelo }] = await reqModelo.json()
-        let [{ id: idColor }] = await reqColor.json()
-        let [{ id: idCiudad }] = await reqCiudad.json()
-        console.log(`Este es el id -> ${idCondicion}`)
-        search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}&ciudades=${idCiudad}&color=${idColor}`
-        // if (
-        //   condicion &&
-        //   marca !== '0' &&
-        //   modelo !== 'null' &&
-        //   ciudad !== 'null' &&
-        //   color !== 'null'
-        // ) {
-        //   let [
-        //     reqCondicion,
-        //     reqMarca,
-        //     reqModelo,
-        //     reqColor,
-        //     reqCiudad
-        //   ] = await Promise.all([
-        //     fetch(
-        //       `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-        //     ),
-        //     fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
-        //     fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`),
-        //     fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`),
-        //     fetch(
-        //       `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${ciudad}`
-        //     )
-        //   ])
-        //   let [{ id: idCondicion }] = await reqCondicion.json()
-        //   let [{ id: idMarca }] = await reqMarca.json()
-        //   let [{ id: idModelo }] = await reqModelo.json()
-        //   let [{ id: idColor }] = await reqColor.json()
-        //   let [{ id: idCiudad }] = await reqCiudad.json()
-        //   console.log(`Este es el id -> ${idCondicion}`)
-        //   search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}&ciudades=${idCiudad}&color=${idColor}`
-        // } else if (
-        //   condicion &&
-        //   marca !== '0' &&
-        //   modelo !== 'null' &&
-        //   ciudad !== 'null'
-        // ) {
-        //   search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}&ciudades=${ciudad}`
-        // } else if (condicion && marca !== '0' && modelo !== 'null') {
-        //   search = `condicion=${condicion}&marcas=${marca}&marcas=${modelo}`
-        // } else if (condicion && marca !== '0' && color !== 'null') {
-        //   search = `condicion=${condicion}&marcas=${marca}&color=${color}`
-        // } else if (
-        //   (condicion && marca !== '0') ||
-        //   (condicion && modelo !== 'null')
-        // ) {
-        //   search = `condicion=${condicion}&marcas=${
-        //     marca !== '0' ? marca : modelo
-        //   }`
-        // } else if (condicion && ciudad !== 'null') {
-        //   search = `condicion=${condicion}&ciudades=${ciudad}`
-        // } else if (condicion && color !== 'null') {
-        //   search = `condicion=${condicion}&color=${color}`
-        // } else {
-        //   search = `condicion=${condicion}`
-        // }
+        if (
+          marca !== 'null' &&
+          modelo !== 'null' &&
+          ciudad !== 'null' &&
+          color !== 'null'
+        ) {
+          let [
+            reqCondicion,
+            reqMarca,
+            reqModelo,
+            reqColor,
+            reqCiudad
+          ] = await Promise.all([
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+            ),
+            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
+            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`),
+            fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`),
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${ciudad}`
+            )
+          ])
+
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          let [{ id: idMarca }] = await reqMarca.json()
+          let [{ id: idModelo }] = await reqModelo.json()
+          let [{ id: idColor }] = await reqColor.json()
+          let [{ id: idCiudad }] = await reqCiudad.json()
+
+          search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}&ciudades=${idCiudad}&color=${idColor}`
+        } else if (
+          marca !== 'null' &&
+          modelo !== 'null' &&
+          colorCiudad !== 'null'
+        ) {
+          let [
+            reqCondicion,
+            reqMarca,
+            reqModelo,
+            reqColor,
+            reqCiudad
+          ] = await Promise.all([
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+            ),
+            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
+            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`),
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/color?slug=${colorCiudad}`
+            ),
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${colorCiudad}`
+            )
+          ])
+
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          let [{ id: idMarca }] = await reqMarca.json()
+          let [{ id: idModelo }] = await reqModelo.json()
+          let ciudad = await reqCiudad.json()
+          let color = await reqColor.json()
+
+          if (ciudad.length > 0) {
+            search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}&ciudades=${
+              ciudad[0].id
+            }`
+          } else {
+            search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}&color=${
+              color[0].id
+            }`
+          }
+        } else if (marca !== 'null' && colorCiudad !== 'null') {
+          let [reqCondicion, reqMarca, reqColor, reqCiudad] = await Promise.all(
+            [
+              fetch(
+                `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+              ),
+              fetch(
+                `http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`
+              ),
+              fetch(
+                `http://api.docker.test/wp-json/wp/v2/color?slug=${colorCiudad}`
+              ),
+              fetch(
+                `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${colorCiudad}`
+              )
+            ]
+          )
+
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          let [{ id: idMarca }] = await reqMarca.json()
+          let ciudad = await reqCiudad.json()
+          let color = await reqColor.json()
+
+          if (ciudad.length > 0) {
+            search = `condicion=${idCondicion}&marcas=${idMarca}&ciudades=${
+              ciudad[0].id
+            }`
+          } else {
+            search = `condicion=${idCondicion}&marcas=${idMarca}&color=${
+              color[0].id
+            }`
+          }
+        } else if (marca !== 'null' && modelo !== 'null') {
+          let [reqCondicion, reqMarca, reqModelo] = await Promise.all([
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+            ),
+            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
+            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`)
+          ])
+
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          let [{ id: idMarca }] = await reqMarca.json()
+          let [{ id: idModelo }] = await reqModelo.json()
+
+          search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}`
+        } else if (marca !== 'null' && color !== 'null') {
+          let [reqCondicion, reqMarca, reqColor] = await Promise.all([
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+            ),
+            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
+            fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`)
+          ])
+
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          let [{ id: idMarca }] = await reqMarca.json()
+          let [{ id: idColor }] = await reqColor.json()
+
+          search = `condicion=${idCondicion}&marcas=${idMarca}&color=${idColor}`
+        } else if (marca !== 'null' || modelo !== 'null') {
+          if (marca !== 'null') {
+            let [reqCondicion, reqMarca] = await Promise.all([
+              fetch(
+                `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+              ),
+              fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`)
+            ])
+
+            let [{ id: idCondicion }] = await reqCondicion.json()
+            let [{ id: idMarca }] = await reqMarca.json()
+
+            search = `condicion=${idCondicion}&marcas=${idMarca}`
+          } else {
+            let [reqCondicion, reqModelo] = await Promise.all([
+              fetch(
+                `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+              ),
+              fetch(
+                `http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`
+              )
+            ])
+
+            let [{ id: idCondicion }] = await reqCondicion.json()
+            let [{ id: idModelo }] = await reqModelo.json()
+
+            search = `condicion=${idCondicion}&marcas=${idModelo}`
+          }
+        } else if (anyThing !== 'null') {
+          let [reqCondicion, reqColor, reqCiudad] = await Promise.all([
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+            ),
+            fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${anyThing}`),
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${anyThing}`
+            )
+          ])
+
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          let color = await reqColor.json()
+          let ciudad = await reqCiudad.json()
+
+          if (color.length > 0) {
+            search = `condicion=${idCondicion}&color=${color[0].id}`
+          } else {
+            search = `condicion=${idCondicion}&ciudades=${ciudad[0].id}`
+          }
+        } else {
+          let [reqCondicion] = await Promise.all([
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+            )
+          ])
+
+          let [{ id: idCondicion }] = await reqCondicion.json()
+
+          search = `condicion=${idCondicion}`
+        }
       }
       console.log(search)
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance
