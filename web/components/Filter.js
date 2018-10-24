@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import 'isomorphic-fetch'
 import { Router } from '../routes'
+import slug from '../helpers/slug'
 
 export default class Filter extends Component {
   constructor (props) {
@@ -18,6 +19,8 @@ export default class Filter extends Component {
       valueModelo: '',
       valueCiudad: '',
       valueColor: '',
+      minAno: '',
+      maxAno: '',
       statusCode: 200
     }
   }
@@ -144,6 +147,14 @@ export default class Filter extends Component {
     this.setState({ valueColor: event.target.value })
   }
 
+  handleChangeMinAno = event => {
+    this.setState({ minAno: event.target.value })
+  }
+
+  handleChangeMaxAno = event => {
+    this.setState({ maxAno: event.target.value })
+  }
+
   handleSubmit = event => {
     event.preventDefault()
 
@@ -152,7 +163,9 @@ export default class Filter extends Component {
       valueMarca,
       valueModelo,
       valueCiudad,
-      valueColor
+      valueColor,
+      minAno,
+      maxAno
     } = this.state
 
     if (
@@ -244,7 +257,7 @@ export default class Filter extends Component {
     } else if (valueCiudad !== '' && valueColor !== '') {
       Router.pushRoute('searchFilterAnything', {
         slugCondicion: condicion,
-        slugAnything: `${valueCiudad} ${valueColor}`
+        slugAnything: slug(`${valueCiudad}-${valueColor}`)
       })
     } else if (valueCiudad !== '') {
       Router.pushRoute('searchFilterAnything', {
@@ -257,9 +270,23 @@ export default class Filter extends Component {
         slugAnything: valueColor
       })
     } else if (condicion) {
-      Router.pushRoute('search', {
-        slug: condicion
-      })
+      if (minAno !== '' && maxAno !== '') {
+        Router.pushRoute('search', {
+          slug: slug(`${condicion}-${minAno}-${maxAno}`)
+        })
+      } else if (minAno !== '') {
+        Router.pushRoute('search', {
+          slug: slug(`${condicion}-${minAno}`)
+        })
+      } else if (maxAno !== '') {
+        Router.pushRoute('search', {
+          slug: slug(`${condicion}-${maxAno}`)
+        })
+      } else {
+        Router.pushRoute('search', {
+          slug: condicion
+        })
+      }
     }
   }
 
@@ -364,8 +391,8 @@ export default class Filter extends Component {
             <div className='group'>
               <div className='content'>
                 <label htmlFor='minAno'>Min año:</label>
-                <select id='minAno' name='minAno'>
-                  <option value='null'>Min</option>
+                <select id='minAno' name='minAno' onChange={this.handleChangeMinAno}>
+                  <option value=''>Min</option>
                   {anos.map(ano => (
                     <option value={ano.name} key={ano.id}>
                       {ano.name}
@@ -375,8 +402,8 @@ export default class Filter extends Component {
               </div>
               <div className='content'>
                 <label htmlFor='maxAno'>Max año:</label>
-                <select id='maxAno' name='maxAno'>
-                  <option value='null'>Max</option>
+                <select id='maxAno' name='maxAno' onChange={this.handleChangeMaxAno}>
+                  <option value=''>Max</option>
                   {anos.map(ano => (
                     <option value={ano.name} key={ano.id}>
                       {ano.name}

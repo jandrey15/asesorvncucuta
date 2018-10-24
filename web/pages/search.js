@@ -9,8 +9,8 @@ import Error from './_error'
 
 export default class Search extends Component {
   static async getInitialProps ({ res, query }) {
-    const word = query.slug
-    const condicion = query.slugCondicion
+    let word = query.slug
+    let condicion = query.slugCondicion
     const marca = query.slugMarca || 'null'
     const modelo = query.slugModelo || 'null'
     const ciudad = query.slugCiudad || 'null'
@@ -26,6 +26,9 @@ export default class Search extends Component {
     let search
     // console.log(word)
     console.log(query)
+    // condicion = condicion.split('-')
+    // word = word.split('-')
+    console.log(word)
     if (word !== 'nuevo' && word !== 'usado') {
       search = `search=${word}&orderby=relevance`
     } else {
@@ -243,7 +246,8 @@ export default class Search extends Component {
             search = `condicion=${idCondicion}&marcas=${idModelo}`
           }
         } else if (anyThing !== 'null') {
-          const arrayAnyThing = anyThing.split(' ')
+          const arrayAnyThing = anyThing.split('-')
+          // console.log(arrayAnyThing)
           let [reqCondicion, reqColor, reqCiudad, reqModelo] = await Promise.all([
             fetch(
               `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
@@ -260,7 +264,9 @@ export default class Search extends Component {
           let ciudad = await reqCiudad.json()
           let modelo = await reqModelo.json()
 
-          if (color.length > 0) {
+          if (color.length > 0 && ciudad.length > 0) {
+            search = `condicion=${idCondicion}&color=${color[0].id}&ciudades=${ciudad[0].id}`
+          } else if (color.length > 0) {
             search = `condicion=${idCondicion}&color=${color[0].id}`
           } else if (ciudad.length > 0) {
             search = `condicion=${idCondicion}&ciudades=${ciudad[0].id}`
