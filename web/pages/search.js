@@ -20,8 +20,8 @@ export default class Search extends Component {
 
     let minAno = 'null'
     let maxAno = 'null'
-    const minPrecio = query.minPrecio || 'null'
-    const maxPrecio = query.maxPrecio || 'null'
+    let minPrecio = '0'
+    let maxPrecio = '0'
 
     let search
     // console.log(word)
@@ -29,7 +29,7 @@ export default class Search extends Component {
 
     if (word) {
       if (word.indexOf('min') !== -1 || word.indexOf('max') !== -1) {
-        let arrayWord = word.split('-')
+        let arrayWord = word.split('_')
         // console.log(arrayWord)
 
         if (arrayWord.length > 3) {
@@ -51,22 +51,31 @@ export default class Search extends Component {
         // console.log(idCondicion)
 
         search = `condicion=${idCondicion}`
-      } else if (word !== 'nuevo' && word !== 'usado') {
-        search = `search=${word}&orderby=relevance`
-      } else {
+      } else if (word.indexOf('pricerange') !== -1) {
+        let arrayWord = word.split('_')
+        if (arrayWord.length > 1) {
+          minPrecio = arrayWord[2] || '0'
+          maxPrecio = arrayWord[3] || '0'
+        } else if (arrayWord[3] !== '0') {
+          maxPrecio = arrayWord[3] || '0'
+        } else {
+          minPrecio = arrayWord[2] || '0'
+        }
         let [reqCondicion] = await Promise.all([
-          fetch(`http://api.docker.test/wp-json/wp/v2/condicion?slug=${word}`)
+          fetch(`http://api.docker.test/wp-json/wp/v2/condicion?slug=${arrayWord[0]}`)
         ])
         let [{ id: idCondicion }] = await reqCondicion.json()
         // console.log(idCondicion)
         search = `condicion=${idCondicion}`
+      } else if (word !== 'nuevo' && word !== 'usado') {
+        search = `search=${word}&orderby=relevance`
       }
     }
 
     try {
       if (condicion) {
         if (condicion.indexOf('min') !== -1 || condicion.indexOf('max') !== -1) {
-          let arrayCondicion = condicion.split('-')
+          let arrayCondicion = condicion.split('_')
           if (arrayCondicion.length > 3) {
             minAno = arrayCondicion[2] || 'null'
             maxAno = arrayCondicion[4] || 'null'
@@ -397,13 +406,13 @@ export default class Search extends Component {
       }
 
       if (
-        (minPrecio !== 'null' && maxPrecio !== 'null') ||
-        minPrecio !== 'null' ||
-        maxPrecio !== 'null'
+        (minPrecio !== '0' && maxPrecio !== '0') ||
+        minPrecio !== '0' ||
+        maxPrecio !== '0'
       ) {
         entradas = entradas.reduce((accumulator, item) => {
           let precio = item.precio
-          if (minPrecio !== 'null' && maxPrecio !== 'null') {
+          if (minPrecio !== '0' && maxPrecio !== '0') {
             if (
               parseInt(minPrecio) <= precio &&
               precio <= parseInt(maxPrecio)
@@ -411,12 +420,12 @@ export default class Search extends Component {
               // console.log(num)
               accumulator.push(item)
             }
-          } else if (minPrecio !== 'null') {
+          } else if (minPrecio !== '0') {
             if (parseInt(minPrecio) <= precio) {
               // console.log(num)
               accumulator.push(item)
             }
-          } else if (maxPrecio !== 'null') {
+          } else if (maxPrecio !== '0') {
             if (precio <= parseInt(maxPrecio)) {
               // console.log(num)
               accumulator.push(item)
