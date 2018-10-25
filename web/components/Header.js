@@ -23,6 +23,9 @@ class Header extends Component {
       Router.pushRoute('/search')
     } else {
       Router.pushRoute('search', { slug: this.state.value })
+      this.setState({
+        value: ''
+      })
     }
   }
 

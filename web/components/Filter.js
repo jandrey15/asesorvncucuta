@@ -174,114 +174,527 @@ export default class Filter extends Component {
       valueCiudad !== '' &&
       valueColor !== ''
     ) {
-      Router.pushRoute('searchFilter', {
-        slugCondicion: condicion,
-        slugMarca: valueMarca,
-        slugModelo: valueModelo,
-        slugCiudad: valueCiudad,
-        slugColor: valueColor
-      })
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('searchFilter', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+            slugMarca: valueMarca,
+            slugModelo: valueModelo,
+            slugCiudad: valueCiudad,
+            slugColor: valueColor
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('searchFilter', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}`),
+            slugMarca: valueMarca,
+            slugModelo: valueModelo,
+            slugCiudad: valueCiudad,
+            slugColor: valueColor
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('searchFilter', {
+            slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+            slugMarca: valueMarca,
+            slugModelo: valueModelo,
+            slugCiudad: valueCiudad,
+            slugColor: valueColor
+          })
+        } else {
+          Router.pushRoute('searchFilter', {
+            slugCondicion: condicion,
+            slugMarca: valueMarca,
+            slugModelo: valueModelo,
+            slugCiudad: valueCiudad,
+            slugColor: valueColor
+          })
+        }
+      } else {
+        Router.pushRoute('searchFilter', {
+          slugCondicion: condicion,
+          slugMarca: valueMarca,
+          slugModelo: valueModelo,
+          slugCiudad: valueCiudad,
+          slugColor: valueColor
+        })
+      }
     } else if (
       (valueMarca !== '' && valueModelo !== '' && valueColor !== '') ||
       (valueMarca !== '' && valueModelo !== '' && valueCiudad !== '')
     ) {
-      if (valueColor !== '') {
-        Router.pushRoute('searchFilterColorCiudad', {
-          slugCondicion: condicion,
-          slugMarca: valueMarca,
-          slugModelo: valueModelo,
-          slugColorCiudad: valueColor
-        })
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          if (valueColor !== '') {
+            Router.pushRoute('searchFilterColorCiudad', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+              slugMarca: valueMarca,
+              slugModelo: valueModelo,
+              slugColorCiudad: valueColor
+            })
+          } else {
+            Router.pushRoute('searchFilterColorCiudad', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+              slugMarca: valueMarca,
+              slugModelo: valueModelo,
+              slugColorCiudad: valueCiudad
+            })
+          }
+        } else if (minAno !== '') {
+          if (valueColor !== '') {
+            Router.pushRoute('searchFilterColorCiudad', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}`),
+              slugMarca: valueMarca,
+              slugModelo: valueModelo,
+              slugColorCiudad: valueColor
+            })
+          } else {
+            Router.pushRoute('searchFilterColorCiudad', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}`),
+              slugMarca: valueMarca,
+              slugModelo: valueModelo,
+              slugColorCiudad: valueCiudad
+            })
+          }
+        } else if (maxAno !== '') {
+          if (valueColor !== '') {
+            Router.pushRoute('searchFilterColorCiudad', {
+              slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+              slugMarca: valueMarca,
+              slugModelo: valueModelo,
+              slugColorCiudad: valueColor
+            })
+          } else {
+            Router.pushRoute('searchFilterColorCiudad', {
+              slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+              slugMarca: valueMarca,
+              slugModelo: valueModelo,
+              slugColorCiudad: valueCiudad
+            })
+          }
+        } else {
+          if (valueColor !== '') {
+            Router.pushRoute('searchFilterColorCiudad', {
+              slugCondicion: condicion,
+              slugMarca: valueMarca,
+              slugModelo: valueModelo,
+              slugColorCiudad: valueColor
+            })
+          } else {
+            Router.pushRoute('searchFilterColorCiudad', {
+              slugCondicion: condicion,
+              slugMarca: valueMarca,
+              slugModelo: valueModelo,
+              slugColorCiudad: valueCiudad
+            })
+          }
+        }
       } else {
-        Router.pushRoute('searchFilterColorCiudad', {
-          slugCondicion: condicion,
-          slugMarca: valueMarca,
-          slugModelo: valueModelo,
-          slugColorCiudad: valueCiudad
-        })
+        if (valueColor !== '') {
+          Router.pushRoute('searchFilterColorCiudad', {
+            slugCondicion: condicion,
+            slugMarca: valueMarca,
+            slugModelo: valueModelo,
+            slugColorCiudad: valueColor
+          })
+        } else {
+          Router.pushRoute('searchFilterColorCiudad', {
+            slugCondicion: condicion,
+            slugMarca: valueMarca,
+            slugModelo: valueModelo,
+            slugColorCiudad: valueCiudad
+          })
+        }
       }
     } else if (
       (valueMarca !== '' && valueColor !== '') ||
       (valueMarca !== '' && valueCiudad !== '')
     ) {
-      if (valueColor !== '') {
-        Router.pushRoute('searchFilterMcolorCiudad', {
-          slugCondicion: condicion,
-          slugMarca: valueMarca,
-          slugColorCiudad: valueColor
-        })
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          if (valueColor !== '') {
+            Router.pushRoute('searchFilterMcolorCiudad', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+              slugMarca: valueMarca,
+              slugColorCiudad: valueColor
+            })
+          } else {
+            Router.pushRoute('searchFilterMcolorCiudad', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+              slugMarca: valueMarca,
+              slugColorCiudad: valueCiudad
+            })
+          }
+        } else if (minAno !== '') {
+          if (valueColor !== '') {
+            Router.pushRoute('searchFilterMcolorCiudad', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}`),
+              slugMarca: valueMarca,
+              slugColorCiudad: valueColor
+            })
+          } else {
+            Router.pushRoute('searchFilterMcolorCiudad', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}`),
+              slugMarca: valueMarca,
+              slugColorCiudad: valueCiudad
+            })
+          }
+        } else if (maxAno !== '') {
+          if (valueColor !== '') {
+            Router.pushRoute('searchFilterMcolorCiudad', {
+              slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+              slugMarca: valueMarca,
+              slugColorCiudad: valueColor
+            })
+          } else {
+            Router.pushRoute('searchFilterMcolorCiudad', {
+              slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+              slugMarca: valueMarca,
+              slugColorCiudad: valueCiudad
+            })
+          }
+        } else {
+          if (valueColor !== '') {
+            Router.pushRoute('searchFilterMcolorCiudad', {
+              slugCondicion: condicion,
+              slugMarca: valueMarca,
+              slugColorCiudad: valueColor
+            })
+          } else {
+            Router.pushRoute('searchFilterMcolorCiudad', {
+              slugCondicion: condicion,
+              slugMarca: valueMarca,
+              slugColorCiudad: valueCiudad
+            })
+          }
+        }
       } else {
-        Router.pushRoute('searchFilterMcolorCiudad', {
-          slugCondicion: condicion,
-          slugMarca: valueMarca,
-          slugColorCiudad: valueCiudad
-        })
+        if (valueColor !== '') {
+          Router.pushRoute('searchFilterMcolorCiudad', {
+            slugCondicion: condicion,
+            slugMarca: valueMarca,
+            slugColorCiudad: valueColor
+          })
+        } else {
+          Router.pushRoute('searchFilterMcolorCiudad', {
+            slugCondicion: condicion,
+            slugMarca: valueMarca,
+            slugColorCiudad: valueCiudad
+          })
+        }
       }
     } else if (valueMarca !== '' && valueModelo !== '') {
-      Router.pushRoute('searchFilterModelo', {
-        slugCondicion: condicion,
-        slugMarca: valueMarca,
-        slugModelo: valueModelo
-      })
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('searchFilterModelo', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+            slugMarca: valueMarca,
+            slugModelo: valueModelo
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('searchFilterModelo', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}`),
+            slugMarca: valueMarca,
+            slugModelo: valueModelo
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('searchFilterModelo', {
+            slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+            slugMarca: valueMarca,
+            slugModelo: valueModelo
+          })
+        } else {
+          Router.pushRoute('searchFilterModelo', {
+            slugCondicion: condicion,
+            slugMarca: valueMarca,
+            slugModelo: valueModelo
+          })
+        }
+      } else {
+        Router.pushRoute('searchFilterModelo', {
+          slugCondicion: condicion,
+          slugMarca: valueMarca,
+          slugModelo: valueModelo
+        })
+      }
     } else if (valueMarca !== '') {
-      Router.pushRoute('searchFilterMarca', {
-        slugCondicion: condicion,
-        slugMarca: valueMarca
-      })
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('searchFilterMarca', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+            slugMarca: valueMarca
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('searchFilterMarca', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}`),
+            slugMarca: valueMarca
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('searchFilterMarca', {
+            slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+            slugMarca: valueMarca
+          })
+        } else {
+          Router.pushRoute('searchFilterMarca', {
+            slugCondicion: condicion,
+            slugMarca: valueMarca
+          })
+        }
+      } else {
+        Router.pushRoute('searchFilterMarca', {
+          slugCondicion: condicion,
+          slugMarca: valueMarca
+        })
+      }
     } else if (valueModelo !== '' && valueCiudad !== '' && valueColor !== '') {
-      Router.pushRoute('searchFilterAnything3', {
-        slugCondicion: condicion,
-        slugModelo: valueModelo,
-        slugCiudad: valueCiudad,
-        slugColor: valueColor
-      })
-    } else if ((valueModelo !== '' && valueCiudad !== '') || (valueModelo !== '' && valueColor !== '')) {
-      if (valueCiudad !== '') {
-        Router.pushRoute('searchFilterAnything2', {
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('searchFilterAnything3', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+            slugModelo: valueModelo,
+            slugCiudad: valueCiudad,
+            slugColor: valueColor
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('searchFilterAnything3', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}`),
+            slugModelo: valueModelo,
+            slugCiudad: valueCiudad,
+            slugColor: valueColor
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('searchFilterAnything3', {
+            slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+            slugModelo: valueModelo,
+            slugCiudad: valueCiudad,
+            slugColor: valueColor
+          })
+        } else {
+          Router.pushRoute('searchFilterAnything3', {
+            slugCondicion: condicion,
+            slugModelo: valueModelo,
+            slugCiudad: valueCiudad,
+            slugColor: valueColor
+          })
+        }
+      } else {
+        Router.pushRoute('searchFilterAnything3', {
           slugCondicion: condicion,
           slugModelo: valueModelo,
+          slugCiudad: valueCiudad,
+          slugColor: valueColor
+        })
+      }
+    } else if (
+      (valueModelo !== '' && valueCiudad !== '') ||
+      (valueModelo !== '' && valueColor !== '')
+    ) {
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          if (valueCiudad !== '') {
+            Router.pushRoute('searchFilterAnything2', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+              slugModelo: valueModelo,
+              slugAnything: valueCiudad
+            })
+          } else {
+            Router.pushRoute('searchFilterAnything2', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+              slugModelo: valueModelo,
+              slugAnything: valueColor
+            })
+          }
+        } else if (minAno !== '') {
+          if (valueCiudad !== '') {
+            Router.pushRoute('searchFilterAnything2', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}`),
+              slugModelo: valueModelo,
+              slugAnything: valueCiudad
+            })
+          } else {
+            Router.pushRoute('searchFilterAnything2', {
+              slugCondicion: slug(`${condicion}-Min-${minAno}`),
+              slugModelo: valueModelo,
+              slugAnything: valueColor
+            })
+          }
+        } else if (maxAno !== '') {
+          if (valueCiudad !== '') {
+            Router.pushRoute('searchFilterAnything2', {
+              slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+              slugModelo: valueModelo,
+              slugAnything: valueCiudad
+            })
+          } else {
+            Router.pushRoute('searchFilterAnything2', {
+              slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+              slugModelo: valueModelo,
+              slugAnything: valueColor
+            })
+          }
+        } else {
+          if (valueCiudad !== '') {
+            Router.pushRoute('searchFilterAnything2', {
+              slugCondicion: condicion,
+              slugModelo: valueModelo,
+              slugAnything: valueCiudad
+            })
+          } else {
+            Router.pushRoute('searchFilterAnything2', {
+              slugCondicion: condicion,
+              slugModelo: valueModelo,
+              slugAnything: valueColor
+            })
+          }
+        }
+      } else {
+        if (valueCiudad !== '') {
+          Router.pushRoute('searchFilterAnything2', {
+            slugCondicion: condicion,
+            slugModelo: valueModelo,
+            slugAnything: valueCiudad
+          })
+        } else {
+          Router.pushRoute('searchFilterAnything2', {
+            slugCondicion: condicion,
+            slugModelo: valueModelo,
+            slugAnything: valueColor
+          })
+        }
+      }
+    } else if (valueModelo !== '') {
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+            slugAnything: valueModelo
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}`),
+            slugAnything: valueModelo
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+            slugAnything: valueModelo
+          })
+        } else {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: condicion,
+            slugAnything: valueModelo
+          })
+        }
+      } else {
+        Router.pushRoute('searchFilterAnything', {
+          slugCondicion: condicion,
+          slugAnything: valueModelo
+        })
+      }
+    } else if (valueCiudad !== '' && valueColor !== '') {
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+            slugAnything: slug(`${valueCiudad}-${valueColor}`)
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}`),
+            slugAnything: slug(`${valueCiudad}-${valueColor}`)
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+            slugAnything: slug(`${valueCiudad}-${valueColor}`)
+          })
+        } else {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: condicion,
+            slugAnything: slug(`${valueCiudad}-${valueColor}`)
+          })
+        }
+      } else {
+        Router.pushRoute('searchFilterAnything', {
+          slugCondicion: condicion,
+          slugAnything: slug(`${valueCiudad}-${valueColor}`)
+        })
+      }
+    } else if (valueCiudad !== '') {
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+            slugAnything: valueCiudad
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}`),
+            slugAnything: valueCiudad
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+            slugAnything: valueCiudad
+          })
+        } else {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: condicion,
+            slugAnything: valueCiudad
+          })
+        }
+      } else {
+        Router.pushRoute('searchFilterAnything', {
+          slugCondicion: condicion,
           slugAnything: valueCiudad
         })
+      }
+    } else if (valueColor !== '') {
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`),
+            slugAnything: valueColor
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Min-${minAno}`),
+            slugAnything: valueColor
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: slug(`${condicion}-Max-${maxAno}`),
+            slugAnything: valueColor
+          })
+        } else {
+          Router.pushRoute('searchFilterAnything', {
+            slugCondicion: condicion,
+            slugAnything: valueColor
+          })
+        }
       } else {
-        Router.pushRoute('searchFilterAnything2', {
+        Router.pushRoute('searchFilterAnything', {
           slugCondicion: condicion,
-          slugModelo: valueModelo,
           slugAnything: valueColor
         })
       }
-    } else if (valueModelo !== '') {
-      Router.pushRoute('searchFilterAnything', {
-        slugCondicion: condicion,
-        slugAnything: valueModelo
-      })
-    } else if (valueCiudad !== '' && valueColor !== '') {
-      Router.pushRoute('searchFilterAnything', {
-        slugCondicion: condicion,
-        slugAnything: slug(`${valueCiudad}-${valueColor}`)
-      })
-    } else if (valueCiudad !== '') {
-      Router.pushRoute('searchFilterAnything', {
-        slugCondicion: condicion,
-        slugAnything: valueCiudad
-      })
-    } else if (valueColor !== '') {
-      Router.pushRoute('searchFilterAnything', {
-        slugCondicion: condicion,
-        slugAnything: valueColor
-      })
     } else if (condicion) {
-      if (minAno !== '' && maxAno !== '') {
-        Router.pushRoute('search', {
-          slug: slug(`${condicion}-${minAno}-${maxAno}`)
-        })
-      } else if (minAno !== '') {
-        Router.pushRoute('search', {
-          slug: slug(`${condicion}-${minAno}`)
-        })
-      } else if (maxAno !== '') {
-        Router.pushRoute('search', {
-          slug: slug(`${condicion}-${maxAno}`)
-        })
+      if (condicion !== 'nuevo') {
+        if (minAno !== '' && maxAno !== '') {
+          Router.pushRoute('search', {
+            slug: slug(`${condicion}-Min-${minAno}-Max-${maxAno}`)
+          })
+        } else if (minAno !== '') {
+          Router.pushRoute('search', {
+            slug: slug(`${condicion}-Min-${minAno}`)
+          })
+        } else if (maxAno !== '') {
+          Router.pushRoute('search', {
+            slug: slug(`${condicion}-Max-${maxAno}`)
+          })
+        } else {
+          Router.pushRoute('search', {
+            slug: condicion
+          })
+        }
       } else {
         Router.pushRoute('search', {
           slug: condicion
@@ -391,7 +804,11 @@ export default class Filter extends Component {
             <div className='group'>
               <div className='content'>
                 <label htmlFor='minAno'>Min año:</label>
-                <select id='minAno' name='minAno' onChange={this.handleChangeMinAno}>
+                <select
+                  id='minAno'
+                  name='minAno'
+                  onChange={this.handleChangeMinAno}
+                >
                   <option value=''>Min</option>
                   {anos.map(ano => (
                     <option value={ano.name} key={ano.id}>
@@ -402,7 +819,11 @@ export default class Filter extends Component {
               </div>
               <div className='content'>
                 <label htmlFor='maxAno'>Max año:</label>
-                <select id='maxAno' name='maxAno' onChange={this.handleChangeMaxAno}>
+                <select
+                  id='maxAno'
+                  name='maxAno'
+                  onChange={this.handleChangeMaxAno}
+                >
                   <option value=''>Max</option>
                   {anos.map(ano => (
                     <option value={ano.name} key={ano.id}>

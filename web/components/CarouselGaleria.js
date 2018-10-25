@@ -63,6 +63,7 @@ const CarouselSlide = props => {
 
           @media screen and (max-width: 768px) {
             .slide .full {
+              height: auto;
               width: 100%;
             }
           }
