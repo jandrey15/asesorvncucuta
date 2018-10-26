@@ -8,7 +8,8 @@ class Header extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      value: ''
+      value: '',
+      movil: false
     }
   }
 
@@ -29,11 +30,22 @@ class Header extends Component {
     }
   }
 
+  componentDidMount () {
+    const width = screen.width
+    // console.log(width)
+    if (width <= 1024 || window.innerWidth <= 1024) {
+      this.setState(prevState => ({
+        movil: !prevState.movil
+      }))
+    }
+  }
+
   render () {
     const { searching } = this.props
+
     return (
       <header>
-        <Hamburger searching={searching} />
+        {this.state.movil && <Hamburger searching={searching} />}
         <div className='container'>
           <figure className='logo'>
             <Link route='/'>

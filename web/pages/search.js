@@ -8,12 +8,6 @@ import MenuLocation from '../components/MenuLocation'
 import Error from './_error'
 
 export default class Search extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      movil: false
-    }
-  }
   static async getInitialProps ({ res, query }) {
     let word = query.slug
     let condicion = query.slugCondicion
@@ -553,15 +547,6 @@ export default class Search extends Component {
     }
   }
 
-  componentDidMount () {
-    const width = screen.width
-    if (width <= 1024) {
-      this.setState((prevState) => ({
-        movil: !prevState.movil
-      }))
-    }
-  }
-
   render () {
     const { entradas, news, numRandom, statusCode } = this.props
     // console.log(entradas)
@@ -571,10 +556,7 @@ export default class Search extends Component {
       return <Error statusCode={statusCode} />
     }
 
-    let searching
-    if (this.state.movil) {
-      searching = true
-    }
+    let searching = true
 
     return (
       <Layout title='Asesorvncucuta' searching={searching}>

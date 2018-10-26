@@ -18,19 +18,10 @@ export default class Hamburger extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    // console.log(nextProps)
-    if (this.state.count <= 0) {
+    if (nextProps.searching) {
       this.setState(prevState => ({
-        count: prevState.count + 1
+        active: !prevState.active
       }))
-    }
-
-    if (this.state.count > 0) {
-      if (nextProps.searching) {
-        this.setState(prevState => ({
-          active: !prevState.active
-        }))
-      }
     }
   }
 
