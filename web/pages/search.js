@@ -28,6 +28,35 @@ export default class Search extends Component {
     console.log(query)
 
     if (word) {
+      if (
+        word.indexOf('pricerange') !== -1 &&
+        word.indexOf('min') !== -1 &&
+        word.indexOf('max') !== -1
+      ) {
+        let arrayWord = word.split('_')
+        if (arrayWord.length > 1) {
+          minPrecio = arrayWord[6] || '0'
+          maxPrecio = arrayWord[7] || '0'
+        } else if (arrayWord[7] !== '0') {
+          maxPrecio = arrayWord[7] || '0'
+        } else {
+          minPrecio = arrayWord[6] || '0'
+        }
+      } else if (
+        (word.indexOf('pricerange') !== -1 && word.indexOf('min') !== -1) ||
+        word.indexOf('max') !== -1
+      ) {
+        let arrayWord = word.split('_')
+        if (arrayWord.length > 1) {
+          minPrecio = arrayWord[4] || '0'
+          maxPrecio = arrayWord[5] || '0'
+        } else if (arrayWord[5] !== '0') {
+          maxPrecio = arrayWord[5] || '0'
+        } else {
+          minPrecio = arrayWord[4] || '0'
+        }
+      }
+
       if (word.indexOf('min') !== -1 || word.indexOf('max') !== -1) {
         let arrayWord = word.split('_')
         // console.log(arrayWord)
@@ -43,7 +72,9 @@ export default class Search extends Component {
 
         let [reqCondicion] = await Promise.all([
           fetch(
-            `http://api.docker.test/wp-json/wp/v2/condicion?slug=${arrayWord[0]}`
+            `http://api.docker.test/wp-json/wp/v2/condicion?slug=${
+              arrayWord[0]
+            }`
           )
         ])
 
@@ -62,19 +93,62 @@ export default class Search extends Component {
           minPrecio = arrayWord[2] || '0'
         }
         let [reqCondicion] = await Promise.all([
-          fetch(`http://api.docker.test/wp-json/wp/v2/condicion?slug=${arrayWord[0]}`)
+          fetch(
+            `http://api.docker.test/wp-json/wp/v2/condicion?slug=${
+              arrayWord[0]
+            }`
+          )
         ])
         let [{ id: idCondicion }] = await reqCondicion.json()
         // console.log(idCondicion)
         search = `condicion=${idCondicion}`
       } else if (word !== 'nuevo' && word !== 'usado') {
         search = `search=${word}&orderby=relevance`
+      } else {
+        let [reqCondicion] = await Promise.all([
+          fetch(`http://api.docker.test/wp-json/wp/v2/condicion?slug=${word}`)
+        ])
+        let [{ id: idCondicion }] = await reqCondicion.json()
+        // console.log(idCondicion)
+        search = `condicion=${idCondicion}`
       }
     }
 
     try {
       if (condicion) {
-        if (condicion.indexOf('min') !== -1 || condicion.indexOf('max') !== -1) {
+        if (
+          condicion.indexOf('pricerange') !== -1 &&
+          condicion.indexOf('min') !== -1 &&
+          condicion.indexOf('max') !== -1
+        ) {
+          let arrayCondicion = condicion.split('_')
+          if (arrayCondicion.length > 1) {
+            minPrecio = arrayCondicion[6] || '0'
+            maxPrecio = arrayCondicion[7] || '0'
+          } else if (arrayCondicion[7] !== '0') {
+            maxPrecio = arrayCondicion[7] || '0'
+          } else {
+            minPrecio = arrayCondicion[6] || '0'
+          }
+        } else if (
+          (condicion.indexOf('pricerange') !== -1 && condicion.indexOf('min') !== -1) ||
+          condicion.indexOf('max') !== -1
+        ) {
+          let arrayCondicion = condicion.split('_')
+          if (arrayCondicion.length > 1) {
+            minPrecio = arrayCondicion[4] || '0'
+            maxPrecio = arrayCondicion[5] || '0'
+          } else if (arrayCondicion[5] !== '0') {
+            maxPrecio = arrayCondicion[5] || '0'
+          } else {
+            minPrecio = arrayCondicion[4] || '0'
+          }
+        }
+
+        if (
+          condicion.indexOf('min') !== -1 ||
+          condicion.indexOf('max') !== -1
+        ) {
           let arrayCondicion = condicion.split('_')
           if (arrayCondicion.length > 3) {
             minAno = arrayCondicion[2] || 'null'
@@ -84,6 +158,21 @@ export default class Search extends Component {
           } else {
             minAno = arrayCondicion[2] || 'null'
           }
+          condicion = arrayCondicion[0]
+        }
+
+        if (condicion.indexOf('pricerange') !== -1) {
+          let arrayCondicion = condicion.split('_')
+
+          if (arrayCondicion.length > 1) {
+            minPrecio = arrayCondicion[2] || '0'
+            maxPrecio = arrayCondicion[3] || '0'
+          } else if (arrayCondicion[3] !== '0') {
+            maxPrecio = arrayCondicion[3] || '0'
+          } else {
+            minPrecio = arrayCondicion[2] || '0'
+          }
+
           condicion = arrayCondicion[0]
         }
 

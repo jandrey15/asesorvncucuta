@@ -187,6 +187,8 @@ export default class Filter extends Component {
     const minPrecio = this.inputMinPrecio.value || '0'
     const maxPrecio = this.inputMaxPrecio.value || '0'
 
+    let priceRagnge = minPrecio !== '0' || maxPrecio !== '0' ? `_PriceRange_${minPrecio}_${maxPrecio}` : ''
+
     if (
       valueMarca !== '' &&
       valueModelo !== '' &&
@@ -196,7 +198,7 @@ export default class Filter extends Component {
       if (condicion !== 'nuevo') {
         if (minAno !== '' && maxAno !== '') {
           Router.pushRoute('searchFilter', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo,
             slugCiudad: valueCiudad,
@@ -204,7 +206,7 @@ export default class Filter extends Component {
           })
         } else if (minAno !== '') {
           Router.pushRoute('searchFilter', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo,
             slugCiudad: valueCiudad,
@@ -212,7 +214,7 @@ export default class Filter extends Component {
           })
         } else if (maxAno !== '') {
           Router.pushRoute('searchFilter', {
-            slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo,
             slugCiudad: valueCiudad,
@@ -220,7 +222,7 @@ export default class Filter extends Component {
           })
         } else {
           Router.pushRoute('searchFilter', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo,
             slugCiudad: valueCiudad,
@@ -229,7 +231,7 @@ export default class Filter extends Component {
         }
       } else {
         Router.pushRoute('searchFilter', {
-          slugCondicion: condicion,
+          slugCondicion: slug(`${condicion}${priceRagnge}`),
           slugMarca: valueMarca,
           slugModelo: valueModelo,
           slugCiudad: valueCiudad,
@@ -244,14 +246,14 @@ export default class Filter extends Component {
         if (minAno !== '' && maxAno !== '') {
           if (valueColor !== '') {
             Router.pushRoute('searchFilterColorCiudad', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugModelo: valueModelo,
               slugColorCiudad: valueColor
             })
           } else {
             Router.pushRoute('searchFilterColorCiudad', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugModelo: valueModelo,
               slugColorCiudad: valueCiudad
@@ -260,14 +262,14 @@ export default class Filter extends Component {
         } else if (minAno !== '') {
           if (valueColor !== '') {
             Router.pushRoute('searchFilterColorCiudad', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugModelo: valueModelo,
               slugColorCiudad: valueColor
             })
           } else {
             Router.pushRoute('searchFilterColorCiudad', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugModelo: valueModelo,
               slugColorCiudad: valueCiudad
@@ -276,14 +278,14 @@ export default class Filter extends Component {
         } else if (maxAno !== '') {
           if (valueColor !== '') {
             Router.pushRoute('searchFilterColorCiudad', {
-              slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugModelo: valueModelo,
               slugColorCiudad: valueColor
             })
           } else {
             Router.pushRoute('searchFilterColorCiudad', {
-              slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugModelo: valueModelo,
               slugColorCiudad: valueCiudad
@@ -292,14 +294,14 @@ export default class Filter extends Component {
         } else {
           if (valueColor !== '') {
             Router.pushRoute('searchFilterColorCiudad', {
-              slugCondicion: condicion,
+              slugCondicion: slug(`${condicion}${priceRagnge}`),
               slugMarca: valueMarca,
               slugModelo: valueModelo,
               slugColorCiudad: valueColor
             })
           } else {
             Router.pushRoute('searchFilterColorCiudad', {
-              slugCondicion: condicion,
+              slugCondicion: slug(`${condicion}${priceRagnge}`),
               slugMarca: valueMarca,
               slugModelo: valueModelo,
               slugColorCiudad: valueCiudad
@@ -309,14 +311,14 @@ export default class Filter extends Component {
       } else {
         if (valueColor !== '') {
           Router.pushRoute('searchFilterColorCiudad', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo,
             slugColorCiudad: valueColor
           })
         } else {
           Router.pushRoute('searchFilterColorCiudad', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo,
             slugColorCiudad: valueCiudad
@@ -331,13 +333,13 @@ export default class Filter extends Component {
         if (minAno !== '' && maxAno !== '') {
           if (valueColor !== '') {
             Router.pushRoute('searchFilterMcolorCiudad', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugColorCiudad: valueColor
             })
           } else {
             Router.pushRoute('searchFilterMcolorCiudad', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugColorCiudad: valueCiudad
             })
@@ -345,13 +347,13 @@ export default class Filter extends Component {
         } else if (minAno !== '') {
           if (valueColor !== '') {
             Router.pushRoute('searchFilterMcolorCiudad', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugColorCiudad: valueColor
             })
           } else {
             Router.pushRoute('searchFilterMcolorCiudad', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugColorCiudad: valueCiudad
             })
@@ -359,13 +361,13 @@ export default class Filter extends Component {
         } else if (maxAno !== '') {
           if (valueColor !== '') {
             Router.pushRoute('searchFilterMcolorCiudad', {
-              slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugColorCiudad: valueColor
             })
           } else {
             Router.pushRoute('searchFilterMcolorCiudad', {
-              slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
               slugMarca: valueMarca,
               slugColorCiudad: valueCiudad
             })
@@ -373,13 +375,13 @@ export default class Filter extends Component {
         } else {
           if (valueColor !== '') {
             Router.pushRoute('searchFilterMcolorCiudad', {
-              slugCondicion: condicion,
+              slugCondicion: slug(`${condicion}${priceRagnge}`),
               slugMarca: valueMarca,
               slugColorCiudad: valueColor
             })
           } else {
             Router.pushRoute('searchFilterMcolorCiudad', {
-              slugCondicion: condicion,
+              slugCondicion: slug(`${condicion}${priceRagnge}`),
               slugMarca: valueMarca,
               slugColorCiudad: valueCiudad
             })
@@ -388,13 +390,13 @@ export default class Filter extends Component {
       } else {
         if (valueColor !== '') {
           Router.pushRoute('searchFilterMcolorCiudad', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugMarca: valueMarca,
             slugColorCiudad: valueColor
           })
         } else {
           Router.pushRoute('searchFilterMcolorCiudad', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugMarca: valueMarca,
             slugColorCiudad: valueCiudad
           })
@@ -404,32 +406,32 @@ export default class Filter extends Component {
       if (condicion !== 'nuevo') {
         if (minAno !== '' && maxAno !== '') {
           Router.pushRoute('searchFilterModelo', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo
           })
         } else if (minAno !== '') {
           Router.pushRoute('searchFilterModelo', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo
           })
         } else if (maxAno !== '') {
           Router.pushRoute('searchFilterModelo', {
-            slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo
           })
         } else {
           Router.pushRoute('searchFilterModelo', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugMarca: valueMarca,
             slugModelo: valueModelo
           })
         }
       } else {
         Router.pushRoute('searchFilterModelo', {
-          slugCondicion: condicion,
+          slugCondicion: slug(`${condicion}${priceRagnge}`),
           slugMarca: valueMarca,
           slugModelo: valueModelo
         })
@@ -438,28 +440,28 @@ export default class Filter extends Component {
       if (condicion !== 'nuevo') {
         if (minAno !== '' && maxAno !== '') {
           Router.pushRoute('searchFilterMarca', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
             slugMarca: valueMarca
           })
         } else if (minAno !== '') {
           Router.pushRoute('searchFilterMarca', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
             slugMarca: valueMarca
           })
         } else if (maxAno !== '') {
           Router.pushRoute('searchFilterMarca', {
-            slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
             slugMarca: valueMarca
           })
         } else {
           Router.pushRoute('searchFilterMarca', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugMarca: valueMarca
           })
         }
       } else {
         Router.pushRoute('searchFilterMarca', {
-          slugCondicion: condicion,
+          slugCondicion: slug(`${condicion}${priceRagnge}`),
           slugMarca: valueMarca
         })
       }
@@ -467,28 +469,28 @@ export default class Filter extends Component {
       if (condicion !== 'nuevo') {
         if (minAno !== '' && maxAno !== '') {
           Router.pushRoute('searchFilterAnything3', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
             slugModelo: valueModelo,
             slugCiudad: valueCiudad,
             slugColor: valueColor
           })
         } else if (minAno !== '') {
           Router.pushRoute('searchFilterAnything3', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
             slugModelo: valueModelo,
             slugCiudad: valueCiudad,
             slugColor: valueColor
           })
         } else if (maxAno !== '') {
           Router.pushRoute('searchFilterAnything3', {
-            slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
             slugModelo: valueModelo,
             slugCiudad: valueCiudad,
             slugColor: valueColor
           })
         } else {
           Router.pushRoute('searchFilterAnything3', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugModelo: valueModelo,
             slugCiudad: valueCiudad,
             slugColor: valueColor
@@ -496,7 +498,7 @@ export default class Filter extends Component {
         }
       } else {
         Router.pushRoute('searchFilterAnything3', {
-          slugCondicion: condicion,
+          slugCondicion: slug(`${condicion}${priceRagnge}`),
           slugModelo: valueModelo,
           slugCiudad: valueCiudad,
           slugColor: valueColor
@@ -510,13 +512,13 @@ export default class Filter extends Component {
         if (minAno !== '' && maxAno !== '') {
           if (valueCiudad !== '') {
             Router.pushRoute('searchFilterAnything2', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
               slugModelo: valueModelo,
               slugAnything: valueCiudad
             })
           } else {
             Router.pushRoute('searchFilterAnything2', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
               slugModelo: valueModelo,
               slugAnything: valueColor
             })
@@ -524,13 +526,13 @@ export default class Filter extends Component {
         } else if (minAno !== '') {
           if (valueCiudad !== '') {
             Router.pushRoute('searchFilterAnything2', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
               slugModelo: valueModelo,
               slugAnything: valueCiudad
             })
           } else {
             Router.pushRoute('searchFilterAnything2', {
-              slugCondicion: slug(`${condicion}_Min_${minAno}`),
+              slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
               slugModelo: valueModelo,
               slugAnything: valueColor
             })
@@ -538,13 +540,13 @@ export default class Filter extends Component {
         } else if (maxAno !== '') {
           if (valueCiudad !== '') {
             Router.pushRoute('searchFilterAnything2', {
-              slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
               slugModelo: valueModelo,
               slugAnything: valueCiudad
             })
           } else {
             Router.pushRoute('searchFilterAnything2', {
-              slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+              slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
               slugModelo: valueModelo,
               slugAnything: valueColor
             })
@@ -552,13 +554,13 @@ export default class Filter extends Component {
         } else {
           if (valueCiudad !== '') {
             Router.pushRoute('searchFilterAnything2', {
-              slugCondicion: condicion,
+              slugCondicion: slug(`${condicion}${priceRagnge}`),
               slugModelo: valueModelo,
               slugAnything: valueCiudad
             })
           } else {
             Router.pushRoute('searchFilterAnything2', {
-              slugCondicion: condicion,
+              slugCondicion: slug(`${condicion}${priceRagnge}`),
               slugModelo: valueModelo,
               slugAnything: valueColor
             })
@@ -567,13 +569,13 @@ export default class Filter extends Component {
       } else {
         if (valueCiudad !== '') {
           Router.pushRoute('searchFilterAnything2', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugModelo: valueModelo,
             slugAnything: valueCiudad
           })
         } else {
           Router.pushRoute('searchFilterAnything2', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugModelo: valueModelo,
             slugAnything: valueColor
           })
@@ -583,28 +585,28 @@ export default class Filter extends Component {
       if (condicion !== 'nuevo') {
         if (minAno !== '' && maxAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
             slugAnything: valueModelo
           })
         } else if (minAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
             slugAnything: valueModelo
           })
         } else if (maxAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
             slugAnything: valueModelo
           })
         } else {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugAnything: valueModelo
           })
         }
       } else {
         Router.pushRoute('searchFilterAnything', {
-          slugCondicion: condicion,
+          slugCondicion: slug(`${condicion}${priceRagnge}`),
           slugAnything: valueModelo
         })
       }
@@ -612,28 +614,28 @@ export default class Filter extends Component {
       if (condicion !== 'nuevo') {
         if (minAno !== '' && maxAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
             slugAnything: slug(`${valueCiudad}-${valueColor}`)
           })
         } else if (minAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
             slugAnything: slug(`${valueCiudad}-${valueColor}`)
           })
         } else if (maxAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
             slugAnything: slug(`${valueCiudad}-${valueColor}`)
           })
         } else {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugAnything: slug(`${valueCiudad}-${valueColor}`)
           })
         }
       } else {
         Router.pushRoute('searchFilterAnything', {
-          slugCondicion: condicion,
+          slugCondicion: slug(`${condicion}${priceRagnge}`),
           slugAnything: slug(`${valueCiudad}-${valueColor}`)
         })
       }
@@ -641,28 +643,28 @@ export default class Filter extends Component {
       if (condicion !== 'nuevo') {
         if (minAno !== '' && maxAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
             slugAnything: valueCiudad
           })
         } else if (minAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
             slugAnything: valueCiudad
           })
         } else if (maxAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
             slugAnything: valueCiudad
           })
         } else {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugAnything: valueCiudad
           })
         }
       } else {
         Router.pushRoute('searchFilterAnything', {
-          slugCondicion: condicion,
+          slugCondicion: slug(`${condicion}${priceRagnge}`),
           slugAnything: valueCiudad
         })
       }
@@ -670,45 +672,44 @@ export default class Filter extends Component {
       if (condicion !== 'nuevo') {
         if (minAno !== '' && maxAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`),
             slugAnything: valueColor
           })
         } else if (minAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Min_${minAno}`),
+            slugCondicion: slug(`${condicion}_Min_${minAno}${priceRagnge}`),
             slugAnything: valueColor
           })
         } else if (maxAno !== '') {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: slug(`${condicion}_Max_${maxAno}`),
+            slugCondicion: slug(`${condicion}_Max_${maxAno}${priceRagnge}`),
             slugAnything: valueColor
           })
         } else {
           Router.pushRoute('searchFilterAnything', {
-            slugCondicion: condicion,
+            slugCondicion: slug(`${condicion}${priceRagnge}`),
             slugAnything: valueColor
           })
         }
       } else {
         Router.pushRoute('searchFilterAnything', {
-          slugCondicion: condicion,
+          slugCondicion: slug(`${condicion}${priceRagnge}`),
           slugAnything: valueColor
         })
       }
     } else if (condicion) {
-      let priceRagnge = minPrecio !== '0' || maxPrecio !== '0' ? `_PriceRange_${minPrecio}_${maxPrecio}` : null
       if (condicion !== 'nuevo') {
         if ((minAno !== '' && maxAno !== '')) {
           Router.pushRoute('search', {
-            slug: slug(`${condicion}_Min_${minAno}_Max_${maxAno}_${priceRagnge}`)
+            slug: slug(`${condicion}_Min_${minAno}_Max_${maxAno}${priceRagnge}`)
           })
         } else if (minAno !== '') {
           Router.pushRoute('search', {
-            slug: slug(`${condicion}_Min_${minAno}`)
+            slug: slug(`${condicion}_Min_${minAno}${priceRagnge}`)
           })
         } else if (maxAno !== '') {
           Router.pushRoute('search', {
-            slug: slug(`${condicion}_Max_${maxAno}`)
+            slug: slug(`${condicion}_Max_${maxAno}${priceRagnge}`)
           })
         } else {
           Router.pushRoute('search', {
