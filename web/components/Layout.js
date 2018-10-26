@@ -14,7 +14,7 @@ Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
 
 export default props => {
-  const { children, title } = props
+  const { children, title, searching } = props
   return (
     <div id='Layout'>
       <Head>
@@ -22,7 +22,7 @@ export default props => {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
 
-      <Header />
+      <Header searching={searching} />
 
       {children}
 

@@ -8,6 +8,12 @@ import MenuLocation from '../components/MenuLocation'
 import Error from './_error'
 
 export default class Search extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      movil: false
+    }
+  }
   static async getInitialProps ({ res, query }) {
     let word = query.slug
     let condicion = query.slugCondicion
@@ -25,96 +31,96 @@ export default class Search extends Component {
 
     let search
     // console.log(word)
-    console.log(query)
-
-    if (word) {
-      if (
-        word.indexOf('pricerange') !== -1 &&
-        word.indexOf('min') !== -1 &&
-        word.indexOf('max') !== -1
-      ) {
-        let arrayWord = word.split('_')
-        if (arrayWord.length > 1) {
-          minPrecio = arrayWord[6] || '0'
-          maxPrecio = arrayWord[7] || '0'
-        } else if (arrayWord[7] !== '0') {
-          maxPrecio = arrayWord[7] || '0'
-        } else {
-          minPrecio = arrayWord[6] || '0'
-        }
-      } else if (
-        (word.indexOf('pricerange') !== -1 && word.indexOf('min') !== -1) ||
-        word.indexOf('max') !== -1
-      ) {
-        let arrayWord = word.split('_')
-        if (arrayWord.length > 1) {
-          minPrecio = arrayWord[4] || '0'
-          maxPrecio = arrayWord[5] || '0'
-        } else if (arrayWord[5] !== '0') {
-          maxPrecio = arrayWord[5] || '0'
-        } else {
-          minPrecio = arrayWord[4] || '0'
-        }
-      }
-
-      if (word.indexOf('min') !== -1 || word.indexOf('max') !== -1) {
-        let arrayWord = word.split('_')
-        // console.log(arrayWord)
-
-        if (arrayWord.length > 3) {
-          minAno = arrayWord[2] || 'null'
-          maxAno = arrayWord[4] || 'null'
-        } else if (arrayWord[1] === 'max') {
-          maxAno = arrayWord[2] || 'null'
-        } else {
-          minAno = arrayWord[2] || 'null'
-        }
-
-        let [reqCondicion] = await Promise.all([
-          fetch(
-            `http://api.docker.test/wp-json/wp/v2/condicion?slug=${
-              arrayWord[0]
-            }`
-          )
-        ])
-
-        let [{ id: idCondicion }] = await reqCondicion.json()
-        // console.log(idCondicion)
-
-        search = `condicion=${idCondicion}`
-      } else if (word.indexOf('pricerange') !== -1) {
-        let arrayWord = word.split('_')
-        if (arrayWord.length > 1) {
-          minPrecio = arrayWord[2] || '0'
-          maxPrecio = arrayWord[3] || '0'
-        } else if (arrayWord[3] !== '0') {
-          maxPrecio = arrayWord[3] || '0'
-        } else {
-          minPrecio = arrayWord[2] || '0'
-        }
-        let [reqCondicion] = await Promise.all([
-          fetch(
-            `http://api.docker.test/wp-json/wp/v2/condicion?slug=${
-              arrayWord[0]
-            }`
-          )
-        ])
-        let [{ id: idCondicion }] = await reqCondicion.json()
-        // console.log(idCondicion)
-        search = `condicion=${idCondicion}`
-      } else if (word !== 'nuevo' && word !== 'usado') {
-        search = `search=${word}&orderby=relevance`
-      } else {
-        let [reqCondicion] = await Promise.all([
-          fetch(`http://api.docker.test/wp-json/wp/v2/condicion?slug=${word}`)
-        ])
-        let [{ id: idCondicion }] = await reqCondicion.json()
-        // console.log(idCondicion)
-        search = `condicion=${idCondicion}`
-      }
-    }
+    // console.log(query)
 
     try {
+      if (word) {
+        if (
+          word.indexOf('pricerange') !== -1 &&
+          word.indexOf('min') !== -1 &&
+          word.indexOf('max') !== -1
+        ) {
+          let arrayWord = word.split('_')
+          if (arrayWord.length > 1) {
+            minPrecio = arrayWord[6] || '0'
+            maxPrecio = arrayWord[7] || '0'
+          } else if (arrayWord[7] !== '0') {
+            maxPrecio = arrayWord[7] || '0'
+          } else {
+            minPrecio = arrayWord[6] || '0'
+          }
+        } else if (
+          (word.indexOf('pricerange') !== -1 && word.indexOf('min') !== -1) ||
+          word.indexOf('max') !== -1
+        ) {
+          let arrayWord = word.split('_')
+          if (arrayWord.length > 1) {
+            minPrecio = arrayWord[4] || '0'
+            maxPrecio = arrayWord[5] || '0'
+          } else if (arrayWord[5] !== '0') {
+            maxPrecio = arrayWord[5] || '0'
+          } else {
+            minPrecio = arrayWord[4] || '0'
+          }
+        }
+
+        if (word.indexOf('min') !== -1 || word.indexOf('max') !== -1) {
+          let arrayWord = word.split('_')
+          // console.log(arrayWord)
+
+          if (arrayWord.length > 3) {
+            minAno = arrayWord[2] || 'null'
+            maxAno = arrayWord[4] || 'null'
+          } else if (arrayWord[1] === 'max') {
+            maxAno = arrayWord[2] || 'null'
+          } else {
+            minAno = arrayWord[2] || 'null'
+          }
+
+          let [reqCondicion] = await Promise.all([
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${
+                arrayWord[0]
+              }`
+            )
+          ])
+
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          // console.log(idCondicion)
+
+          search = `condicion=${idCondicion}`
+        } else if (word.indexOf('pricerange') !== -1) {
+          let arrayWord = word.split('_')
+          if (arrayWord.length > 1) {
+            minPrecio = arrayWord[2] || '0'
+            maxPrecio = arrayWord[3] || '0'
+          } else if (arrayWord[3] !== '0') {
+            maxPrecio = arrayWord[3] || '0'
+          } else {
+            minPrecio = arrayWord[2] || '0'
+          }
+          let [reqCondicion] = await Promise.all([
+            fetch(
+              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${
+                arrayWord[0]
+              }`
+            )
+          ])
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          // console.log(idCondicion)
+          search = `condicion=${idCondicion}`
+        } else if (word !== 'nuevo' && word !== 'usado') {
+          search = `search=${word}&orderby=relevance`
+        } else {
+          let [reqCondicion] = await Promise.all([
+            fetch(`http://api.docker.test/wp-json/wp/v2/condicion?slug=${word}`)
+          ])
+          let [{ id: idCondicion }] = await reqCondicion.json()
+          // console.log(idCondicion)
+          search = `condicion=${idCondicion}`
+        }
+      }
+
       if (condicion) {
         if (
           condicion.indexOf('pricerange') !== -1 &&
@@ -547,6 +553,15 @@ export default class Search extends Component {
     }
   }
 
+  componentDidMount () {
+    const width = screen.width
+    if (width <= 1024) {
+      this.setState((prevState) => ({
+        movil: !prevState.movil
+      }))
+    }
+  }
+
   render () {
     const { entradas, news, numRandom, statusCode } = this.props
     // console.log(entradas)
@@ -556,8 +571,13 @@ export default class Search extends Component {
       return <Error statusCode={statusCode} />
     }
 
+    let searching
+    if (this.state.movil) {
+      searching = true
+    }
+
     return (
-      <Layout title='Asesorvncucuta'>
+      <Layout title='Asesorvncucuta' searching={searching}>
         <section id='Home'>
           <div className='dondeEstoy container'>
             <span>Estoy en:</span>

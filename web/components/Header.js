@@ -30,9 +30,10 @@ class Header extends Component {
   }
 
   render () {
+    const { searching } = this.props
     return (
       <header>
-        <Hamburger />
+        <Hamburger searching={searching} />
         <div className='container'>
           <figure className='logo'>
             <Link route='/'>

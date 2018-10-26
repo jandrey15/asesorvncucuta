@@ -5,7 +5,8 @@ export default class Hamburger extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      active: false
+      active: false,
+      count: 0
     }
   }
 
@@ -14,6 +15,23 @@ export default class Hamburger extends Component {
     this.setState(prevState => ({
       active: !prevState.active
     }))
+  }
+
+  componentWillReceiveProps (nextProps) {
+    // console.log(nextProps)
+    if (this.state.count <= 0) {
+      this.setState(prevState => ({
+        count: prevState.count + 1
+      }))
+    }
+
+    if (this.state.count > 0) {
+      if (nextProps.searching) {
+        this.setState(prevState => ({
+          active: !prevState.active
+        }))
+      }
+    }
   }
 
   render () {
