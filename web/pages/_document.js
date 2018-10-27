@@ -1,6 +1,7 @@
 // _document is only rendered on the server side and not on the client side
 // Event handlers like onClick can't be added to this file
 import Document, { Head, Main, NextScript } from 'next/document'
+// We wrap our scripts below in Fragment to avoid unnecessary mark up
 import { Fragment } from 'react'
 
 import { GA_TRACKING_ID } from '../helpers/gtag'

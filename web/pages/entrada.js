@@ -98,8 +98,19 @@ export default class Entrada extends Component {
       }
     }
 
+    const SEO = {
+      title: `${entrada.title.rendered} - Asesorvncucuta`,
+      description:
+        entrada.excerpt.rendered.substring(0, 160).replace(/<[^>]+>/g, '') ||
+        entrada.content.rendered.substring(0, 160).replace(/<[^>]+>/g, ''),
+      image: entrada._embedded['wp:featuredmedia']
+        ? entrada._embedded['wp:featuredmedia'].source_url
+        : '/static/default.jpg',
+      url: `http://asesorvncucuta.com/${entrada.slug}`
+    }
+
     return (
-      <Layout title={`${entrada.title.rendered} - Asesorvncucuta`}>
+      <Layout SEO={SEO}>
         <div className='dondeEstoy container'>
           <Link route='/'>
             <a className='listado'>
