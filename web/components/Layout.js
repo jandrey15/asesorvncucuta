@@ -6,11 +6,15 @@ import Footer from './Footer'
 
 import NProgress from 'nprogress'
 import Router from 'next/router'
+import * as gtag from '../helpers/gtag'
 
 Router.onRouteChangeStart = url => {
   NProgress.start()
 }
-Router.onRouteChangeComplete = () => NProgress.done()
+Router.onRouteChangeComplete = url => {
+  NProgress.done()
+  gtag.trackPageView(url)
+}
 Router.onRouteChangeError = () => NProgress.done()
 
 export default props => {

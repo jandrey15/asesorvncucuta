@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Router, Link } from '../routes'
 // import slug from '../helpers/slug'
 import Hamburger from './Hamburger'
+import * as gtag from '../helpers/gtag'
 
 class Header extends Component {
   constructor (props) {
@@ -19,6 +20,13 @@ class Header extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
+
+    gtag.event({
+      action: 'submit_form',
+      category: 'Search',
+      label: this.state.value
+    })
+
     // console.log(this.state.value)
     if (this.state.value === '') {
       Router.pushRoute('/search')
