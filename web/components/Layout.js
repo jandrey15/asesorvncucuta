@@ -21,7 +21,7 @@ Router.onRouteChangeError = () => NProgress.done()
 export default class Layout extends Component {
   // https://developers.google.com/search/docs/guides/intro-structured-data
   // https://developers.google.com/search/docs/data-types/article
-  addJSONLD (post, info, url) {
+  addJSONLD (title, description, url, image, date, modified) {
     return {
       __html: `{
       "@context": "http://schema.org",
@@ -30,12 +30,12 @@ export default class Layout extends Component {
         "@type": "WebPage",
         "@id": "${url}"
       },
-      "headline": "${post.og_title[0].text}",
+      "headline": "${title}",
       "image": [
-        "${post.og_image.url}"
+        "${image}"
       ],
-      "datePublished": "${info.first_publication_date}",
-      "dateModified": "${info.first_publication_date}",
+      "datePublished": "${date}",
+      "dateModified": "${modified}",
       "author": {
         "@type": "Person",
         "name": "Gary Meehan"
@@ -48,18 +48,26 @@ export default class Layout extends Component {
           "url": "https://prismic-io.s3.amazonaws.com/gary-blog%2Fa64f6d7e-5c0e-4190-b852-2122e087ae2b_gm.jpg"
         }
       },
-      "description": "${post.og_description[0].text}"
+      "description": "${description}"
     }`
     }
   }
 
   render () {
     const { children, SEO, searching } = this.props
+    let title = SEO ? SEO.title !== undefined ? SEO.title : DEFAULT_SEO.openGraph.title : DEFAULT_SEO.openGraph.title
+    let description = SEO ? SEO.description !== undefined ? SEO.description
+      : DEFAULT_SEO.description : DEFAULT_SEO.description
+    const url = SEO ? SEO.url !== undefined ? SEO.url : DEFAULT_SEO.openGraph.url : DEFAULT_SEO.openGraph.url
+    const image = SEO ? SEO.image !== undefined ? SEO.image : DEFAULT_SEO.openGraph.image : DEFAULT_SEO.openGraph.image
+    const date = SEO ? SEO.date !== undefined ? SEO.date : null : null
+    const modified = SEO ? SEO.modified !== undefined ? SEO.modified : null : null
+
     return (
       <div id='Layout'>
         <Head>
           <title key='title'>
-            {SEO ? SEO.title : DEFAULT_SEO.openGraph.title}
+            {title}
           </title>
           <meta
             name='viewport'
@@ -68,7 +76,9 @@ export default class Layout extends Component {
           <meta
             key='description'
             name='description'
-            content={SEO ? SEO.description : DEFAULT_SEO.description}
+            content={
+              description
+            }
           />
           <meta
             key='twitter:card'
@@ -83,26 +93,40 @@ export default class Layout extends Component {
           <meta
             key='twitter:title'
             name='twitter:title'
-            content={DEFAULT_SEO.openGraph.title}
+            content={
+              SEO
+                ? SEO.titleOpenGraph !== undefined
+                  ? SEO.titleOpenGraph
+                  : DEFAULT_SEO.openGraph.title
+                : DEFAULT_SEO.openGraph.title
+            }
           />
           <meta
             key='twitter:description'
             name='twitter:description'
-            content={DEFAULT_SEO.openGraph.description}
+            content={
+              description
+            }
           />
           <meta
             key='twitter:url'
             name='twitter:url'
-            content={DEFAULT_SEO.openGraph.url}
+            content={
+              url
+            }
           />
           <meta
             name='twitter:image:src'
-            content={DEFAULT_SEO.openGraph.image}
+            content={
+              image
+            }
           />
           <meta
             key='og:url'
             property='og:url'
-            content={DEFAULT_SEO.openGraph.url}
+            content={
+              url
+            }
           />
           <meta
             key='og:type'
@@ -112,17 +136,27 @@ export default class Layout extends Component {
           <meta
             key='og:title'
             property='og:title'
-            content={DEFAULT_SEO.openGraph.title}
+            content={
+              SEO
+                ? SEO.titleOpenGraph !== undefined
+                  ? SEO.titleOpenGraph
+                  : DEFAULT_SEO.openGraph.title
+                : DEFAULT_SEO.openGraph.title
+            }
           />
           <meta
             key='og:description'
             property='og:description'
-            content={DEFAULT_SEO.openGraph.description}
+            content={
+              description
+            }
           />
           <meta
             key='og:image'
             property='og:image'
-            content={DEFAULT_SEO.openGraph.image}
+            content={
+              image
+            }
           />
           <meta
             key='og:image:width'
@@ -147,10 +181,10 @@ export default class Layout extends Component {
 
         <Footer />
 
-        {/* <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={this.addJSONLD(post, info, url)}
-        /> */}
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={this.addJSONLD(title, description, url, image, date, modified)}
+        />
 
         <style jsx global>
           {globalStyle}

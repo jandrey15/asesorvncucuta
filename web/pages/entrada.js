@@ -104,9 +104,12 @@ export default class Entrada extends Component {
         entrada.excerpt.rendered.substring(0, 160).replace(/<[^>]+>/g, '') ||
         entrada.content.rendered.substring(0, 160).replace(/<[^>]+>/g, ''),
       image: entrada._embedded['wp:featuredmedia']
-        ? entrada._embedded['wp:featuredmedia'].source_url
-        : '/static/default.jpg',
-      url: `http://asesorvncucuta.com/${entrada.slug}`
+        ? entrada._embedded['wp:featuredmedia'][0].source_url
+        : 'https://scontent.fbog4-1.fna.fbcdn.net/v/t31.0-8/12375335_1123779814308321_6033382701965429938_o.jpg?_nc_cat=107&_nc_ht=scontent.fbog4-1.fna&oh=5c8899fd02f0424fb72448fc28e30e75&oe=5C3FB0C5',
+      url: `http://asesorvncucuta.com/${entrada.slug}`,
+      titleOpenGraph: entrada.title.rendered,
+      date: entrada.date,
+      modified: entrada.modified
     }
 
     return (

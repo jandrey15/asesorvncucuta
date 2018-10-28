@@ -85,14 +85,19 @@ export default class Entradas extends Component {
       // console.log('error...')
       return <Error statusCode={statusCode} />
     }
-    let title = 'Carros'
+    let title = 'Vehículos'
 
     if (name) {
       title = name.charAt(0).toUpperCase() + name.slice(1)
     }
 
     return (
-      <Layout title={`${title} - Asesorvncucuta`}>
+      <Layout
+        SEO={{
+          title: `${title} - Asesorvncucuta`,
+          titleOpenGraph: `${title}`
+        }}
+      >
         <div className='dondeEstoy container'>
           <span>Estoy en:</span>
           <MenuLocationEntradas entradas={entradas} name={name} />

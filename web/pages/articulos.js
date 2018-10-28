@@ -29,7 +29,13 @@ export default class Articulos extends Component {
     }
 
     return (
-      <Layout title='Artículos'>
+      <Layout
+        SEO={{
+          title: 'Artículos - Asesorvncucuta',
+          url: 'http://asesorvncucuta.com/articulos',
+          titleOpenGraph: 'Artículos'
+        }}
+      >
         <div className='dondeEstoy container'>
           <span>Estoy en:</span> <p>Artículos</p>
         </div>

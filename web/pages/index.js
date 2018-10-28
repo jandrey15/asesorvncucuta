@@ -102,7 +102,7 @@ export default class Home extends Component {
     }
 
     return (
-      <Layout title='Asesorvncucuta'>
+      <Layout>
         <section id='Home'>
           <div className='dondeEstoy container'>
             <span>Estoy en:</span>

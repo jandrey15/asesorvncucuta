@@ -559,7 +559,7 @@ export default class Search extends Component {
     let searching = true
 
     return (
-      <Layout title='Asesorvncucuta' searching={searching}>
+      <Layout searching={searching}>
         <section id='Home'>
           <div className='dondeEstoy container'>
             <span>Estoy en:</span>

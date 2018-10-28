@@ -30,7 +30,12 @@ export default class Tags extends Component {
     }
 
     return (
-      <Layout title={`Tags - Asesorvncucuta`}>
+      <Layout
+        SEO={{
+          title: `Tags - Asesorvncucuta`,
+          titleOpenGraph: `Tags`
+        }}
+      >
         <div className='dondeEstoy container'>
           <span>Estoy en:</span>
           <Link route='/tags'>
