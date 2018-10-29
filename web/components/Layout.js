@@ -38,14 +38,14 @@ export default class Layout extends Component {
       "dateModified": "${modified}",
       "author": {
         "@type": "Person",
-        "name": "Gary Meehan"
+        "name": "Alvaro Serrano"
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Gary Meehan",
+        "name": "Asesorvncucuta",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://prismic-io.s3.amazonaws.com/gary-blog%2Fa64f6d7e-5c0e-4190-b852-2122e087ae2b_gm.jpg"
+          "url": "https://scontent.fbog4-1.fna.fbcdn.net/v/t31.0-8/12375335_1123779814308321_6033382701965429938_o.jpg?_nc_cat=107&_nc_ht=scontent.fbog4-1.fna&oh=5c8899fd02f0424fb72448fc28e30e75&oe=5C3FB0C5"
         }
       },
       "description": "${description}"
