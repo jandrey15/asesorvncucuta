@@ -142,19 +142,16 @@ export default class Articulo extends Component {
               <h4 className='titleDisqus'>Comparte tu Opinión</h4>
               {/* <ReactDisqusComments
                 shortname='asesorvncucuta'
-                identifier={article.id}
+                identifier={article.slug}
                 title={article.title.rendered}
-                url={`http://localhost:8080/${article.slug}`}
-                onNewComment={this.handleNewComment}
+                url={`http://localhost:8080/articulos/${article.slug}`}
               /> */}
 
               <ReactDisqusComments
-                shortname='example'
-                identifier='something-unique-12345'
-                title='Example Thread'
-                url='http://www.example.com/example-thread'
-                category_id='123456'
-                onNewComment={this.handleNewComment}
+                shortname='asesorvncucuta'
+                identifier={article.slug}
+                title={article.title.rendered}
+                url={`http://asesorvncucuta.com/articulos/${article.slug}`}
               />
             </section>
             {posts.length > 0 && (

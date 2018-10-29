@@ -76,9 +76,7 @@ export default class Layout extends Component {
           <meta
             key='description'
             name='description'
-            content={
-              description
-            }
+            content={description}
           />
           <meta
             key='twitter:card'
@@ -104,29 +102,21 @@ export default class Layout extends Component {
           <meta
             key='twitter:description'
             name='twitter:description'
-            content={
-              description
-            }
+            content={description}
           />
           <meta
             key='twitter:url'
             name='twitter:url'
-            content={
-              url
-            }
+            content={url}
           />
           <meta
             name='twitter:image:src'
-            content={
-              image
-            }
+            content={image}
           />
           <meta
             key='og:url'
             property='og:url'
-            content={
-              url
-            }
+            content={url}
           />
           <meta
             key='og:type'
@@ -147,16 +137,12 @@ export default class Layout extends Component {
           <meta
             key='og:description'
             property='og:description'
-            content={
-              description
-            }
+            content={description}
           />
           <meta
             key='og:image'
             property='og:image'
-            content={
-              image
-            }
+            content={image}
           />
           <meta
             key='og:image:width'

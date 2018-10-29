@@ -56,6 +56,15 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+
+          {
+            <Fragment>
+              <script
+                type='text/javascript'
+                src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bd761be568eebc5'
+              />
+            </Fragment>
+          }
         </body>
       </html>
     )

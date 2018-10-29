@@ -47,6 +47,7 @@ export default class Entrada extends Component {
       return { entrada: null, galeria: [], posts: [], statusCode: 503 }
     }
   }
+
   render () {
     const { entrada, galeria, posts, statusCode } = this.props
     // console.log(entrada)
