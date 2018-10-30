@@ -32,6 +32,10 @@ export default css`
     object-fit: contain;
   }
 
+  // .grecaptcha-badge {
+  //   display: none;
+  // }
+
   /* Make clicks pass-through */
   #nprogress {
     pointer-events: none;

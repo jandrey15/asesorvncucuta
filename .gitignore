@@ -4,3 +4,4 @@ npm-debug.log
 .next
 logs
 wordpress/wp-content/uploads
+wp-config.php
