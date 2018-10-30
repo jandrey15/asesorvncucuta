@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-require('isomorphic-fetch')
+const request = require('request')
 require('dotenv').config()
 const Mailchimp = require('mailchimp-api-v3')
 
@@ -23,24 +23,25 @@ app.prepare().then(() => {
   server.use(bodyParser.urlencoded({ extended: false }))
 
   server.post('/api/contact', (req, res) => {
-    const url = `https://www.google.com/recaptcha/api/siteverify`
+    const url =
+      'https://www.google.com/recaptcha/api/siteverify?secret=' +
+      process.env.SECRET_CAPTCHA +
+      '&response=' +
+      req.body.token +
+      '&remoteip=' +
+      req.connection.remoteAddress
 
-    fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: {
-        secret: process.env.SECRET_CAPTCHA,
-        response: req.body.token,
-        remoteip: req.connection.remoteAddress
-      }, // data can be `string` or {object}!
-      headers: {
-        'Content-Type': 'application/json'
+    request(url, function (error, response, body) {
+      if (error) {
+        res.status(500).send({ message: 'Algo salio mal :(', status: 500 })
       }
-    }).then(response => {
-      // console.log(response)
-      if (response.body.success !== undefined && !response.body.success) {
-        res
+
+      body = JSON.parse(body)
+
+      if (body.success !== undefined && !body.success) {
+        return res
           .status(400)
-          .send({ message: 'Captcha validation failed.', status: 400 })
+          .send({ message: 'Captcha fallo recarga el sitio web.', status: 400 })
       }
 
       mailchimp

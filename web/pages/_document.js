@@ -63,6 +63,7 @@ export default class MyDocument extends Document {
                 type='text/javascript'
                 src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bd761be568eebc5'
               />
+              <script src='https://www.google.com/recaptcha/api.js?render=6Lf-yncUAAAAAHD_rf6AKVpyNYVgxyXNSL9Kq8IG' />
             </Fragment>
           }
         </body>

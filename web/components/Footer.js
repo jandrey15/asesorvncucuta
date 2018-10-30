@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Recaptcha from 'react-google-invisible-recaptcha'
+// import Recaptcha from 'react-google-invisible-recaptcha'
+import { ReCaptcha } from 'react-recaptcha-v3'
 import 'isomorphic-fetch'
 // import Link from 'next/link'
 import { Link } from '../routes'
@@ -18,28 +19,6 @@ export default class Footer extends Component {
   handleSubscription = event => {
     event.preventDefault()
 
-    this.recaptcha.execute()
-  }
-
-  setInputName = element => {
-    this.name = element
-  }
-
-  setRefEmail = element => {
-    this.email = element
-  }
-
-  // SetRefRecaptcha = element => {
-  //   this.recaptcha = element
-  // }
-
-  onResolved = () => {
-    // alert('Recaptcha resolved with response: ' + this.recaptcha.getResponse())
-    this.setState({
-      token: this.recaptcha.getResponse()
-    })
-    // console.log(this.recaptcha.getResponse())
-    // console.log(this.state.token)
     fetch(`/api/contact`, {
       method: 'POST',
       headers: {
@@ -64,6 +43,61 @@ export default class Footer extends Component {
       .catch(err => {
         if (err) console.log(`Error ${err}`)
       })
+
+    // this.recaptcha.execute()
+  }
+
+  setInputName = element => {
+    this.name = element
+  }
+
+  setRefEmail = element => {
+    this.email = element
+  }
+
+  // SetRefRecaptcha = element => {
+  //   this.recaptcha = element
+  // }
+
+  // onResolved = () => {
+  //   // alert('Recaptcha resolved with response: ' + this.recaptcha.getResponse())
+  //   this.setState({
+  //     token: this.recaptcha.getResponse()
+  //   })
+  //   // console.log(this.recaptcha.getResponse())
+  //   // console.log(this.state.token)
+  //   fetch(`/api/contact`, {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       email: this.email.value,
+  //       firstName: this.name.value,
+  //       token: this.state.token
+  //     })
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       // console.info(data)
+  //       this.setState({
+  //         status: data.status,
+  //         message: data.message
+  //       })
+  //       // document.getElementById('formContactenos').reset()
+  //     })
+  //     .catch(err => {
+  //       if (err) console.log(`Error ${err}`)
+  //     })
+  // }
+
+  verifyCallback = recaptchaToken => {
+    // Here you will get the final recaptchaToken!!!
+    console.log(recaptchaToken, '<= your recaptcha token')
+    this.setState({
+      token: recaptchaToken
+    })
   }
 
   render () {
@@ -189,11 +223,17 @@ export default class Footer extends Component {
                   Enviar
                 </button>
 
-                <Recaptcha
+                {/* <Recaptcha
                   ref={ref => (this.recaptcha = ref)}
                   sitekey='6Lf6t3cUAAAAAIx6u2V8HcTrtP_WTXtWb5K58lcd'
                   onResolved={this.onResolved}
                   locale='es'
+                /> */}
+
+                <ReCaptcha
+                  sitekey='6Lf-yncUAAAAAHD_rf6AKVpyNYVgxyXNSL9Kq8IG'
+                  action='subscribed'
+                  verifyCallback={this.verifyCallback}
                 />
 
                 <aside className='messageRequest'>{this.state.message}</aside>
