@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // import Recaptcha from 'react-google-invisible-recaptcha'
-import { ReCaptcha } from 'react-recaptcha-v3'
+// import { ReCaptcha } from 'react-recaptcha-v3'
+// https://github.com/appleboy/react-recaptcha
 import 'isomorphic-fetch'
 // import Link from 'next/link'
 import { Link } from '../routes'
@@ -94,7 +95,7 @@ export default class Footer extends Component {
 
   verifyCallback = recaptchaToken => {
     // Here you will get the final recaptchaToken!!!
-    console.log(recaptchaToken, '<= your recaptcha token')
+    // console.log(recaptchaToken, '<= your recaptcha token')
     this.setState({
       token: recaptchaToken
     })
@@ -230,11 +231,11 @@ export default class Footer extends Component {
                   locale='es'
                 /> */}
 
-                <ReCaptcha
+                {/* <ReCaptcha
                   sitekey='6Lf-yncUAAAAAHD_rf6AKVpyNYVgxyXNSL9Kq8IG'
                   action='subscribed'
                   verifyCallback={this.verifyCallback}
-                />
+                /> */}
 
                 <aside className='messageRequest'>{this.state.message}</aside>
               </form>
