@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 // import Recaptcha from 'react-google-invisible-recaptcha'
-// import { ReCaptcha } from 'react-recaptcha-v3'
-// https://github.com/appleboy/react-recaptcha
+// import ReCAPTCHA from 'react-google-recaptcha'
+import Reaptcha from 'reaptcha'
 import 'isomorphic-fetch'
 // import Link from 'next/link'
 import { Link } from '../routes'
@@ -15,37 +15,8 @@ export default class Footer extends Component {
       message: '',
       token: null
     }
-  }
 
-  handleSubscription = event => {
-    event.preventDefault()
-
-    fetch(`/api/contact`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: this.email.value,
-        firstName: this.name.value,
-        token: this.state.token
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        // console.info(data)
-        this.setState({
-          status: data.status,
-          message: data.message
-        })
-        // document.getElementById('formContactenos').reset()
-      })
-      .catch(err => {
-        if (err) console.log(`Error ${err}`)
-      })
-
-    // this.recaptcha.execute()
+    this.captcha = null
   }
 
   setInputName = element => {
@@ -60,45 +31,55 @@ export default class Footer extends Component {
   //   this.recaptcha = element
   // }
 
-  // onResolved = () => {
-  //   // alert('Recaptcha resolved with response: ' + this.recaptcha.getResponse())
-  //   this.setState({
-  //     token: this.recaptcha.getResponse()
-  //   })
-  //   // console.log(this.recaptcha.getResponse())
-  //   // console.log(this.state.token)
-  //   fetch(`/api/contact`, {
-  //     method: 'POST',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       email: this.email.value,
-  //       firstName: this.name.value,
-  //       token: this.state.token
-  //     })
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       // console.info(data)
-  //       this.setState({
-  //         status: data.status,
-  //         message: data.message
-  //       })
-  //       // document.getElementById('formContactenos').reset()
-  //     })
-  //     .catch(err => {
-  //       if (err) console.log(`Error ${err}`)
-  //     })
-  // }
+  validateEmail = email => {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(email)
+  }
 
-  verifyCallback = recaptchaToken => {
-    // Here you will get the final recaptchaToken!!!
-    // console.log(recaptchaToken, '<= your recaptcha token')
-    this.setState({
-      token: recaptchaToken
-    })
+  onVerify = token => {
+    // console.log('token -> ', token)
+    if (this.name.value !== '' && this.email.value !== '') {
+      if (this.validateEmail(this.email.value)) {
+        fetch(`/api/contact`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: this.email.value,
+            firstName: this.name.value,
+            'g-recaptcha-response': token
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            // console.info(data)
+            this.setState({
+              status: data.status,
+              message: data.message
+            })
+
+            if (data.status !== 200) {
+              this.captcha.reset()
+            }
+            // document.getElementById('formContactenos').reset()
+          })
+          .catch(err => {
+            if (err) console.log(`Error ${err}`)
+          })
+      } else {
+        this.setState({
+          message: 'Email inválido.'
+        })
+        this.captcha.reset()
+      }
+    } else {
+      this.setState({
+        message: 'Debes completar los campos.'
+      })
+      this.captcha.reset()
+    }
   }
 
   render () {
@@ -202,43 +183,47 @@ export default class Footer extends Component {
             {this.state.status === 200 || this.state.status === 500 ? (
               <p className='message'>{this.state.message}</p>
             ) : (
-              <form id='newsletter' onSubmit={this.handleSubscription}>
-                {/* <input type='email' placeholder='Email' required />
-              <button>Suscribirme</button> */}
-                <input
-                  type='text'
-                  name='firstName'
-                  placeholder='Nombre'
-                  required
-                  ref={this.setInputName}
-                />
-                <input
-                  type='email'
-                  name='email'
-                  placeholder='Email'
-                  required
-                  ref={this.setRefEmail}
-                />
+              <Fragment>
+                <div id='newsletter'>
+                  {/* <input type='email' placeholder='Email' required />
+                <button>Suscribirme</button> */}
+                  <input
+                    type='text'
+                    name='firstName'
+                    placeholder='Nombre'
+                    required
+                    ref={this.setInputName}
+                  />
+                  <input
+                    type='email'
+                    name='email'
+                    placeholder='Email'
+                    required
+                    ref={this.setRefEmail}
+                  />
 
-                <button id='enviar' className='enviar' type='submit'>
-                  Enviar
-                </button>
+                  <button
+                    id='enviar'
+                    className='enviar'
+                    type='submit'
+                    onClick={() => {
+                      this.captcha.execute()
+                    }}
+                  >
+                    Enviar
+                  </button>
 
-                {/* <Recaptcha
-                  ref={ref => (this.recaptcha = ref)}
-                  sitekey='6Lf6t3cUAAAAAIx6u2V8HcTrtP_WTXtWb5K58lcd'
-                  onResolved={this.onResolved}
-                  locale='es'
-                /> */}
+                  <Reaptcha
+                    ref={e => (this.captcha = e)}
+                    sitekey='6Lf6t3cUAAAAAIx6u2V8HcTrtP_WTXtWb5K58lcd'
+                    onVerify={this.onVerify}
+                    size='invisible'
+                    hl='es-419'
+                  />
 
-                {/* <ReCaptcha
-                  sitekey='6Lf-yncUAAAAAHD_rf6AKVpyNYVgxyXNSL9Kq8IG'
-                  action='subscribed'
-                  verifyCallback={this.verifyCallback}
-                /> */}
-
-                <aside className='messageRequest'>{this.state.message}</aside>
-              </form>
+                  <aside className='messageRequest'>{this.state.message}</aside>
+                </div>
+              </Fragment>
             )}
           </div>
         </div>
@@ -276,13 +261,13 @@ export default class Footer extends Component {
             color: #ffffff;
           }
 
-          form {
+          #newsletter {
             display: flex;
             justify-content: space-between;
             position: relative;
           }
 
-          form input {
+          #newsletter input {
             max-width: 360px;
             height: 40px;
             border: none;
@@ -297,12 +282,12 @@ export default class Footer extends Component {
             width: 65%;
           }
 
-          form input:first-child {
+          #newsletter input:first-child {
             margin-right: 2px;
             width: 30%;
           }
 
-          form button {
+          #newsletter button {
             border: none;
             height: 40px;
             padding: 0;
@@ -318,11 +303,11 @@ export default class Footer extends Component {
             font-weight: 600;
           }
 
-          form button:hover {
+          #newsletter button:hover {
             color: #4987b6;
           }
 
-          form button:active {
+          #newsletter button:active {
             transform: scale(1.1);
           }
 
