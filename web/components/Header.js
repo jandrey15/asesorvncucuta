@@ -20,12 +20,13 @@ class Header extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-
-    gtag.event({
-      action: 'submit_form',
-      category: 'Search',
-      label: this.state.value
-    })
+    if (process.env.NODE_ENV !== 'development') {
+      gtag.event({
+        action: 'submit_form',
+        category: 'Search',
+        label: this.state.value
+      })
+    }
 
     // console.log(this.state.value)
     if (this.state.value === '') {

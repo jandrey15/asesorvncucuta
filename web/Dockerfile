@@ -10,10 +10,10 @@ WORKDIR /app
 COPY package*.json /app/
 
 # RUN npm install && npm install --save serve
-# ENV NODE_ENV production
+ENV NODE_ENV production
 # ENV PORT 3000
 
-RUN npm install
+RUN npm install && npm install mocha chai supertest
 
 COPY . /app
 

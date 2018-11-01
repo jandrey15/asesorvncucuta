@@ -8,6 +8,11 @@ services:
     restart: always
     # ports:
     #   - "5000:9000"
+    networks:
+      mynetwork:
+        aliases:
+          - admin.docker.test
+          - api.docker.test
     expose:
       - "5000"
     environment:
@@ -25,6 +30,8 @@ services:
       # - ../../../volumes/carros:/var/lib/mysql
       - ../../volumes/carros:/var/lib/mysql
     restart: always
+    networks:
+      - mynetwork
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
@@ -38,6 +45,8 @@ services:
       - wordpress
       - web
     restart: always
+    networks:
+      - mynetwork
     volumes:
       - ./logs:/var/log/nginx
     ports:
@@ -48,9 +57,16 @@ services:
     env_file:
       - web-variables.env
     restart: always
+    networks:
+      mynetwork:
+        aliases:
+          - docker.test
     # volumes:
     #   - ./web:/app
     # ports:
     #   - "3000:3000"
     expose:
       - "3000"
+networks:
+  mynetwork:
+    driver: bridge

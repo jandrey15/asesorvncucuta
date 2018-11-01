@@ -18,7 +18,6 @@ const { API_URL } = publicRuntimeConfig
 export default class Home extends Component {
   static async getInitialProps ({ res }) {
     try {
-      console.log('Hola mundo ', API_URL)
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance
       // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance&color=59
       let [
@@ -29,17 +28,19 @@ export default class Home extends Component {
         reqPostsused
       ] = await Promise.all([
         fetch(
-          `${API_URL}/posts?sticky=false&per_page=15&status=publish&_embed`
-        ),
-        fetch(`${API_URL}/posts?sticky=true&per_page=5&status=publish&_embed`),
-        fetch(
-          `${API_URL}/articulo?sticky=false&per_page=3&status=publish&_embed`
+          `${API_URL}/wp-json/wp/v2/posts?sticky=false&per_page=15&status=publish&_embed`
         ),
         fetch(
-          `${API_URL}/posts?sticky=false&condicion=54&per_page=5&status=publish&_embed`
+          `${API_URL}/wp-json/wp/v2/posts?sticky=true&per_page=5&status=publish&_embed`
         ),
         fetch(
-          `${API_URL}/posts?sticky=false&condicion=55&per_page=5&status=publish&_embed`
+          `${API_URL}/wp-json/wp/v2/articulo?sticky=false&per_page=3&status=publish&_embed`
+        ),
+        fetch(
+          `${API_URL}/wp-json/wp/v2/posts?sticky=false&condicion=54&per_page=5&status=publish&_embed`
+        ),
+        fetch(
+          `${API_URL}/wp-json/wp/v2/posts?sticky=false&condicion=55&per_page=5&status=publish&_embed`
         )
       ])
 
@@ -74,7 +75,6 @@ export default class Home extends Component {
         statusCode: 200
       }
     } catch (err) {
-      console.log('Este es el erro -> ', err)
       res.statusCode = 503
       const numRandom = null
       return {

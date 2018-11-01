@@ -3,11 +3,16 @@ import Article from '../components/Article'
 import Layout from '../components/Layout'
 import Error from './_error'
 
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
+const { API_URL } = publicRuntimeConfig
+
 export default class Articulos extends Component {
   static async getInitialProps ({ res }) {
     try {
       let req = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/articulo?per_page=20&_embed`
+        `${API_URL}/wp-json/wp/v2/articulo?per_page=20&_embed`
       )
 
       let articles = await req.json()

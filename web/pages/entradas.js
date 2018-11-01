@@ -6,6 +6,11 @@ import ArticlesColumn from '../components/ArticlesColumn'
 import MenuLocationEntradas from '../components/MenuLocationEntradas'
 import Error from './_error'
 
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
+const { API_URL } = publicRuntimeConfig
+
 export default class Entradas extends Component {
   static async getInitialProps ({ res, query }) {
     let taxonomy
@@ -19,7 +24,7 @@ export default class Entradas extends Component {
         categoria === 'nuevos' ? (condicion = 'nuevo') : (condicion = 'usado')
 
         let reqSlug = await fetch(
-          `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
+          `${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`
         )
         let [{ id }] = await reqSlug.json()
         taxonomy = `condicion=${id}`
@@ -32,10 +37,8 @@ export default class Entradas extends Component {
         }
 
         let [reqSlug, reqSlugCategoria] = await Promise.all([
-          fetch(`http://api.docker.test/wp-json/wp/v2/marcas?${marcas}`),
-          fetch(
-            `http://api.docker.test/wp-json/wp/v2/categories?slug=${categoria}`
-          )
+          fetch(`${API_URL}/wp-json/wp/v2/marcas?${marcas}`),
+          fetch(`${API_URL}/wp-json/wp/v2/categories?slug=${categoria}`)
         ])
 
         let [{ id }] = await reqSlug.json()
@@ -44,7 +47,7 @@ export default class Entradas extends Component {
         taxonomy = `marcas=${id}&categories=${idCategoria}`
       } else if (categoria) {
         let reqSlug = await fetch(
-          `http://api.docker.test/wp-json/wp/v2/categories?slug=${categoria}`
+          `${API_URL}/wp-json/wp/v2/categories?slug=${categoria}`
         )
         let [{ id }] = await reqSlug.json()
         taxonomy = `categories=${id}`
@@ -52,10 +55,10 @@ export default class Entradas extends Component {
 
       let [req, reqNews] = await Promise.all([
         fetch(
-          `http://api.docker.test/wp-json/wp/v2/posts?${taxonomy}&sticky=false&per_page=20&_embed`
+          `${API_URL}/wp-json/wp/v2/posts?${taxonomy}&sticky=false&per_page=20&_embed`
         ),
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/articulo?sticky=false&per_page=3&status=publish&_embed'
+          `${API_URL}/wp-json/wp/v2/articulo?sticky=false&per_page=3&status=publish&_embed`
         )
       ])
 

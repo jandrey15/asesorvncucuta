@@ -5,12 +5,15 @@ import slug from '../helpers/slug'
 import Layout from '../components/Layout'
 import Error from './_error'
 
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
+const { API_URL } = publicRuntimeConfig
+
 export default class Tags extends Component {
   static async getInitialProps ({ res }) {
     try {
-      let req = await fetch(
-        'http://api.docker.test/wp-json/wp/v2/tags?hide_empty=true'
-      )
+      let req = await fetch(`${API_URL}/wp-json/wp/v2/tags?hide_empty=true`)
 
       let tags = await req.json()
       return { tags, statusCode: 200 }

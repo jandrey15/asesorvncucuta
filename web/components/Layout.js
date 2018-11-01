@@ -14,7 +14,9 @@ Router.onRouteChangeStart = url => {
 }
 Router.onRouteChangeComplete = url => {
   NProgress.done()
-  gtag.trackPageView(url)
+  if (process.env.NODE_ENV !== 'development') {
+    gtag.trackPageView(url)
+  }
 }
 Router.onRouteChangeError = () => NProgress.done()
 
@@ -55,29 +57,42 @@ export default class Layout extends Component {
 
   render () {
     const { children, SEO, searching } = this.props
-    let title = SEO ? SEO.title !== undefined ? SEO.title : DEFAULT_SEO.openGraph.title : DEFAULT_SEO.openGraph.title
-    let description = SEO ? SEO.description !== undefined ? SEO.description
-      : DEFAULT_SEO.description : DEFAULT_SEO.description
-    const url = SEO ? SEO.url !== undefined ? SEO.url : DEFAULT_SEO.openGraph.url : DEFAULT_SEO.openGraph.url
-    const image = SEO ? SEO.image !== undefined ? SEO.image : DEFAULT_SEO.openGraph.image : DEFAULT_SEO.openGraph.image
-    const date = SEO ? SEO.date !== undefined ? SEO.date : null : null
-    const modified = SEO ? SEO.modified !== undefined ? SEO.modified : null : null
+    let title = SEO
+      ? SEO.title !== undefined
+        ? SEO.title
+        : DEFAULT_SEO.openGraph.title
+      : DEFAULT_SEO.openGraph.title
+    let description = SEO
+      ? SEO.description !== undefined
+        ? SEO.description
+        : DEFAULT_SEO.description
+      : DEFAULT_SEO.description
+    const url = SEO
+      ? SEO.url !== undefined
+        ? SEO.url
+        : DEFAULT_SEO.openGraph.url
+      : DEFAULT_SEO.openGraph.url
+    const image = SEO
+      ? SEO.image !== undefined
+        ? SEO.image
+        : DEFAULT_SEO.openGraph.image
+      : DEFAULT_SEO.openGraph.image
+    const date = SEO ? (SEO.date !== undefined ? SEO.date : null) : null
+    const modified = SEO
+      ? SEO.modified !== undefined
+        ? SEO.modified
+        : null
+      : null
 
     return (
       <div id='Layout'>
         <Head>
-          <title key='title'>
-            {title}
-          </title>
+          <title key='title'>{title}</title>
           <meta
             name='viewport'
             content='width=device-width, initial-scale=1, user-scalable=no'
           />
-          <meta
-            key='description'
-            name='description'
-            content={description}
-          />
+          <meta key='description' name='description' content={description} />
           <meta
             key='twitter:card'
             name='twitter:card'
@@ -104,20 +119,9 @@ export default class Layout extends Component {
             name='twitter:description'
             content={description}
           />
-          <meta
-            key='twitter:url'
-            name='twitter:url'
-            content={url}
-          />
-          <meta
-            name='twitter:image:src'
-            content={image}
-          />
-          <meta
-            key='og:url'
-            property='og:url'
-            content={url}
-          />
+          <meta key='twitter:url' name='twitter:url' content={url} />
+          <meta name='twitter:image:src' content={image} />
+          <meta key='og:url' property='og:url' content={url} />
           <meta
             key='og:type'
             property='og:type'
@@ -139,11 +143,7 @@ export default class Layout extends Component {
             property='og:description'
             content={description}
           />
-          <meta
-            key='og:image'
-            property='og:image'
-            content={image}
-          />
+          <meta key='og:image' property='og:image' content={image} />
           <meta
             key='og:image:width'
             property='og:image:width'
@@ -169,7 +169,14 @@ export default class Layout extends Component {
 
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={this.addJSONLD(title, description, url, image, date, modified)}
+          dangerouslySetInnerHTML={this.addJSONLD(
+            title,
+            description,
+            url,
+            image,
+            date,
+            modified
+          )}
         />
 
         <style jsx global>

@@ -8,6 +8,11 @@ import slug from '../helpers/slug'
 import entradaStyle from './entradaStyle'
 import Error from './_error'
 
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
+const { API_URL } = publicRuntimeConfig
+
 export default class Entrada extends Component {
   static async getInitialProps ({ res, query }) {
     const name = query.name
@@ -16,7 +21,7 @@ export default class Entrada extends Component {
       // let req = await fetch('https://api.audioboom.com/channels/recommended')
       // http://api.docker.test/wp-json/acf/v3/pages/POST_ID/galeria?type=photo_gallery
       let req = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/posts?slug=${name}&_embed`
+        `${API_URL}/wp-json/wp/v2/posts?slug=${name}&_embed`
       )
       let [entrada] = await req.json()
 
@@ -26,12 +31,12 @@ export default class Entrada extends Component {
 
       let [reqGaleria, reqMorePosts] = await Promise.all([
         fetch(
-          `http://api.docker.test/wp-json/acf/v3/pages/${
+          `${API_URL}/wp-json/acf/v3/pages/${
             entrada.id
           }/galeria?type=photo_gallery`
         ),
         fetch(
-          `http://api.docker.test/wp-json/wp/v2/posts?author=${
+          `${API_URL}/wp-json/wp/v2/posts?author=${
             entrada.author
           }&per_page=5&exclude=${entrada.id}&sticky=false&_embed`
         )

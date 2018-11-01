@@ -7,6 +7,11 @@ import ArticlesColumn from '../components/ArticlesColumn'
 import MenuLocation from '../components/MenuLocation'
 import Error from './_error'
 
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
+const { API_URL } = publicRuntimeConfig
+
 export default class Search extends Component {
   static async getInitialProps ({ res, query }) {
     let word = query.slug
@@ -72,11 +77,7 @@ export default class Search extends Component {
           }
 
           let [reqCondicion] = await Promise.all([
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${
-                arrayWord[0]
-              }`
-            )
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${arrayWord[0]}`)
           ])
 
           let [{ id: idCondicion }] = await reqCondicion.json()
@@ -94,11 +95,7 @@ export default class Search extends Component {
             minPrecio = arrayWord[2] || '0'
           }
           let [reqCondicion] = await Promise.all([
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${
-                arrayWord[0]
-              }`
-            )
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${arrayWord[0]}`)
           ])
           let [{ id: idCondicion }] = await reqCondicion.json()
           // console.log(idCondicion)
@@ -107,7 +104,7 @@ export default class Search extends Component {
           search = `search=${word}&orderby=relevance`
         } else {
           let [reqCondicion] = await Promise.all([
-            fetch(`http://api.docker.test/wp-json/wp/v2/condicion?slug=${word}`)
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${word}`)
           ])
           let [{ id: idCondicion }] = await reqCondicion.json()
           // console.log(idCondicion)
@@ -131,7 +128,8 @@ export default class Search extends Component {
             minPrecio = arrayCondicion[6] || '0'
           }
         } else if (
-          (condicion.indexOf('pricerange') !== -1 && condicion.indexOf('min') !== -1) ||
+          (condicion.indexOf('pricerange') !== -1 &&
+            condicion.indexOf('min') !== -1) ||
           condicion.indexOf('max') !== -1
         ) {
           let arrayCondicion = condicion.split('_')
@@ -189,15 +187,11 @@ export default class Search extends Component {
             reqColor,
             reqCiudad
           ] = await Promise.all([
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-            ),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`),
-            fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`),
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${ciudad}`
-            )
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${marca}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${modelo}`),
+            fetch(`${API_URL}/wp-json/wp/v2/color?slug=${color}`),
+            fetch(`${API_URL}/wp-json/wp/v2/ciudades?slug=${ciudad}`)
           ])
 
           let [{ id: idCondicion }] = await reqCondicion.json()
@@ -219,17 +213,11 @@ export default class Search extends Component {
             reqColor,
             reqCiudad
           ] = await Promise.all([
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-            ),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`),
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/color?slug=${colorCiudad}`
-            ),
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${colorCiudad}`
-            )
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${marca}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${modelo}`),
+            fetch(`${API_URL}/wp-json/wp/v2/color?slug=${colorCiudad}`),
+            fetch(`${API_URL}/wp-json/wp/v2/ciudades?slug=${colorCiudad}`)
           ])
 
           let [{ id: idCondicion }] = await reqCondicion.json()
@@ -250,18 +238,10 @@ export default class Search extends Component {
         } else if (marca !== 'null' && colorCiudad !== 'null') {
           let [reqCondicion, reqMarca, reqColor, reqCiudad] = await Promise.all(
             [
-              fetch(
-                `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-              ),
-              fetch(
-                `http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`
-              ),
-              fetch(
-                `http://api.docker.test/wp-json/wp/v2/color?slug=${colorCiudad}`
-              ),
-              fetch(
-                `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${colorCiudad}`
-              )
+              fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+              fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${marca}`),
+              fetch(`${API_URL}/wp-json/wp/v2/color?slug=${colorCiudad}`),
+              fetch(`${API_URL}/wp-json/wp/v2/ciudades?slug=${colorCiudad}`)
             ]
           )
 
@@ -281,11 +261,9 @@ export default class Search extends Component {
           }
         } else if (marca !== 'null' && modelo !== 'null') {
           let [reqCondicion, reqMarca, reqModelo] = await Promise.all([
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-            ),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`)
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${marca}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${modelo}`)
           ])
 
           let [{ id: idCondicion }] = await reqCondicion.json()
@@ -295,11 +273,9 @@ export default class Search extends Component {
           search = `condicion=${idCondicion}&marcas=${idMarca}&marcas=${idModelo}`
         } else if (marca !== 'null' && color !== 'null') {
           let [reqCondicion, reqMarca, reqColor] = await Promise.all([
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-            ),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`),
-            fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`)
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${marca}`),
+            fetch(`${API_URL}/wp-json/wp/v2/color?slug=${color}`)
           ])
 
           let [{ id: idCondicion }] = await reqCondicion.json()
@@ -314,14 +290,10 @@ export default class Search extends Component {
             reqCiudad,
             reqModelo
           ] = await Promise.all([
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-            ),
-            fetch(`http://api.docker.test/wp-json/wp/v2/color?slug=${color}`),
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${ciudad}`
-            ),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`)
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+            fetch(`${API_URL}/wp-json/wp/v2/color?slug=${color}`),
+            fetch(`${API_URL}/wp-json/wp/v2/ciudades?slug=${ciudad}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${modelo}`)
           ])
 
           let [{ id: idCondicion }] = await reqCondicion.json()
@@ -337,16 +309,10 @@ export default class Search extends Component {
             reqCiudad,
             reqModelo
           ] = await Promise.all([
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-            ),
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/color?slug=${anyThing}`
-            ),
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${anyThing}`
-            ),
-            fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`)
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+            fetch(`${API_URL}/wp-json/wp/v2/color?slug=${anyThing}`),
+            fetch(`${API_URL}/wp-json/wp/v2/ciudades?slug=${anyThing}`),
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${modelo}`)
           ])
 
           let [{ id: idCondicion }] = await reqCondicion.json()
@@ -366,10 +332,8 @@ export default class Search extends Component {
         } else if (marca !== 'null' || modelo !== 'null') {
           if (marca !== 'null') {
             let [reqCondicion, reqMarca] = await Promise.all([
-              fetch(
-                `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-              ),
-              fetch(`http://api.docker.test/wp-json/wp/v2/marcas?slug=${marca}`)
+              fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+              fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${marca}`)
             ])
 
             let [{ id: idCondicion }] = await reqCondicion.json()
@@ -378,12 +342,8 @@ export default class Search extends Component {
             search = `condicion=${idCondicion}&marcas=${idMarca}`
           } else {
             let [reqCondicion, reqModelo] = await Promise.all([
-              fetch(
-                `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-              ),
-              fetch(
-                `http://api.docker.test/wp-json/wp/v2/marcas?slug=${modelo}`
-              )
+              fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
+              fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${modelo}`)
             ])
 
             let [{ id: idCondicion }] = await reqCondicion.json()
@@ -400,22 +360,18 @@ export default class Search extends Component {
             reqCiudad,
             reqModelo
           ] = await Promise.all([
+            fetch(`${API_URL}/wp-json/wp/v2/condicion?slug=${condicion}`),
             fetch(
-              `http://api.docker.test/wp-json/wp/v2/condicion?slug=${condicion}`
-            ),
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/color?slug=${
+              `${API_URL}/wp-json/wp/v2/color?slug=${
                 arrayAnyThing.length > 1 ? arrayAnyThing[1] : anyThing
               }`
             ),
             fetch(
-              `http://api.docker.test/wp-json/wp/v2/ciudades?slug=${
+              `${API_URL}/wp-json/wp/v2/ciudades?slug=${
                 arrayAnyThing.length > 1 ? arrayAnyThing[0] : anyThing
               }`
             ),
-            fetch(
-              `http://api.docker.test/wp-json/wp/v2/marcas?slug=${anyThing}`
-            )
+            fetch(`${API_URL}/wp-json/wp/v2/marcas?slug=${anyThing}`)
           ])
 
           let [{ id: idCondicion }] = await reqCondicion.json()
@@ -438,14 +394,14 @@ export default class Search extends Component {
       }
 
       // console.log(search)
-      // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance
-      // http://api.docker.test/wp-json/wp/v2/posts?search=prueba&orderby=relevance&color=59
+      // ${API_URL}/wp-json/wp/v2/posts?search=prueba&orderby=relevance
+      // ${API_URL}/wp-json/wp/v2/posts?search=prueba&orderby=relevance&color=59
       let [reqEntradas, reqNews] = await Promise.all([
         fetch(
-          `http://api.docker.test/wp-json/wp/v2/posts?${search}&sticky=false&per_page=15&status=publish&_embed`
+          `${API_URL}/wp-json/wp/v2/posts?${search}&sticky=false&per_page=15&status=publish&_embed`
         ),
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/articulo?sticky=false&per_page=3&status=publish&_embed'
+          `${API_URL}/wp-json/wp/v2/articulo?sticky=false&per_page=3&status=publish&_embed`
         )
       ])
 

@@ -4,6 +4,11 @@ import Link from 'next/link'
 import Layout from '../components/Layout'
 import Error from './_error'
 
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
+const { API_URL } = publicRuntimeConfig
+
 export default class Tag extends Component {
   static async getInitialProps ({ res, query }) {
     const name = query.slug
@@ -11,14 +16,12 @@ export default class Tag extends Component {
     // const id = query.id
 
     try {
-      let reqTag = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/tags?slug=${name}`
-      )
+      let reqTag = await fetch(`${API_URL}/wp-json/wp/v2/tags?slug=${name}`)
 
       let [{ id: tagId }] = await reqTag.json()
 
       let req = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/articulo?tags=${tagId}&per_page=20&_embed`
+        `${API_URL}/wp-json/wp/v2/articulo?tags=${tagId}&per_page=20&_embed`
       )
 
       let tags = await req.json()

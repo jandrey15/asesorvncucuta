@@ -7,19 +7,24 @@ import ReactDisqusComments from 'react-disqus-comments'
 import Article from '../components/Article'
 import Error from './_error'
 
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
+const { API_URL } = publicRuntimeConfig
+
 export default class Articulo extends Component {
   static async getInitialProps ({ res, query }) {
     const name = query.name
     // https://rafarjonilla.com/tutorial/cambiar-foto-de-perfil-en-wordpress-gravatar/
     try {
       let req = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/articulo?slug=${name}&_embed`
+        `${API_URL}/wp-json/wp/v2/articulo?slug=${name}&_embed`
       )
 
       let [article] = await req.json()
 
       let reqMorePosts = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/articulo?author=${
+        `${API_URL}/wp-json/wp/v2/articulo?author=${
           article.author
         }&per_page=3&exclude=${article.id}&_embed`
       )

@@ -28,12 +28,12 @@ export default class MyDocument extends Document {
 
   render () {
     const { isProduction } = this.props
-    console.log(isProduction)
+    // console.log(isProduction)
 
     return (
       <html lang='es'>
         <Head>
-          {/* {isProduction && (
+          {isProduction && (
             <Fragment>
               <script
                 async
@@ -41,17 +41,7 @@ export default class MyDocument extends Document {
               />
               <script dangerouslySetInnerHTML={this.setGoogleTags()} />
             </Fragment>
-          )} */}
-          {
-            <Fragment>
-              <script
-                async
-                src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-              />
-              {/* We call the function above to inject the contents of the script tag */}
-              <script dangerouslySetInnerHTML={this.setGoogleTags()} />
-            </Fragment>
-          }
+          )}
         </Head>
         <body>
           <Main />
