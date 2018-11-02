@@ -1,6 +1,9 @@
 /* global describe it */
+require('dotenv').config()
+// console.log(process.env.API_URL)
+const host = `${process.env.API_URL}/wp-json/wp/v2`
 const expect = require('chai').expect
-const request = require('supertest')('http://api.docker.test/wp-json/wp/v2')
+const request = require('supertest')(host)
 
 describe('GET api request', () => {
   describe('GET home', () => {

@@ -20,7 +20,8 @@ class Header extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    if (process.env.NODE_ENV !== 'development') {
+    const NODE_ENV = process.env.NODE_ENV
+    if (NODE_ENV !== 'development') {
       gtag.event({
         action: 'submit_form',
         category: 'Search',
