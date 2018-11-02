@@ -1,0 +1,37 @@
+sudo: required
+
+language: node_js
+
+node_js:
+  - "node"
+
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+# cache:
+#   directories:
+#     - "node_modules"
+# script: npm test # Here you could also run the build step of your application
+
+# before_deploy: npm install now --no-save # Install Now CLI on Travis
+# deploy:
+#   - provider: script # Run a custom deployment script which we will define below
+#     script: now --token $now_token
+#     skip_cleanup: true
+#     on:
+#       all_branches: true
+#       master: false
+#   - provider: script
+#     script: now --token $now_token && now alias --token $now_token
+#     skip_cleanup: true
+#     on:
+#       master: true
