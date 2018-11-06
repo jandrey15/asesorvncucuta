@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import 'isomorphic-fetch'
 import { Router } from '../routes'
 import slug from '../helpers/slug'
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
+const { API_URL } = publicRuntimeConfig
 
 export default class Filter extends Component {
   constructor (props) {
@@ -35,12 +39,12 @@ export default class Filter extends Component {
         reqCiudades
       ] = await Promise.all([
         fetch(
-          'http://api.docker.test/wp-json/wp/v2/marcas?per_page=50&parent=0'
+          `${API_URL}/wp-json/wp/v2/marcas?per_page=50&parent=0`
         ),
-        fetch('http://api.docker.test/wp-json/wp/v2/marcas?per_page=50'),
-        fetch('http://api.docker.test/wp-json/wp/v2/anos?per_page=50'),
-        fetch('http://api.docker.test/wp-json/wp/v2/color?per_page=50'),
-        fetch('http://api.docker.test/wp-json/wp/v2/ciudades?per_page=50')
+        fetch(`${API_URL}/wp-json/wp/v2/marcas?per_page=50`),
+        fetch(`${API_URL}/wp-json/wp/v2/anos?per_page=50`),
+        fetch(`${API_URL}/wp-json/wp/v2/color?per_page=50`),
+        fetch(`${API_URL}/wp-json/wp/v2/ciudades?per_page=50`)
       ])
 
       if (reqMarcas.status >= 400) {
