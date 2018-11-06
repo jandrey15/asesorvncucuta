@@ -26,7 +26,7 @@ before_install:
   - touch web-variables.env
   - echo PORT >> web-variables.env && echo API_URL >> web-variables.env
   - docker-compose up -d
-  - docker ps
+  - cat web-variables.env
 
 script:
   - docker-compose ps

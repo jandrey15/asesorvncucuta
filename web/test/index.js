@@ -6,6 +6,7 @@ const expect = require('chai').expect
 const request = require('supertest')(host)
 
 describe('GET api request', () => {
+  console.log(`host -> ${host}`)
   describe('GET home', () => {
     it('Entradas slide show sticky', done => {
       request
