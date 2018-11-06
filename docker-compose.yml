@@ -13,6 +13,9 @@ services:
         aliases:
           - admin.docker.test
           - api.docker.test
+          - static.docker.test
+          - api.johnserrano.xyz
+          - static.johnserrano.xyz
     expose:
       - "5000"
     environment:
@@ -61,6 +64,7 @@ services:
       mynetwork:
         aliases:
           - docker.test
+          - johnserrano.xyz
     # volumes:
     #   - ./web:/app
     # ports:
