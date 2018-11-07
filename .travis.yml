@@ -23,7 +23,6 @@ before_install:
   - cd web
   - yarn add mocha chai supertest
 script:
-  - cd web
   - yarn test
 # cache:
 #   directories:
