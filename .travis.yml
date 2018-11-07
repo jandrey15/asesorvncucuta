@@ -8,6 +8,10 @@ sudo: required
 services:
   - docker
 
+notifications:
+  email:
+    on_failure: never
+
 env:
   - DOCKER_COMPOSE_VERSION=1.20.1
   # - DOCKER_COMPOSE_VERSION=1.4.2
@@ -27,6 +31,8 @@ before_install:
   - echo PORT=${PORT} >> web-variables.env && echo API_URL=${API_URL} >> web-variables.env
   - docker-compose up -d
   - cat web-variables.env
+  - curl -o databases.sql https://bitbucket.org/john-serrano/databaseasesorvncucuta/raw/50b13e88daa571322c4be5ddbc6186c283541fa2/databases
+  - docker-compose exec mysql mysql -uroot -p${MYSQL_ROOT_PASSWORD} asesor < databases.sql
   - curl http://api.docker.test/wp-json/wp/v2/posts?sticky=false&_embed
 
 script:
