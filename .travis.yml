@@ -24,7 +24,7 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - touch web-variables.env
-  - echo PORT >> web-variables.env && echo API_URL >> web-variables.env
+  - echo PORT=${PORT} >> web-variables.env && echo API_URL=${API_URL} >> web-variables.env
   - docker-compose up -d
   - cat web-variables.env
 
