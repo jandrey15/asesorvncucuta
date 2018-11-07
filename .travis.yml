@@ -8,6 +8,9 @@ node_js:
 # services:
 #   - docker
 
+cache:
+  yarn: true
+
 notifications:
   email:
     on_failure: never
@@ -17,9 +20,9 @@ notifications:
 
 before_install:
   - ls
-# script:
-#   - docker-compose ps
-#   - docker-compose exec web npm test
+script:
+  - cd web
+  - yarn test
 # cache:
 #   directories:
 #     - "node_modules"
