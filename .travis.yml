@@ -18,12 +18,31 @@ notifications:
 #   - DOCKER_COMPOSE_VERSION=1.20.1
 #   # - DOCKER_COMPOSE_VERSION=1.4.2
 
-before_install:
-  - ls
-  - cd web
-  - yarn add mocha chai supertest
-script:
-  - yarn test
+jobs:
+  include:
+    - stage: test
+      if: branch = master
+      env:
+        - API_URL=$API_URL_stage
+      before_install:
+        - ls
+        - cd web
+        - echo API_URL
+        - yarn add mocha chai supertest
+      script:
+        - yarn test
+    # - stage: build
+    #   script: ".travis/02-build-and-push-image.sh"
+    # - stage: deploy
+    #   script: ".travis/03-deploy.sh staging"
+
+stages:
+  - test
+# stages:
+#   - name: testing
+#     if: branch = master
+#     env:
+#       - API_URL=$API_URL_stage
 # cache:
 #   directories:
 #     - "node_modules"
