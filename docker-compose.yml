@@ -52,6 +52,7 @@ services:
       - mynetwork
     volumes:
       - ./logs:/var/log/nginx
+      - /etc/letsencrypt/:/etc/letsencrypt/
     ports:
       - "80:80"
       - "443:443"
