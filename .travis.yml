@@ -34,8 +34,7 @@ stages:
 jobs:
   include:
     - stage: test-prod
-      script:
-        - cd .travis/ && ./test.sh
+      script: chmod +x .travis/test.sh && .travis/test.sh
 
     - stage: test-stage
       env:
