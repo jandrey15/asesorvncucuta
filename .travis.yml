@@ -19,29 +19,29 @@ notifications:
 #   # - DOCKER_COMPOSE_VERSION=1.4.2
 
 stages:
-  - test-prod
-  - test-stage
-  - deploy-prod
-  - deploy-stage
+  - name: test-prod
+    if: branch = master
+  - name: test-stage
+    if: branch = stage
+  - name: deploy-prod
+    if: branch = master
+  - name: deploy-stage
+    if: branch = stage
 
 jobs:
   include:
     - stage: test-prod
-      if: branch = master
-      script: .travis/test.sh
+      script: ".travis/test.sh"
 
     - stage: test-stage
-      if: branch = stage
       env:
         - API_URL=$API_URL_stage
-      script: .travis/test.sh
+      script: ".travis/test.sh"
 
     - stage: deploy-prod
-      if: branch = master
       script: echo 'deployment prod'
 
     - stage: deploy-prod
-      if: branch = stage
       script: echo 'deployment statge'
 # stages:
 #   - name: testing
