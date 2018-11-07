@@ -1,43 +1,25 @@
 sudo: required
 
-# language: node_js
+language: node_js
 
-# node_js:
-#   - "node"
+node_js:
+  - "node"
 
-services:
-  - docker
+# services:
+#   - docker
 
 notifications:
   email:
     on_failure: never
-
-env:
-  - DOCKER_COMPOSE_VERSION=1.20.1
-  # - DOCKER_COMPOSE_VERSION=1.4.2
-
-addons:
-  hosts:
-    - api.docker.test
-    - admin.docker.test
-    - docker.test
+# env:
+#   - DOCKER_COMPOSE_VERSION=1.20.1
+#   # - DOCKER_COMPOSE_VERSION=1.4.2
 
 before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - touch web-variables.env
-  - echo PORT=${PORT} >> web-variables.env && echo API_URL=${API_URL} >> web-variables.env
-  - docker-compose up -d
-  - cat web-variables.env
-  - curl -o databases.sql https://bitbucket.org/john-serrano/databaseasesorvncucuta/raw/50b13e88daa571322c4be5ddbc6186c283541fa2/databases
-  - docker exec -i asesorvncucuta_mysql_1 mysql -uroot -p${MYSQL_ROOT_PASSWORD} asesor < databases.sql
-  - curl http://api.docker.test/wp-json/wp/v2/posts?sticky=false&_embed
-
-script:
-  - docker-compose ps
-  - docker-compose exec web npm test
+  - ls
+# script:
+#   - docker-compose ps
+#   - docker-compose exec web npm test
 # cache:
 #   directories:
 #     - "node_modules"
