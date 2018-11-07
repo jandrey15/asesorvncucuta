@@ -21,17 +21,20 @@ notifications:
 stages:
   - name: test-prod
     if: branch = master
+
   - name: test-stage
     if: branch = stage
+
   - name: deploy-prod
     if: branch = master
+
   - name: deploy-stage
     if: branch = stage
 
 jobs:
   include:
     - stage: test-prod
-      script: ".travis/test.sh"
+      script: ./web/test
 
     - stage: test-stage
       env:
