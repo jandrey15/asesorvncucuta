@@ -34,17 +34,17 @@ stages:
 jobs:
   include:
     - stage: test-prod
-      script: ./web/test
+      script: "./.travis/test.sh"
 
     - stage: test-stage
       env:
         - API_URL=$API_URL_stage
-      script: ".travis/test.sh"
+      script: "./.travis/test.sh"
 
     - stage: deploy-prod
       script: echo 'deployment prod'
 
-    - stage: deploy-prod
+    - stage: deploy-stage
       script: echo 'deployment statge'
 # stages:
 #   - name: testing
