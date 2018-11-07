@@ -27,11 +27,11 @@ before_install:
   - echo PORT=${PORT} >> web-variables.env && echo API_URL=${API_URL} >> web-variables.env
   - docker-compose up -d
   - cat web-variables.env
+  - curl http://api.docker.test/wp-json/wp/v2/posts?sticky=false&_embed
 
 script:
   - docker-compose ps
   - docker-compose exec web npm test
-
 # cache:
 #   directories:
 #     - "node_modules"
