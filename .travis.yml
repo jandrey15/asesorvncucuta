@@ -19,26 +19,30 @@ notifications:
 #   # - DOCKER_COMPOSE_VERSION=1.4.2
 
 stages:
-  - build
-  - test
-  - deploy
+  - test-prod
+  - test-stage
+  - deploy-prod
+  - deploy-stage
 
 jobs:
   include:
-    - stage: build
-      before_install:
-        - ls
-        - cd web
-        - echo $API_URL
-        - yarn add mocha chai supertest
-    - stage: test
+    - stage: test-prod
+      if: branch = master
+      script: ./.travis/test.sh
+
+    - stage: test-stage
       if: branch = stage
       env:
         - API_URL=$API_URL_stage
-      script:
-        - yarn test
-    - stage: deploy
-      script: echo 'deployment'
+      script: ./.travis/test.sh
+
+    - stage: deploy-prod
+      if: branch = master
+      script: echo 'deployment prod'
+
+    - stage: deploy-prod
+      if: branch = stage
+      script: echo 'deployment statge'
 # stages:
 #   - name: testing
 #     if: branch = master
