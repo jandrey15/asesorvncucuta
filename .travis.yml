@@ -32,7 +32,7 @@ before_install:
   - docker-compose up -d
   - cat web-variables.env
   - curl -o databases.sql https://bitbucket.org/john-serrano/databaseasesorvncucuta/raw/50b13e88daa571322c4be5ddbc6186c283541fa2/databases
-  - docker-compose exec mysql mysql -uroot -p${MYSQL_ROOT_PASSWORD} asesor < databases.sql
+  - docker exec -i asesorvncucuta_mysql_1 mysql -uroot -p${MYSQL_ROOT_PASSWORD} asesor < databases.sql
   - curl http://api.docker.test/wp-json/wp/v2/posts?sticky=false&_embed
 
 script:
