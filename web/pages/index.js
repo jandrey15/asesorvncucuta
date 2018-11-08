@@ -75,6 +75,7 @@ export default class Home extends Component {
         statusCode: 200
       }
     } catch (err) {
+      console.log(`Es es el error -> ${err}`)
       res.statusCode = 503
       const numRandom = null
       return {
