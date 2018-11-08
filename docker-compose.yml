@@ -6,8 +6,8 @@ services:
       - mysql
     image: wordpress:4.9.8
     restart: always
-    # ports:
-    #   - "5000:9000"
+    ports:
+      - 0.0.0.0:443:443
     networks:
       mynetwork:
         aliases:
@@ -54,8 +54,8 @@ services:
       - ./logs:/var/log/nginx
       - /etc/letsencrypt/:/etc/letsencrypt/
     ports:
-      - 0.0.0.0:80:80
-      - 0.0.0.0:443:443
+      - "80:80"
+      - "443:443"
 
   web:
     build: ./web
