@@ -12,7 +12,8 @@ services:
           - admin.docker.test
           - api.docker.test
           - static.docker.test
-          - api.johnserrano.xyz
+          # - api.johnserrano.xyz
+          - api.johnserrano.xyz:443
           - static.johnserrano.xyz
     expose:
       - "5000"
