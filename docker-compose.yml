@@ -13,8 +13,9 @@ services:
           - api.docker.test
           - static.docker.test
           # - api.johnserrano.xyz
+          - admin.johnserrano.xyz:443
           - api.johnserrano.xyz:443
-          - static.johnserrano.xyz
+          - static.johnserrano.xyz:443
     expose:
       - "5000"
       - "443"
@@ -26,6 +27,32 @@ services:
       # WORDPRESS_TABLE_PREFIX: asesorvn_
     volumes:
       - ./wordpress:/var/www/html
+  wordpress-stage:
+    depends_on:
+      - mysql
+    image: wordpress:4.9.8
+    restart: always
+    networks:
+      mynetwork:
+        aliases:
+          - stageadmin.docker.test
+          - stageapi.docker.test
+          - stagestatic.docker.test
+          # - api.johnserrano.xyz
+          - stageadmin.johnserrano.xyz:443
+          - stageapi.johnserrano.xyz:443
+          - stagestatic.johnserrano.xyz:443
+    expose:
+      - "5000"
+      - "443"
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      WORDPRESS_DB_NAME: asesor-stage
+      # WORDPRESS_TABLE_PREFIX: asesorvn_
+    volumes:
+      - ./wordpress-stage:/var/www/html
 
   mysql:
     image: mysql:5.7
