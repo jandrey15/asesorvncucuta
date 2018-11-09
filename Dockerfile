@@ -13,6 +13,10 @@ COPY   /nginx/api-prod.conf /etc/nginx/conf.d/api-prod.conf
 COPY   /nginx/static-dev.conf /etc/nginx/conf.d/static-dev.conf
 COPY   /nginx/static-prod.conf /etc/nginx/conf.d/static-prod.conf
 
+COPY   /nginx/api-stage.conf /etc/nginx/conf.d/api-stage.conf
+COPY   /nginx/backend-stage.conf /etc/nginx/conf.d/backend-stage.conf
+COPY   /nginx/static-stage.conf /etc/nginx/conf.d/static-stage.conf
+
 # VOLUME /var/log/nginx
 
 EXPOSE 80
