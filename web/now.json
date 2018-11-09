@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "name": "stage Asesorvncucuta",
+  "alias": ["stage.johnserrano.xyz"],
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "3000",
+    "HOST": "0.0.0.0",
+    "API_URL": "https://stageapi.johnserrano.xyz",
+    "LISTID": "@listid",
+    "API_KEY": "@api_key",
+    "SECRET_CAPTCHA": "@secret_captcha"
+  },
+  "public": true,
+  "type": "docker",
+  "features": {
+    "cloud": "v2"
+  }
+}
