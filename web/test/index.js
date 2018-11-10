@@ -102,7 +102,7 @@ describe('GET api request', () => {
   })
 
   describe('GET entrada', () => {
-    it('Info entrada', done => {
+    it('Info entrada', () => {
       request
         .get('/posts?per_page=1&status=publish&_embed')
         .set('Accept', 'application/json')
@@ -115,9 +115,7 @@ describe('GET api request', () => {
           if (length > 0) {
             expect(res.body[0].title.rendered).to.be.a('string')
             expect(res.body[0].status).to.equal('publish')
-            done()
           }
-          done()
         })
     })
 
