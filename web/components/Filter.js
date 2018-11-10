@@ -117,14 +117,14 @@ export default class Filter extends Component {
     try {
       if (value !== '') {
         let reqParent = await fetch(
-          `http://api.docker.test/wp-json/wp/v2/marcas?slug=${value}`
+          `${API_URL}/wp-json/wp/v2/marcas?slug=${value}`
         )
         let [{ id }] = await reqParent.json()
         parent = `parent=${id}`
       }
 
       let req = await fetch(
-        `http://api.docker.test/wp-json/wp/v2/marcas?${parent}&per_page=50`
+        `${API_URL}/wp-json/wp/v2/marcas?${parent}&per_page=50`
       )
 
       let modelos = await req.json()
