@@ -15,6 +15,9 @@ resource "digitalocean_droplet" "web" {
   lifecycle {
     create_before_destroy = true
   }
+  provisioner "local-exec" {
+    command = "sleep 160 && curl ${self.ipv4_address}:3000"
+  }
   ssh_keys           = [20843332, 21489207],
   user_data          = "${file("web.conf")}"
 }
