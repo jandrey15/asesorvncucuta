@@ -11,4 +11,4 @@ echo "deploying..."
 URL=$(now -t $now_token)
 echo "running acceptance on $URL"
 curl --silent -L $URL
-now alias
+now alias -t $now_token

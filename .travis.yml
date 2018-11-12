@@ -34,7 +34,7 @@ stages:
 jobs:
   include:
     - stage: Unit Tests Prod
-      script: chmod +x .travis/test.sh && .travis/test.sh
+      script: bash .travis/test.sh
 
     - stage: Unit Tests
       env:
@@ -47,4 +47,6 @@ jobs:
       script: echo 'deployment prod'
 
     - stage: Deployment to qa
+      env:
+        - API_URL=$API_URL_STAGE
       script: bash deployments/qa.sh
