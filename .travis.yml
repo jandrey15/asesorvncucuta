@@ -44,7 +44,7 @@ jobs:
       # - script: sh .travis/test.sh
       # name: "Integration Tests"
     - stage: deploy-prod
-      script: echo 'deployment prod'
+      script: bash deployments/prod.sh
 
     - stage: Deployment to qa
       env:

@@ -5,7 +5,7 @@
   "builders": [
     {
       "type": "digitalocean",
-      "image": "test-asesorvncucuta-1541858895915",
+      "image": "40142785",
       "region": "nyc1",
       "size": "s-1vcpu-1gb",
       "snapshot_name": "asesorvncucuta-base-{{user `build_number`}}",
@@ -17,8 +17,8 @@
       "type": "shell",
       "inline": [
         "cd asesorvncucuta",
-        "git pull origin master",
-        "docker-compose up -d --build"
+        "service nginx stop",
+        "git pull origin master"
       ]
     }
   ]
