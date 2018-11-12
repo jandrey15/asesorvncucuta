@@ -2,7 +2,7 @@ wget -O /tmp/packer.zip https://releases.hashicorp.com/packer/1.3.2/packer_1.3.2
 # wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip
 packer --version
 sudo rm -r /usr/local/bin/packer
-unzip /tmp/packer.zip -d /usr/local/bin/
+sudo unzip /tmp/packer.zip -d /usr/local/bin/
 packer --version
 # unzip /tmp/packer.zip -d ~/bin
 # unzip /tmp/terraform.zip -d ~/bin
