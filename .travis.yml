@@ -19,53 +19,32 @@ notifications:
 #   # - DOCKER_COMPOSE_VERSION=1.4.2
 
 stages:
-  - name: test-prod
+  - name: Unit Tests Prod
     if: branch = master
 
-  - name: test-stage
+  - name: Unit Tests
     if: branch = stage
 
   - name: deploy-prod
     if: branch = master
 
-  - name: deploy-stage
+  - name: Deployment to qa
     if: branch = stage
 
 jobs:
   include:
-    - stage: test-prod
+    - stage: Unit Tests Prod
       script: chmod +x .travis/test.sh && .travis/test.sh
 
-    - stage: test-stage
+    - stage: Unit Tests
       env:
-        - API_URL=$API_URL_stage
-      script: "./.travis/test.sh"
+        - API_URL=$API_URL_STAGE
+      script: bash .travis/test.sh
 
+      # - script: sh .travis/test.sh
+      # name: "Integration Tests"
     - stage: deploy-prod
       script: echo 'deployment prod'
 
-    - stage: deploy-stage
-      script: echo 'deployment statge'
-# stages:
-#   - name: testing
-#     if: branch = master
-#     env:
-#       - API_URL=$API_URL_stage
-# cache:
-#   directories:
-#     - "node_modules"
-# script: npm test # Here you could also run the build step of your application
-
-# before_deploy: npm install now --no-save # Install Now CLI on Travis
-# deploy:
-#   - provider: script # Run a custom deployment script which we will define below
-#     script: now --token $now_token
-#     skip_cleanup: true
-#     on:
-#       all_branches: true
-#       master: false
-#   - provider: script
-#     script: now --token $now_token && now alias --token $now_token
-#     skip_cleanup: true
-#     on:
-#       master: true
+    - stage: Deployment to qa
+      script: bash deployments/qa.sh
