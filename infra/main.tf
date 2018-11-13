@@ -1,6 +1,6 @@
-resource "digitalocean_floating_ip" "web" {
-  region            = "nyc1"
-}
+# resource "digitalocean_floating_ip" "web" {
+#   region            = "nyc1"
+# }
 
 resource "digitalocean_tag" "webtag" {
   name = "web-site"
@@ -16,13 +16,17 @@ resource "digitalocean_droplet" "web" {
     create_before_destroy = true
   }
   provisioner "local-exec" {
-    command = "sleep 160 && curl ${self.ipv4_address}:3000"
+    command = "sleep 160 && curl ${self.ipv4_address}"
   }
   ssh_keys           = [20843332, 21489207],
   user_data          = "${file("web.conf")}"
 }
 
-resource "digitalocean_floating_ip_assignment" "web" {
-  ip_address = "${digitalocean_floating_ip.web.id}"
+resource "digitalocean_floating_ip_assignment" "web-api" {
+  depends_on = ["digitalocean_droplet.web"]
+  ip_address = "178.128.133.22"
+  lifecycle {
+    create_before_destroy = true
+  }
   droplet_id = "${digitalocean_droplet.web.id}"
 }
