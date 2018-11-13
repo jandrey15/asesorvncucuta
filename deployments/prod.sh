@@ -19,14 +19,14 @@ git config --global user.email "travis@travis-ci.org" &&
 git config --global user.name "Travis CI" &&
 # git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 touch test.txt &&
-git add test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 
 upload_files() {
   git status
-  git remote rm origin &&
   echo "Se elimino la key remote"
+  git remote rm origin &&
   # Add new "origin" with access token in the git URL for authentication
   git remote add origin https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
+  git add test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
   git status
   echo "Se agrego la key remote"
   git remote -v
