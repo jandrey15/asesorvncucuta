@@ -30,7 +30,7 @@ upload_files() {
   git add test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
   git status
   # git push origin master --quiet
-  git push origin master /dev/null 2>&1
+  git push origin master > /dev/null 2>&1
   echo "push a master"
 }
 
