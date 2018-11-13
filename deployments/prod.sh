@@ -28,6 +28,7 @@ upload_files() {
   git remote add origin https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
   git status
   echo "Se agrego la key remote"
+  git remote -v
   git push origin master --quiet
   echo "push a master"
 }
