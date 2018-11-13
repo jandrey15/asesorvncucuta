@@ -18,12 +18,22 @@ terraform init -input=false &&
 terraform apply -input=false -auto-approve && cd .. &&
 git config --global user.email "travis@travis-ci.org" &&
 git config --global user.name "Travis CI" &&
-git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]" &&
+git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 
-git remote rm origin &&
-# Add new "origin" with access token in the git URL for authentication
-git remote add origin https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
-git push origin master --quiet
+upload_files() {
+  git remote rm origin &&
+  # Add new "origin" with access token in the git URL for authentication
+  git remote add origin https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
+  git push origin master --quiet
+}
+
+# Attempt to commit to git only if "git commit" succeeded
+if [ $? -eq 0 ]; then
+  echo "A new commit with changed country JSON files exists. Uploading to GitHub"
+  upload_files
+else
+  echo "No changes in country JSON files. Nothing to do"
+fi
 
 # git push origin master &&
 echo "Deployed and saved!"
