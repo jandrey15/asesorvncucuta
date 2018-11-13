@@ -22,6 +22,7 @@ touch test.txt &&
 git add test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 
 upload_files() {
+  git status
   git remote rm origin &&
   echo "Se elimino la key remote"
   # Add new "origin" with access token in the git URL for authentication
