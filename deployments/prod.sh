@@ -7,7 +7,7 @@ sudo unzip -o /tmp/terraform.zip -d /usr/local/bin/
 packer validate deployments/template.json && 
 packer build deployments/template.json &&
 
-export TF_VAR_image_id=$(curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" "https://api.digitalocean.com/v2/images?private=true" | jq ."images[] | select(.name == \"devops-demo-$TRAVIS_BUILD_NUMBER\") | .id") &&
+export TF_VAR_image_id=$(curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" "https://api.digitalocean.com/v2/images?private=true" | jq ."images[] | select(.name == \"asesorvncucuta-base-$TRAVIS_BUILD_NUMBER\") | .id") &&
 
 echo "Got the image id of the new digital ocean image" &&
 echo $TF_VAR_image_id &&
