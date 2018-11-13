@@ -1,25 +1,27 @@
 wget -O /tmp/packer.zip https://releases.hashicorp.com/packer/1.3.2/packer_1.3.2_linux_amd64.zip
-# wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip
+wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip
 
 sudo unzip -o /tmp/packer.zip -d /usr/local/bin/
-echo '--------------------'
-# unzip /tmp/terraform.zip -d ~/bin
+sudo unzip -o /tmp/terraform.zip -d /usr/local/bin/
 
-packer validate deployments/template.json && packer build deployments/template.json
+packer validate deployments/template.json && 
+packer build deployments/template.json &&
 
-# export TF_VAR_image_id=$(curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" "https://api.digitalocean.com/v2/images?private=true" | jq ."images[] | select(.name == \"devops-demo-$TRAVIS_BUILD_NUMBER\") | .id") &&
+export TF_VAR_image_id=$(curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" "https://api.digitalocean.com/v2/images?private=true" | jq ."images[] | select(.name == \"devops-demo-$TRAVIS_BUILD_NUMBER\") | .id") &&
 
-# echo "Got the image id of the new digital ocean image" &&
-# echo $TF_VAR_image_id &&
+echo "Got the image id of the new digital ocean image" &&
+echo $TF_VAR_image_id &&
+# echo $TF_VAR_image_id
 
-# cd infra &&
-# terraform init -input=false && 
-# terraform apply -input=false -auto-approve && cd .. &&
-# git config --global user.email "circleci@awesomeMail.com" &&
-# git config --global user.name "Circle CI Script" &&
-# git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]" &&
+cd infra &&
+terraform init -input=false && 
+terraform apply -input=false -auto-approve && cd .. &&
+git config --global user.email "travis@travis-ci.org" &&
+git config --global user.name "Travis CI" &&
+git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]" &&
 
-# git push origin master &&
+git push origin master &&
+echo "Deployed and saved!"
 # echo "Deployed and saved!" &&
 # echo "Now deleting the image previously created" &&
 
