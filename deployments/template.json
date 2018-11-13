@@ -15,11 +15,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "inline": [
-        "cd asesorvncucuta",
-        "service nginx stop",
-        "git pull origin master"
-      ]
+      "inline": ["cd asesorvncucuta", "git pull origin master"]
     }
   ]
 }
