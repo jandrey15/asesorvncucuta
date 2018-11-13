@@ -23,9 +23,9 @@ git add test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 
 
 upload_files() {
-  # git remote rm origin &&
+  git remote rm origin &&
   # Add new "origin" with access token in the git URL for authentication
-  # git remote add origin https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
+  git remote add origin https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
 
   git status
   # git push origin master --quiet
