@@ -29,7 +29,8 @@ upload_files() {
 
   git status
   # git push origin master --quiet
-  git push origin master > /dev/null 2>&1
+  # git push origin master > /dev/null 2>&1
+  git push origin master
   echo "push a master"
 }
 
