@@ -14,16 +14,20 @@ echo $TF_VAR_image_id &&
 # echo $TF_VAR_image_id
 
 cd infra &&
-terraform init -input=false && 
-terraform apply -input=false -auto-approve && cd .. &&
+# terraform init -input=false && 
+# terraform apply -input=false -auto-approve && cd .. &&
 git config --global user.email "travis@travis-ci.org" &&
 git config --global user.name "Travis CI" &&
-git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
+# git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
+touch test.txt &&
+git add test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 
 upload_files() {
   git remote rm origin &&
+  echo "Se elimino la key remote"
   # Add new "origin" with access token in the git URL for authentication
   git remote add origin https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
+  echo "Se agrego la key remote"
   git push origin master --quiet
 }
 
