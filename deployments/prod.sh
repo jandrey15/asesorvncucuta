@@ -27,11 +27,8 @@ upload_files() {
   # git remote rm origin
   # # Add new "origin" with access token in the git URL for authentication
   # git remote add origin https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
-  eval "$(ssh-agent -s)" #start the ssh agent
-  chmod 600 .travis/deploy_key.pem # this key should have push access
-  ssh-add .travis/deploy_key.pem
   git remote add deploy https://jandrey15:${GH_TOKEN}@github.com/jandrey15/asesorvncucuta.git > /dev/null 2>&1
-  git push deploy master > /dev/null 2>&1
+  git push deploy master --quiet > /dev/null 2>&1
   # git push origin master --quiet > /dev/null 2>&1
   # git push origin master
   echo "push a master"
