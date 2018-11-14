@@ -47,7 +47,7 @@ jobs:
     - stage: deploy-prod
       script: echo 'hello world'
       after_success:
-        - bash deployments/prod.sh
+        - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then bash deployments/prod.sh; else echo "Not cron. Skipping push to GitHub"; fi
 
       # script: bash deployments/prod.sh
     - stage: Deployment to qa
