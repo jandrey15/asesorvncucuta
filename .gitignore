@@ -7,3 +7,5 @@ wordpress/wp-content/uploads
 wp-config.php
 web-variables.env
 wordpress-stage
+
+wp-content
