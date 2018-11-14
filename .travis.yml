@@ -45,10 +45,10 @@ jobs:
       # - script: sh .travis/test.sh
       # name: "Integration Tests"
     - stage: deploy-prod
+      script: bash echo 'hello world'
       after_success:
-        - sh deployments/prod.sh
+        - bash deployments/prod.sh
 
-      script: sh echo 'hello world'
       # script: bash deployments/prod.sh
     - stage: Deployment to qa
       env:
