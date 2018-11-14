@@ -47,7 +47,7 @@ jobs:
     - stage: deploy-prod
       script: bash deployments/prod.sh
       after_success:
-        - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then sh deployments/.travis-push.sh; else echo "Not cron. Skipping push to GitHub"; fi
+        - bash deployments/.travis-push.sh
     - stage: Deployment to qa
       env:
         - API_URL=$API_URL_STAGE
