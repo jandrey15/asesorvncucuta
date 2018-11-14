@@ -7,7 +7,7 @@
 }
 
 .sgdg-grid-a {
-	box-shadow: none !important;
+	box-shadow: none !important; /* stylelint-disable-line plugin/no-unsupported-browser-features */
 }
 
 .sgdg-grid-square {
@@ -16,13 +16,14 @@
 }
 
 .sgdg-grid-img {
-	box-shadow: none !important;
+	box-shadow: none !important; /* stylelint-disable-line plugin/no-unsupported-browser-features */
 	display: block;
-	height: 100%;
+	height: 100% !important;
 }
 
 .sgdg-dir-overlay {
-	background: rgba(0, 0, 0, 0.5);
+	background-color: #7f7f7f;
+	background-color: rgba(0, 0, 0, 0.5); /* stylelint-disable-line plugin/no-unsupported-browser-features */
 	bottom: 0;
 	color: #fff;
 	left: 0;
@@ -48,51 +49,45 @@
 	display: block;
 }
 
-.sgdg-spinner {
-	background: url(/wp-admin/images/wpspin_light-2x.gif) no-repeat;
-	height: 32px;
+.sgdg-loading,
+.sgdg-loading div {
+	border-radius: 50%;
+}
+
+.sgdg-loading {
+	background-color: #9b9b9b;
+	background-color: rgba(130, 130, 130, 0.8); /* stylelint-disable-line plugin/no-unsupported-browser-features */
+	box-shadow: 0 0 2.5em #b3b3b3; /* 40 */
+	box-shadow: 0 0 2.5em rgba(130, 130, 130, 0.6); /* stylelint-disable-line plugin/no-unsupported-browser-features */
 	margin: 10px auto;
-	opacity: 0.7;
-	width: 32px;
+	padding: 0.65em;
+	width: 2.6em;
 }
 
-.imagelightbox-overlay {
-	background-color: rgba(30, 30, 30, 0.9);
+.sgdg-loading div {
+	height: 1.3em;
+	background-color: #fff;
+	animation: sgdg-loading 0.5s ease infinite;
 }
 
-.imagelightbox-loading {
-	background-color: rgba(130, 130, 130, 0.8);
-	box-shadow: 0 0 2.5em rgba(130, 130, 130, 0.6);
+@keyframes sgdg-loading {
+
+	from {
+		opacity: 0.5;
+		transform: scale(0.75);
+	}
+
+	50% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	to {
+		opacity: 0.5;
+		transform: scale(0.75);
+	}
 }
 
 .imagelightbox-close {
-	background-color: rgba(130, 130, 130, 0.8);
-}
-
-.imagelightbox-arrow {
-	background-color: rgba(130, 130, 130, 0.8);
-	border-radius: 50%;
-	height: 4em;
-	padding: 0;
-	width: 4em;
-}
-
-.imagelightbox-arrow:focus {
-	background-color: rgba(130, 130, 130, 0.8);
-}
-
-.imagelightbox-arrow:focus:hover {
-	background-color: rgba(0, 0, 0, 0.75);
-}
-
-.imagelightbox-arrow::before {
-	margin-bottom: -7%;
-}
-
-.imagelightbox-arrow-left::before {
-	margin-left: -0.35em;
-}
-
-.imagelightbox-arrow-right::before {
-	margin-left: 0.2em;
+	padding: 0; /* TODO: Upstream */
 }

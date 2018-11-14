@@ -48,10 +48,13 @@ function path_names( $client, array $path, array $used_path = [] ) {
 	$client->getClient()->setUseBatch( true );
 	$batch = $client->createBatch();
 	foreach ( $path as $segment ) {
-		$request = $client->files->get( $segment, [
-			'supportsTeamDrives' => true,
-			'fields'             => 'name',
-		]);
+		$request = $client->files->get(
+			$segment,
+			[
+				'supportsTeamDrives' => true,
+				'fields'             => 'name',
+			]
+		);
 		$batch->add( $request, $segment );
 	}
 	$responses = $batch->execute();
@@ -82,6 +85,9 @@ function apply_path( $client, $root, array $path ) {
 			'fields'                => 'nextPageToken, files(id)',
 		];
 		$response = $client->files->listFiles( $params );
+		if ( $response instanceof \Sgdg\Vendor\Google_Service_Exception ) {
+			throw $response;
+		}
 		foreach ( $response->getFiles() as $file ) {
 			if ( $file->getId() === $path[0] ) {
 				if ( count( $path ) === 1 ) {
@@ -97,9 +103,8 @@ function apply_path( $client, $root, array $path ) {
 }
 
 function directories( $client, $dir ) {
-	$dir_counts_allowed = \Sgdg\Options::$dir_counts->get() === 'true';
-	$ids                = [];
-	$names              = [];
+	$ids   = [];
+	$names = [];
 
 	$page_token = null;
 	do {
@@ -113,6 +118,9 @@ function directories( $client, $dir ) {
 			'fields'                => 'nextPageToken, files(id, name)',
 		];
 		$response = $client->files->listFiles( $params );
+		if ( $response instanceof \Sgdg\Vendor\Google_Service_Exception ) {
+			throw $response;
+		}
 		foreach ( $response->getFiles() as $file ) {
 			$ids[]   = $file->getId();
 			$names[] = $file->getName();
@@ -138,7 +146,7 @@ function directories( $client, $dir ) {
 			'name'      => $names[ $i ],
 			'thumbnail' => $dir_images[ $i ],
 		];
-		if ( $dir_counts_allowed ) {
+		if ( \Sgdg\Options::$dir_counts->get() === 'true' ) {
 			$val = array_merge( $val, $dir_counts[ $i ] );
 		}
 		if ( 0 < $dir_counts[ $i ]['dircount'] + $dir_counts[ $i ]['imagecount'] ) {
@@ -223,24 +231,54 @@ function images( $client, $dir ) {
 	$ret        = [];
 	$page_token = null;
 	do {
-		$params   = [
+		$params = [
 			'q'                     => '"' . $dir . '" in parents and mimeType contains "image/" and trashed = false',
 			'supportsTeamDrives'    => true,
 			'includeTeamDriveItems' => true,
-			'orderBy'               => \Sgdg\Options::$image_ordering->get(),
 			'pageToken'             => $page_token,
 			'pageSize'              => 1000,
-			'fields'                => 'nextPageToken, files(id, thumbnailLink)',
 		];
+		if ( \Sgdg\Options::$image_ordering->getBy() === 'time' ) {
+			$params['fields'] = 'nextPageToken, files(id, thumbnailLink, createdTime, imageMediaMetadata(time))';
+		} else {
+			$params['orderBy'] = \Sgdg\Options::$image_ordering->get();
+			$params['fields']  = 'nextPageToken, files(id, thumbnailLink)';
+		}
 		$response = $client->files->listFiles( $params );
+		if ( $response instanceof \Sgdg\Vendor\Google_Service_Exception ) {
+			throw $response;
+		}
 		foreach ( $response->getFiles() as $file ) {
-			$ret[] = [
+			$val = [
 				'id'        => $file->getId(),
 				'image'     => substr( $file->getThumbnailLink(), 0, -3 ) . \Sgdg\Options::$preview_size->get(),
 				'thumbnail' => substr( $file->getThumbnailLink(), 0, -4 ) . 'h' . floor( 1.25 * \Sgdg\Options::$grid_height->get() ),
 			];
+			if ( \Sgdg\Options::$image_ordering->getBy() === 'time' ) {
+				if ( $file->getImageMediaMetadata() && $file->getImageMediaMetadata()->getTime() ) {
+					$val['timestamp'] = \DateTime::createFromFormat( 'Y:m:d H:i:s', $file->getImageMediaMetadata()->getTime() )->format( 'U' );
+				} else {
+					$val['timestamp'] = \DateTime::createFromFormat( 'Y-m-d\TH:i:s.uP', $file->getCreatedTime() )->format( 'U' );
+				}
+			}
+			$ret[] = $val;
 		}
 		$page_token = $response->getNextPageToken();
 	} while ( null !== $page_token );
+	if ( \Sgdg\Options::$image_ordering->getBy() === 'time' ) {
+		usort(
+			$ret,
+			function( $a, $b ) {
+				$asc = $a['timestamp'] - $b['timestamp'];
+				return \Sgdg\Options::$image_ordering->getOrder() === 'ascending' ? $asc : -$asc;
+			}
+		);
+		array_walk(
+			$ret,
+			function( &$item ) {
+				unset( $item['timestamp'] );
+			}
+		);
+	}
 	return $ret;
 }
