@@ -19,6 +19,7 @@ git config --global user.email "build@travis-ci.com" &&
 git config --global user.name "Travis CI" &&
 # git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 touch test.txt &&
+echo 'Hola mundo' >> test.txt 
 git add test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 
 
