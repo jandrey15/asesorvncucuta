@@ -5,7 +5,7 @@ sudo unzip -o /tmp/packer.zip -d /usr/local/bin/
 sudo unzip -o /tmp/terraform.zip -d /usr/local/bin/
 
 packer validate deployments/template.json && 
-# packer build deployments/template.json &&
+packer build deployments/template.json &&
 
 export TF_VAR_image_id=$(curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" "https://api.digitalocean.com/v2/images?private=true" | jq ."images[] | select(.name == \"asesorvncucuta-base-$TRAVIS_BUILD_NUMBER\") | .id") &&
 
@@ -13,17 +13,11 @@ echo "Got the image id of the new digital ocean image" &&
 echo $TF_VAR_image_id &&
 
 cd infra &&
-# terraform init -input=false && 
-# terraform apply -input=false -auto-approve && cd .. &&
+terraform init -input=false && 
+terraform apply -input=false -auto-approve &&
 
-# git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
-touch test.txt &&
-echo 'Hola mundo' >> test.txt 
+echo "Deployed and saved!" &&
+echo "Now deleting the image previously created" &&
 
-echo "Deployed and saved!"
-# echo "Deployed and saved!" &&
-# echo "Now deleting the image previously created" &&
-
-# curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" "https://api.digitalocean.com/v2/images/$TF_VAR_image_id" &&
-# echo "Image deleted successfuly" &&
-# echo "Done!"
+curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" "https://api.digitalocean.com/v2/images/$TF_VAR_image_id" &&
+echo "Image deleted successfuly"
