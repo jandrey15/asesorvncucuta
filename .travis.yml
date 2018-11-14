@@ -45,17 +45,10 @@ jobs:
       # - script: sh .travis/test.sh
       # name: "Integration Tests"
     - stage: deploy-prod
-      deploy:
-        provider: pages
-        skip-cleanup: true
-        target-branch: master # Commit to master instead of gh-pages
-        github-token: $GH_TOKEN
-        keep-history: true # By default, Travis uses push --force and wipes out commit history
-        verbose: true
-        on:
-          branch: master
-      script: bash deployments/prod.sh
+      after_success:
+        - sh deployments/prod.sh
 
+      # script: bash deployments/prod.sh
     - stage: Deployment to qa
       env:
         - API_URL=$API_URL_STAGE
