@@ -1,12 +1,12 @@
 setup_git() {
   git config --global user.email "build@travis-ci.com" &&
-  git config --global user.name "Travis CI" &&
+  git config --global user.name "Travis CI"
 }
 
 commit_country_json_files() {
   git checkout master &&
   git status &&
-  git add infra/test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]" &&
+  git add infra/test.txt && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
   # git add infra && git commit -m "Deployed $TRAVIS_BUILD_NUMBER [skip ci]"
 }
 
