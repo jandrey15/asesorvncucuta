@@ -48,6 +48,7 @@ jobs:
       after_success:
         - sh deployments/prod.sh
 
+      script: sh echo 'hello world'
       # script: bash deployments/prod.sh
     - stage: Deployment to qa
       env:
