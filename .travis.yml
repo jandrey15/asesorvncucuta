@@ -47,6 +47,7 @@ jobs:
     - stage: deploy-prod
       script: echo 'hola mundo'
       after_success:
+        - skip_cleanup: true
         - bash deployments/prod.sh
     - stage: Deployment to qa
       env:
