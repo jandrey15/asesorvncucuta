@@ -26,7 +26,7 @@ stages:
   - name: Unit Tests
     if: branch = stage
 
-  - name: deploy-prod
+  - name: Deployment to Prod
     if: branch = master
 
   - name: Deployment to qa
@@ -34,8 +34,8 @@ stages:
 
 jobs:
   include:
-    # - stage: Unit Tests Prod
-    #   script: bash .travis/test.sh
+    - stage: Unit Tests Prod
+      script: bash .travis/test.sh
 
     - stage: Unit Tests
       env:
@@ -44,7 +44,7 @@ jobs:
 
       # - script: sh .travis/test.sh
       # name: "Integration Tests"
-    - stage: deploy-prod
+    - stage: Deployment to Prod
       script: bash deployments/prod.sh
       after_success:
         - bash deployments/.travis-push.sh
