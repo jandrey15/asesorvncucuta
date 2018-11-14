@@ -45,16 +45,17 @@ jobs:
       # - script: sh .travis/test.sh
       # name: "Integration Tests"
     - stage: deploy-prod
-      script: bash deployments/prod.sh
-      before_deploy:
-        - git config --global user.email "build@travis-ci.com"
-        - git config --global user.name "Travis CI"
-      deploy:
-        provider: releases
-        api_key: $GH_TOKEN
-        file_glob: true
-        file: infra/*
-        skip_cleanup: true
+      script: echo 'hola mundo'
+      after_success:
+        - bash deployments/prod.sh
+        provider: pages
+        skip-cleanup: true
+        target-branch: master # Commit to master instead of gh-pages
+        github-token: $GH_TOKEN
+        keep-history: true # By default, Travis uses push --force and wipes out commit history
+        verbose: true
+        on:
+          branch: master
     - stage: Deployment to qa
       env:
         - API_URL=$API_URL_STAGE
