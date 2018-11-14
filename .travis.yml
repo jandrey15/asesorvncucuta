@@ -45,7 +45,7 @@ jobs:
       # - script: sh .travis/test.sh
       # name: "Integration Tests"
     - stage: deploy-prod
-      script: bash echo 'hello world'
+      script: echo 'hello world'
       after_success:
         - bash deployments/prod.sh
 
