@@ -194,7 +194,7 @@ class Slides extends Component {
       }
 
       let button
-
+      // Boton de ver mas de 7 miniaturas galeria
       if (this.state.media > 768) {
         if (slides.length > 7 && this.state.count === 0) {
           styleButton.right = styleButtonRight.right
@@ -380,6 +380,19 @@ class Slides extends Component {
               background-size: 100%;
             }
 
+            @media screen and (max-width: 1024px) {
+              .background .controls .arrow:hover {
+                opacity: 1;
+              }
+
+              .background .controls .arrow.left {
+                left: 15px;
+              }
+              .background .controls .arrow.right {
+                right: 15px;
+              }
+            }
+
             @media screen and (max-width: 768px) {
               .indicators {
                 display: flex;
@@ -405,13 +418,16 @@ class Slides extends Component {
               />
             ))}
           </ul>
-
-          <button className='arrow left' onClick={this.handleClickLeft}>
-            &#10094;
-          </button>
-          <button className='arrow right' onClick={this.handleClickRight}>
-            &#10095;
-          </button>
+          {this.state.slides.length > 1 && (
+            <div>
+              <button className='arrow left' onClick={this.handleClickLeft}>
+                &#10094;
+              </button>
+              <button className='arrow right' onClick={this.handleClickRight}>
+                &#10095;
+              </button>
+            </div>
+          )}
 
           <style jsx>{`
             .carouselSlides {
@@ -446,6 +462,12 @@ class Slides extends Component {
               right: 15px;
               background: url('/static/arrow-right.svg') no-repeat;
               background-size: 100%;
+            }
+
+            @media screen and (max-width: 1024px) {
+              .arrow:hover {
+                opacity: 1;
+              }
             }
           `}</style>
         </SlideLayout>

@@ -1,3 +1,4 @@
+/* eslint-disable standard/computed-property-even-spacing */
 // import Link from 'next/link'
 import { Link } from '../routes'
 import slug from '../helpers/slug'
@@ -42,7 +43,7 @@ const MorePosts = props => {
                   post._embedded['wp:featuredmedia']
                     ? post._embedded['wp:featuredmedia'][0].media_details.sizes[
                       'thumbnail'
-                    ].source_url
+                    ].source_url.replace('admin', 'static')
                     : '/static/default.jpg'
                 }
                 alt={

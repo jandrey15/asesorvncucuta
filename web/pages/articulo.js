@@ -1,3 +1,4 @@
+/* eslint-disable standard/computed-property-even-spacing */
 import React, { Component } from 'react'
 // import Link from 'next/link'
 import { Link } from '../routes'
@@ -78,7 +79,10 @@ export default class Articulo extends Component {
             <img
               src={
                 article._embedded['wp:featuredmedia']
-                  ? article._embedded['wp:featuredmedia'][0].source_url
+                  ? article._embedded['wp:featuredmedia'][0].source_url.replace(
+                    'admin',
+                    'static'
+                  )
                   : '/static/default.jpg'
               }
               alt={

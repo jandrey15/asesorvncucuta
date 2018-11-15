@@ -1,3 +1,4 @@
+/* eslint-disable standard/computed-property-even-spacing */
 // import Link from 'next/link'
 import { Link } from '../routes'
 import slug from '../helpers/slug'
@@ -56,8 +57,12 @@ const ListEntradas = props => {
               <img
                 src={
                   entrada._embedded['wp:featuredmedia']
-                    ? entrada._embedded['wp:featuredmedia'][0].media_details
-                      .sizes['thumbnail'].source_url
+                    ? entrada._embedded[
+                      'wp:featuredmedia'
+                    ][0].media_details.sizes['thumbnail'].source_url.replace(
+                      'admin',
+                      'static'
+                    )
                     : '/static/default.jpg'
                 }
                 alt={

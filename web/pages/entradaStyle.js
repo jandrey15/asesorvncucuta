@@ -202,13 +202,13 @@ export default css`
   }
 
   span {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
   }
 
   .seller .name,
   .seller .phone {
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 400;
     margin: 5px 0 20px;
   }
@@ -242,6 +242,11 @@ export default css`
 
     .ficha {
       padding: 0 10px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .ficha .item {
+      max-width: 150px;
     }
 
     .text {

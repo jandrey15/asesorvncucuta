@@ -1,3 +1,4 @@
+/* eslint-disable standard/computed-property-even-spacing */
 import React from 'react'
 // import Link from 'next/link'
 import { Link } from '../routes'
@@ -31,8 +32,9 @@ const CarouselSlide = props => {
       <img
         src={
           slide._embedded['wp:featuredmedia']
-            ? slide._embedded['wp:featuredmedia'][0].media_details.sizes['full']
-              .source_url
+            ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
+              'full'
+            ].source_url.replace('admin', 'static')
             : '/static/default.jpg'
         }
         alt={slide.title.rendered}
