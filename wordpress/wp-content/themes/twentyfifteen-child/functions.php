@@ -88,7 +88,7 @@ function articulo_init() {
     'show_ui'           => true,
     'show_in_menu'      => true,
     'query_var'         => true,
-    'rewrite'           => array( 'slug' => 'articulo' ),
+    'rewrite'           => array( 'slug' => 'articulos' ),
     'capability_type'   => 'post',
     'map_meta_cap'      => true,
     'has_archive'       => true,
