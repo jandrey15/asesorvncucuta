@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 
 services:
   wordpress:
@@ -70,7 +70,10 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb_use_native_aio=0
 
   proxy:
-    build: .
+    build:
+      context: .
+      target: nginx-dev
+      # target: nginx-prod
     depends_on:
       - wordpress
       - web
