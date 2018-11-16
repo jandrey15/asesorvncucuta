@@ -30,6 +30,29 @@ class Slides extends Component {
     this.setState({
       media: window.innerWidth
     })
+
+    document.onreadystatechange = () => {
+      if (document.readyState === 'complete') {
+        // console.log('listo')
+        const carousel = document.querySelector('.carousel')
+        // eslint-disable-next-line no-undef
+        const gestos = new Hammer(carousel)
+
+        gestos.on('swipeleft', this.handleClickRight)
+        gestos.on('swiperight', this.handleClickLeft)
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      // The page is fully loaded
+      // console.log('listo complete')
+      const carousel = document.querySelector('.carousel')
+      // eslint-disable-next-line no-undef
+      const gestos = new Hammer(carousel)
+
+      gestos.on('swipeleft', this.handleClickRight)
+      gestos.on('swiperight', this.handleClickLeft)
+    }
   }
 
   componentWillUnmount () {
@@ -225,7 +248,7 @@ class Slides extends Component {
 
       return (
         <SlideLayout>
-          <ul className='carouselGaleria'>
+          <ul className='carouselGaleria carousel'>
             {slides.map((slide, index) => (
               <CarouselGaleria
                 key={slide.id}
@@ -370,12 +393,12 @@ class Slides extends Component {
               opacity: 0.5;
             }
             .background .controls .arrow.left {
-              left: 40px;
+              left: 70px;
               background: url('/static/arrow-left.svg') no-repeat;
               background-size: 100%;
             }
             .background .controls .arrow.right {
-              right: 40px;
+              right: 70px;
               background: url('/static/arrow-right.svg') no-repeat;
               background-size: 100%;
             }
@@ -407,7 +430,7 @@ class Slides extends Component {
     } else {
       return (
         <SlideLayout>
-          <ul className='carouselSlides'>
+          <ul className='carouselSlides carousel'>
             {this.state.slides.map((slide, index) => (
               <CarouselSlide
                 key={slide.id}

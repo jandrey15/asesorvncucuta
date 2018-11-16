@@ -53,6 +53,10 @@ export default class MyDocument extends Document {
                 type='text/javascript'
                 src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bd761be568eebc5'
               />
+              <script
+                type='text/javascript'
+                src='https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js'
+              />
             </Fragment>
           }
         </body>

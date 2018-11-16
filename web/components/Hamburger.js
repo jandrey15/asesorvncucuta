@@ -82,6 +82,13 @@ export default class Hamburger extends Component {
             </div>
           </div>
         </nav>
+        <style jsx global>{`
+          @media screen and (max-width: 1024px) {
+            body {
+              overflow-y: ${active ? 'hidden' : 'scroll'};
+            }
+          }
+        `}</style>
         <style jsx>{`
           #navigation {
             display: none;
@@ -111,7 +118,7 @@ export default class Hamburger extends Component {
               grid-template-columns: 1fr;
               grid-template-rows: 50px 1fr;
               max-height: 600px;
-              height: 100vh;
+              height: 95vh;
               overflow-y: scroll;
               bottom: 0;
               background: #c73737;
