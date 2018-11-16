@@ -1,7 +1,0 @@
-0000.002 (0) Opened log file at time: Wed, 14 Nov 2018 21:41:42 +0000 on http://admin.docker.test
-0000.004 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.15.3 WP: 4.9.8 PHP: 7.2.9 (apache2handler, Linux fb968baf7cc3 4.9.93-boot2docker #1 SMP Thu Apr 12 17:05:48 UTC 2018 x86_64) MySQL: 5.7.22 WPLANG: es_CO Server: Apache/2.4.25 (Debian) safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 8.7M | 4M) multisite: N openssl: OpenSSL 1.1.0f  25 May 2017 mcrypt: N LANG: C ZipArchive::addFile: Y
-0000.006 (0) Free space on disk containing Updraft's temporary directory: 29712.3 MB
-0000.012 (0) Tasks: Backup files: 1 (schedule: weekly) Backup DB: 1 (schedule: weekly)
-0000.015 (0) Requesting semaphore lock (fd) (apparently not via scheduler)
-0000.017 (0) Semaphore lock (fd, asesorvn_options) failed (line 43)
-0000.018 (0) Failed to gain semaphore lock (fd) - another backup of this type is apparently already active - aborting (if this is wrong - i.e. if the other backup crashed without removing the lock, then another can be started after 3 minutes)
