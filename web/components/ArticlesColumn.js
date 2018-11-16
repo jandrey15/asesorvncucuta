@@ -10,7 +10,9 @@ const ArticlesColumn = props => {
         if (index === 1) {
           return (
             <div className='pauta' key={index}>
-              <img src='/static/repuestos.jpg' alt='repuestos' />
+              <a href='tel:+573003482805' target='_blank'>
+                <img src='/static/asesoria.jpg' alt='repuestos' />
+              </a>
               <Article article={article} key={article.id} type='column' />
             </div>
           )

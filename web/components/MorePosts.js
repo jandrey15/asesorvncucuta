@@ -44,7 +44,7 @@ const MorePosts = props => {
                     ? post._embedded['wp:featuredmedia'][0].media_details.sizes[
                       'thumbnail'
                     ].source_url.replace('admin', 'static')
-                    : '/static/default.jpg'
+                    : '/static/default_miniatura2.jpg'
                 }
                 alt={
                   post._embedded['wp:featuredmedia']

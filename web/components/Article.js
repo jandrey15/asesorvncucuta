@@ -23,7 +23,7 @@ const Article = props => {
                 ? article._embedded['wp:featuredmedia'][0].media_details.sizes[
                   'thumbnail'
                 ].source_url.replace('admin', 'static')
-                : '/static/default.jpg'
+                : '/static/default_miniatura.jpg'
             }
             alt={
               article._embedded['wp:featuredmedia']
