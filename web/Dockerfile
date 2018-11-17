@@ -13,6 +13,7 @@ COPY package*.json /app/
 ENV NODE_ENV production
 # ENV PORT 3000
 
+RUN npm install
 # RUN yarn install && \
 #   yarn add mocha chai supertest -D
 
