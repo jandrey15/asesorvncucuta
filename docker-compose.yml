@@ -72,8 +72,8 @@ services:
   proxy:
     build:
       context: .
-      target: nginx-dev
-      # target: nginx-prod
+      # target: nginx-dev
+      target: nginx-prod
     depends_on:
       - wordpress
       - web
