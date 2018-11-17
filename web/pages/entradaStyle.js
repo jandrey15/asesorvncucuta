@@ -17,7 +17,7 @@ export default css`
   .pauta300x118 {
     max-width: 300px;
     height: 118px;
-    background: #9a3737;
+    // background: #9a3737;
     display: flex;
     justify-content: center;
     align-items: center;

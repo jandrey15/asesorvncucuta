@@ -217,7 +217,9 @@ export default class Entrada extends Component {
               ) : null}
 
               <div className='pauta300x118'>
-                <p>Pauta</p>
+                <a href='tel:+3138704245' target='_blank'>
+                  <img src='/static/asesoria_2.gif' alt='asesoria' />
+                </a>
               </div>
             </div>
           </div>

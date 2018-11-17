@@ -6,12 +6,33 @@ const ArticlesColumn = props => {
 
   return (
     <div className='Articles'>
+      {news.length === 0 && (
+        <div className='pautas'>
+          <div className='pauta'>
+            <a href='tel:+3138704245' target='_blank'>
+              <img src='/static/asesoria.gif' alt='asesoria' />
+            </a>
+          </div>
+          <div className='pauta'>
+            <a href='tel:+3003482805' target='_blank'>
+              <img src='/static/seguro.gif' alt='seguro' />
+            </a>
+          </div>
+        </div>
+      )}
+      {news.length === 1 && (
+        <div className='pauta'>
+          <a href='tel:+3138704245' target='_blank'>
+            <img src='/static/asesoria.gif' alt='asesoria' />
+          </a>
+        </div>
+      )}
       {news.map((article, index) => {
         if (index === 1) {
           return (
             <div className='pauta' key={index}>
-              <a href='tel:+573003482805' target='_blank'>
-                <img src='/static/asesoria.jpg' alt='repuestos' />
+              <a href='tel:+3138704245' target='_blank'>
+                <img src='/static/asesoria.gif' alt='asesoria' />
               </a>
               <Article article={article} key={article.id} type='column' />
             </div>
@@ -21,7 +42,9 @@ const ArticlesColumn = props => {
         if (index === 2) {
           return (
             <div className='pauta' key={index}>
-              <p className='text'>Ayuda con sus tramites</p>
+              <a href='tel:+3003482805' target='_blank'>
+                <img src='/static/seguro.gif' alt='seguro' />
+              </a>
               <Article article={article} key={article.id} type='column' />
             </div>
           )
