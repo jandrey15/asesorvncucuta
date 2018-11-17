@@ -143,10 +143,11 @@ describe('GET api request', () => {
         .end(function (err, res) {
           if (err) throw err
           const length = res.body.length
-
-          expect(res.body).to.be.a('array')
-          expect(res.body).to.have.lengthOf(length)
-          expect(res.body[0].status).to.equal('publish')
+          if (length > 0) {
+            expect(res.body).to.be.a('array')
+            expect(res.body).to.have.lengthOf(length)
+            expect(res.body[0].status).to.equal('publish')
+          }
           done()
         })
     })
