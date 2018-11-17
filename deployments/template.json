@@ -5,7 +5,7 @@
   "builders": [
     {
       "type": "digitalocean",
-      "image": "40142785",
+      "image": "40392787",
       "region": "nyc1",
       "size": "s-1vcpu-1gb",
       "snapshot_name": "asesorvncucuta-base-{{user `build_number`}}",
