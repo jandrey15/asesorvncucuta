@@ -1,7 +1,7 @@
 setup_git() {
   git config --global user.email "build@travis-ci.com" &&
-  git config --global user.name "traviscibot"
-  # git config --global user.name "Travis CI"
+  git config --global user.name "Travis CI"
+  # git config --global user.name "traviscibot"
 }
 
 commit_country_json_files() {
