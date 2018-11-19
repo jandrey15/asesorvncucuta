@@ -2,7 +2,7 @@
 import css from 'styled-jsx/css'
 
 export default css`
-  @import url('https://fonts.googleapis.com/css?family=Nunito:400,600');
+  // @import url('https://fonts.googleapis.com/css?family=Nunito:400,600');
 
   /* vietnamese */
   @font-face {
