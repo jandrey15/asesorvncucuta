@@ -26,13 +26,30 @@ const formatNumber = {
 }
 
 class ListEntradas extends Component {
+  constructor () {
+    super()
+    this.state = {
+      limit: 6
+    }
+  }
+
+  componentDidMount () {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth <= 1024) {
+        this.setState({
+          limit: 2
+        })
+      }
+    }
+  }
+
   render () {
     const { entradas, auto } = this.props
 
     return (
       <section className='ListEntradas'>
         {entradas.map((entrada, index) =>
-          index <= 6 ? (
+          index <= this.state.limit ? (
             <TrackVisibility once partialVisibility key={entrada.id}>
               {({ isVisible }) => (
                 <div className='entrada'>

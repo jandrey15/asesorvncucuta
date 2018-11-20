@@ -60,7 +60,13 @@ class Header extends Component {
           <figure className='logo'>
             <Link route='/'>
               <a className='linkLogo'>
-                <img src='/static/logo.png' alt='asesorvncucuta' />
+                <picture>
+                  <source
+                    media='(min-width: 320px)'
+                    srcSet='/static/logom.png'
+                  />
+                  <img src='/static/logo.png' alt='asesorvncucuta' />
+                </picture>
               </a>
             </Link>
           </figure>
