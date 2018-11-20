@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { Link } from '../routes'
 import slug from '../helpers/slug'
+import TrackVisibility from 'react-on-screen'
 
 const formatNumber = {
   separador: '.', // separador para los miles
@@ -30,9 +31,12 @@ class ListEntradas extends Component {
 
     return (
       <section className='ListEntradas'>
-        {entradas.map(entrada => (
-          <div className='entrada' key={entrada.id}>
-            {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+        {entradas.map((entrada, index) =>
+          index <= 6 ? (
+            <TrackVisibility once partialVisibility key={entrada.id}>
+              {({ isVisible }) => (
+                <div className='entrada'>
+                  {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
               <a className='picture'>
                 <img
                   src={
@@ -49,24 +53,80 @@ class ListEntradas extends Component {
                 />
               </a>
             </Link> */}
-            <Link
-              route='entrada'
-              params={{
-                name: slug(entrada.slug)
-              }}
-              prefetch
-            >
+                  <Link
+                    route='entrada'
+                    params={{
+                      name: slug(entrada.slug)
+                    }}
+                    prefetch
+                  >
+                    <a className='picture'>
+                      <img
+                        className='b-lazy'
+                        src={
+                          entrada._embedded['wp:featuredmedia']
+                            ? entrada._embedded[
+                              'wp:featuredmedia'
+                            ][0].media_details.sizes[
+                              'thumbnail'
+                            ].source_url.replace('admin', 'static')
+                            : '/static/default_miniatura.jpg'
+                        }
+                        alt={
+                          entrada._embedded['wp:featuredmedia']
+                            ? entrada._embedded['wp:featuredmedia'][0].alt_text
+                            : entrada.title.rendered
+                        }
+                      />
+                    </a>
+                  </Link>
+
+                  <div className='info'>
+                    <p className='kilo'>
+                      {entrada._embedded['wp:term'][3][0]
+                        ? entrada._embedded['wp:term'][3][0].name
+                        : '0'}{' '}
+                      - {formatNumber.new(entrada.recorrido)} km
+                    </p>
+                    {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+                <a className='title'>
+                  <h2>{entrada.title.rendered}</h2>
+                </a>
+              </Link> */}
+                    <Link
+                      route='entrada'
+                      prefetch
+                      params={{
+                        name: slug(entrada.slug)
+                      }}
+                    >
+                      <a className='title'>
+                        <h2>{entrada.title.rendered}</h2>
+                      </a>
+                    </Link>
+                    <p className='price'>${formatNumber.new(entrada.precio)}</p>
+                    <aside>
+                      {entrada._embedded['wp:term'][6][0]
+                        ? entrada._embedded['wp:term'][6][0].name
+                        : null}
+                    </aside>
+                  </div>
+                </div>
+              )}
+            </TrackVisibility>
+          ) : (
+            <TrackVisibility once key={entrada.id}>
+              {({ isVisible }) =>
+                isVisible && (
+                  <div className='entrada'>
+                    {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
               <a className='picture'>
                 <img
-                  className='b-lazy'
                   src={
                     entrada._embedded['wp:featuredmedia']
-                      ? entrada._embedded[
-                        'wp:featuredmedia'
-                      ][0].media_details.sizes[
-                        'thumbnail'
-                      ].source_url.replace('admin', 'static')
-                      : '/static/default_miniatura.jpg'
+                      ? entrada._embedded['wp:featuredmedia'][0].media_details
+                        .sizes['thumbnail'].source_url
+                      : '/static/default.jpg'
                   }
                   alt={
                     entrada._embedded['wp:featuredmedia']
@@ -75,40 +135,74 @@ class ListEntradas extends Component {
                   }
                 />
               </a>
-            </Link>
+            </Link> */}
+                    <Link
+                      route='entrada'
+                      params={{
+                        name: slug(entrada.slug)
+                      }}
+                      prefetch
+                    >
+                      <a className='picture'>
+                        <img
+                          className='b-lazy'
+                          src={
+                            entrada._embedded['wp:featuredmedia']
+                              ? entrada._embedded[
+                                'wp:featuredmedia'
+                              ][0].media_details.sizes[
+                                'thumbnail'
+                              ].source_url.replace('admin', 'static')
+                              : '/static/default_miniatura.jpg'
+                          }
+                          alt={
+                            entrada._embedded['wp:featuredmedia']
+                              ? entrada._embedded['wp:featuredmedia'][0]
+                                .alt_text
+                              : entrada.title.rendered
+                          }
+                        />
+                      </a>
+                    </Link>
 
-            <div className='info'>
-              <p className='kilo'>
-                {entrada._embedded['wp:term'][3][0]
-                  ? entrada._embedded['wp:term'][3][0].name
-                  : '0'}{' '}
-                - {formatNumber.new(entrada.recorrido)} km
-              </p>
-              {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
+                    <div className='info'>
+                      <p className='kilo'>
+                        {entrada._embedded['wp:term'][3][0]
+                          ? entrada._embedded['wp:term'][3][0].name
+                          : '0'}{' '}
+                        - {formatNumber.new(entrada.recorrido)} km
+                      </p>
+                      {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
                 <a className='title'>
                   <h2>{entrada.title.rendered}</h2>
                 </a>
               </Link> */}
-              <Link
-                route='entrada'
-                prefetch
-                params={{
-                  name: slug(entrada.slug)
-                }}
-              >
-                <a className='title'>
-                  <h2>{entrada.title.rendered}</h2>
-                </a>
-              </Link>
-              <p className='price'>${formatNumber.new(entrada.precio)}</p>
-              <aside>
-                {entrada._embedded['wp:term'][6][0]
-                  ? entrada._embedded['wp:term'][6][0].name
-                  : null}
-              </aside>
-            </div>
-          </div>
-        ))}
+                      <Link
+                        route='entrada'
+                        prefetch
+                        params={{
+                          name: slug(entrada.slug)
+                        }}
+                      >
+                        <a className='title'>
+                          <h2>{entrada.title.rendered}</h2>
+                        </a>
+                      </Link>
+                      <p className='price'>
+                        ${formatNumber.new(entrada.precio)}
+                      </p>
+                      <aside>
+                        {entrada._embedded['wp:term'][6][0]
+                          ? entrada._embedded['wp:term'][6][0].name
+                          : null}
+                      </aside>
+                    </div>
+                  </div>
+                )
+              }
+            </TrackVisibility>
+          )
+        )}
         <style jsx>{`
           .ListEntradas {
             margin-top: ${auto ? 0 : '25px'};

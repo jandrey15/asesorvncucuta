@@ -9,6 +9,7 @@ import homeStyle from './homeStyle'
 import MorePosts from '../components/MorePosts'
 import MenuLocation from '../components/MenuLocation'
 import Error from './_error'
+import TrackVisibility from 'react-on-screen'
 
 import getConfig from 'next/config'
 const { publicRuntimeConfig } = getConfig()
@@ -115,7 +116,9 @@ export default class Home extends Component {
           </div>
           <div id='sectionPrincipal' className='container'>
             <div className='column'>
-              <Filter />
+              <TrackVisibility once partialVisibility tag='section'>
+                {({ isVisible }) => isVisible && <Filter />}
+              </TrackVisibility>
               <ArticlesColumn news={news} />
             </div>
             <div className='columnRight'>
@@ -128,7 +131,9 @@ export default class Home extends Component {
               <div id='postsNews'>
                 <h3>Publicaciones destacadas de carros nuevos</h3>
                 <hr />
-                <MorePosts posts={postsNew} />
+                <TrackVisibility once throttleInterval={100}>
+                  <MorePosts posts={postsNew} />
+                </TrackVisibility>
               </div>
             )}
 
@@ -136,7 +141,9 @@ export default class Home extends Component {
               <div id='postsUsed'>
                 <h3>Publicaciones destacadas de carros usados</h3>
                 <hr />
-                <MorePosts posts={postsUsed} />
+                <TrackVisibility once throttleInterval={50}>
+                  <MorePosts posts={postsUsed} />
+                </TrackVisibility>
               </div>
             )}
           </div>

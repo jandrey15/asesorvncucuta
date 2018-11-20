@@ -7,6 +7,7 @@ import { Link } from '../routes'
 import slug from '../helpers/slug'
 import entradaStyle from './entradaStyle'
 import Error from './_error'
+import TrackVisibility from 'react-on-screen'
 
 import getConfig from 'next/config'
 const { publicRuntimeConfig } = getConfig()
@@ -520,7 +521,9 @@ export default class Entrada extends Component {
           {posts.length > 0 && (
             <div className='posts'>
               <h4 className='morePosts'>Más publicaciones</h4>
-              <MorePosts posts={posts} />
+              <TrackVisibility once>
+                <MorePosts posts={posts} />
+              </TrackVisibility>
             </div>
           )}
         </article>

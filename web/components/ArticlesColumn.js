@@ -1,5 +1,6 @@
 import React from 'react'
 import Article from './Article'
+import TrackVisibility from 'react-on-screen'
 
 const ArticlesColumn = props => {
   const { news } = props
@@ -7,51 +8,66 @@ const ArticlesColumn = props => {
   return (
     <div className='Articles'>
       {news.length === 0 && (
-        <div className='pautas'>
-          <div className='pauta'>
-            <a href='tel:+3138704245' target='_blank'>
-              <img src='/static/asesoria.gif' alt='asesoria' />
-            </a>
-          </div>
-          <div className='pauta'>
-            <a href='tel:+3003482805' target='_blank'>
-              <img src='/static/seguro.gif' alt='seguro' />
-            </a>
-          </div>
-        </div>
+        <TrackVisibility once partialVisibility>
+          {({ isVisible }) => (
+            <div className='pautas'>
+              <div className='pauta'>
+                <a href='tel:+3138704245' target='_blank'>
+                  <img src='/static/asesoria.gif' alt='asesoria' />
+                </a>
+              </div>
+              <div className='pauta'>
+                <a href='tel:+3003482805' target='_blank'>
+                  <img src='/static/seguro.gif' alt='seguro' />
+                </a>
+              </div>
+            </div>
+          )}
+        </TrackVisibility>
       )}
+
       {news.length === 1 && (
-        <div className='pauta'>
-          <a href='tel:+3138704245' target='_blank'>
-            <img src='/static/asesoria.gif' alt='asesoria' />
-          </a>
-        </div>
-      )}
-      {news.map((article, index) => {
-        if (index === 1) {
-          return (
-            <div className='pauta' key={index}>
+        <TrackVisibility once>
+          {({ isVisible }) => (
+            <div className='pauta'>
               <a href='tel:+3138704245' target='_blank'>
                 <img src='/static/asesoria.gif' alt='asesoria' />
               </a>
-              <Article article={article} key={article.id} type='column' />
             </div>
-          )
-        }
+          )}
+        </TrackVisibility>
+      )}
 
-        if (index === 2) {
-          return (
-            <div className='pauta' key={index}>
-              <a href='tel:+3003482805' target='_blank'>
-                <img src='/static/seguro.gif' alt='seguro' />
-              </a>
-              <Article article={article} key={article.id} type='column' />
-            </div>
-          )
-        }
+      <TrackVisibility once>
+        {({ isVisible }) =>
+          isVisible &&
+          news.map((article, index) => {
+            if (index === 1) {
+              return (
+                <div className='pauta' key={index}>
+                  <a href='tel:+3138704245' target='_blank'>
+                    <img src='/static/asesoria.gif' alt='asesoria' />
+                  </a>
+                  <Article article={article} key={article.id} type='column' />
+                </div>
+              )
+            }
 
-        return <Article article={article} key={article.id} type='column' />
-      })}
+            if (index === 2) {
+              return (
+                <div className='pauta' key={index}>
+                  <a href='tel:+3003482805' target='_blank'>
+                    <img src='/static/seguro.gif' alt='seguro' />
+                  </a>
+                  <Article article={article} key={article.id} type='column' />
+                </div>
+              )
+            }
+
+            return <Article article={article} key={article.id} type='column' />
+          })
+        }
+      </TrackVisibility>
       <style jsx>{`
         .Articles {
           max-width: 260px;
