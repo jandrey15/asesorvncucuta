@@ -15,6 +15,7 @@ export default css`
   }
 
   .pauta300x118 {
+    margin-top: 10px;
     max-width: 300px;
     height: 118px;
     // background: #9a3737;

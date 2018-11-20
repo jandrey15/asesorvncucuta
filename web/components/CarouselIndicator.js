@@ -6,7 +6,12 @@ const CarouselIndicator = props => {
   return (
     <li style={style}>
       <a onClick={onClick}>
-        <img src={slide.thumbnail_image_url} alt={slide.title} />
+        <img
+          srcSet={slide.medium_srcset.replace(/admin/g, 'static')}
+          sizes='125px'
+          src={slide.thumbnail_image_url.replace('admin', 'static')}
+          alt={slide.title}
+        />
         <aside
           className={index === activeIndex ? 'indicator active' : 'indicator'}
         />

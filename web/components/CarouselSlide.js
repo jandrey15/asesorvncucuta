@@ -29,16 +29,60 @@ const CarouselSlide = props => {
     <li
       className={index === activeIndex ? `slide active ${animation}` : `slide`}
     >
-      <img
-        src={
-          slide._embedded['wp:featuredmedia']
-            ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
-              'full'
-            ].source_url.replace('admin', 'static')
-            : '/static/default.jpg'
-        }
-        alt={slide.title.rendered}
-      />
+      <picture>
+        <source
+          media='(min-width: 1024px)'
+          srcSet={
+            slide._embedded['wp:featuredmedia']
+              ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
+                'full'
+              ].source_url.replace('admin', 'static')
+              : '/static/default.jpg'
+          }
+        />
+
+        <source
+          media='(max-width: 320px)'
+          srcSet={
+            slide._embedded['wp:featuredmedia']
+              ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
+                'thumbnail'
+              ].source_url.replace('admin', 'static')
+              : '/static/default.jpg'
+          }
+        />
+
+        <source
+          media='(max-width: 480px)'
+          srcSet={
+            slide._embedded['wp:featuredmedia']
+              ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
+                'medium'
+              ].source_url.replace('admin', 'static')
+              : '/static/default.jpg'
+          }
+        />
+        <source
+          media='(max-width: 768px)'
+          srcSet={
+            slide._embedded['wp:featuredmedia']
+              ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
+                'medium_large'
+              ].source_url.replace('admin', 'static')
+              : '/static/default.jpg'
+          }
+        />
+        <img
+          src={
+            slide._embedded['wp:featuredmedia']
+              ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
+                'full'
+              ].source_url.replace('admin', 'static')
+              : '/static/default.jpg'
+          }
+          alt={slide.title.rendered}
+        />
+      </picture>
 
       <div className='info'>
         <Link
