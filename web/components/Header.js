@@ -60,13 +60,14 @@ class Header extends Component {
           <figure className='logo'>
             <Link route='/'>
               <a className='linkLogo'>
-                <picture>
+                {/* <picture>
                   <source
                     media='(min-width: 320px)'
                     srcSet='/static/logom.png'
                   />
                   <img src='/static/logo.png' alt='asesorvncucuta' />
-                </picture>
+                </picture> */}
+                <img src='/static/logom.png' alt='asesorvncucuta' />
               </a>
             </Link>
           </figure>
@@ -132,6 +133,7 @@ class Header extends Component {
                 <a
                   href='https://www.instagram.com/asesorvncucuta'
                   target='_blank'
+                  rel='noopener'
                 >
                   Instagram
                 </a>
@@ -140,19 +142,21 @@ class Header extends Component {
                 <a
                   href='https://www.facebook.com/asesorvncucuta'
                   target='_blank'
+                  rel='noopener'
                 >
                   Facebook
                 </a>
               </li>
               <li className='whatsapp'>
                 <a href='tel:+573003482805' target='_blank'>
-                  Whatsapp
+                  Whatsapp rel="noopener"
                 </a>
               </li>
               <li className='youtube'>
                 <a
                   href='https://www.youtube.com/asesorvncucuta'
                   target='_blank'
+                  rel='noopener'
                 >
                   Youtube
                 </a>

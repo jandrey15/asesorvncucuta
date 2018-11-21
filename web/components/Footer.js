@@ -141,6 +141,7 @@ export default class Footer extends Component {
                     <a
                       href='https://www.instagram.com/asesorvncucuta'
                       target='_blank'
+                      rel='noopener'
                     >
                       Instagram
                     </a>
@@ -149,12 +150,13 @@ export default class Footer extends Component {
                     <a
                       href='https://www.facebook.com/asesorvncucuta'
                       target='_blank'
+                      rel='noopener'
                     >
                       Facebook
                     </a>
                   </li>
                   <li className='whatsapp'>
-                    <a href='tel:+573003482805' target='_blank'>
+                    <a href='tel:+573003482805' target='_blank' rel='noopener'>
                       Whatsapp
                     </a>
                   </li>
@@ -162,6 +164,7 @@ export default class Footer extends Component {
                     <a
                       href='https://www.youtube.com/asesorvncucuta'
                       target='_blank'
+                      rel='noopener'
                     >
                       Youtube
                     </a>
@@ -170,7 +173,7 @@ export default class Footer extends Component {
               </div>
               <div className='contact'>
                 <p className='cont'>Contactenos</p>
-                <p>311 6589584</p>
+                <p>300 3482805</p>
                 <p>alvaro@asesorvncucuta.com</p>
               </div>
             </div>

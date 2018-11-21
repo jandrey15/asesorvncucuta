@@ -132,7 +132,9 @@ export default class Home extends Component {
                 <h3>Publicaciones destacadas de carros nuevos</h3>
                 <hr />
                 <TrackVisibility once throttleInterval={100}>
-                  <MorePosts posts={postsNew} />
+                  {({ isVisible }) =>
+                    isVisible && <MorePosts posts={postsNew} />
+                  }
                 </TrackVisibility>
               </div>
             )}
@@ -142,7 +144,9 @@ export default class Home extends Component {
                 <h3>Publicaciones destacadas de carros usados</h3>
                 <hr />
                 <TrackVisibility once throttleInterval={50}>
-                  <MorePosts posts={postsUsed} />
+                  {({ isVisible }) =>
+                    isVisible && <MorePosts posts={postsUsed} />
+                  }
                 </TrackVisibility>
               </div>
             )}

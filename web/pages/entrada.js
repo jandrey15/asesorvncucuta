@@ -521,8 +521,8 @@ export default class Entrada extends Component {
           {posts.length > 0 && (
             <div className='posts'>
               <h4 className='morePosts'>Más publicaciones</h4>
-              <TrackVisibility once>
-                <MorePosts posts={posts} />
+              <TrackVisibility once throttleInterval={100}>
+                {({ isVisible }) => isVisible && <MorePosts posts={posts} />}
               </TrackVisibility>
             </div>
           )}

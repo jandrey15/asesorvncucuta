@@ -975,6 +975,7 @@ export default class Filter extends Component {
             border: 1px solid #dadbdb;
             height: 29px;
             opacity: 0.6;
+            background-color: #ffffff;
           }
 
           input {

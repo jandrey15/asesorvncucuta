@@ -30,8 +30,12 @@ export default css`
 
   #postsNews,
   #postsUsed {
-    margin: 30px 0;
+    margin: 100px 0;
     position: relative;
+  }
+
+  #postsUsed {
+    margin: 0;
   }
 
   hr {

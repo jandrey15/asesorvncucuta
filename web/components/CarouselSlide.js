@@ -57,7 +57,7 @@ const CarouselSlide = props => {
           srcSet={
             slide._embedded['wp:featuredmedia']
               ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
-                'medium'
+                'medium_large'
               ].source_url.replace('admin', 'static')
               : '/static/default.jpg'
           }
@@ -67,7 +67,7 @@ const CarouselSlide = props => {
           srcSet={
             slide._embedded['wp:featuredmedia']
               ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
-                'medium_large'
+                'post-thumbnail'
               ].source_url.replace('admin', 'static')
               : '/static/default.jpg'
           }
