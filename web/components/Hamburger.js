@@ -106,7 +106,7 @@ export default class Hamburger extends Component {
               left: 0;
               width: 300px;
               background: #c73737;
-              z-index: 2;
+              z-index: 1000202;
             }
             #navigation {
               display: block;
@@ -118,14 +118,14 @@ export default class Hamburger extends Component {
               grid-template-columns: 1fr;
               grid-template-rows: 50px 1fr;
               max-height: 600px;
-              height: 95vh;
+              height: 100vh;
               overflow-y: scroll;
               bottom: 0;
               background: #c73737;
               width: 300px;
               grid-gap: 5px 0;
               justify-items: center;
-              z-index: 1;
+              z-index: 1000201;
             }
 
             #navigation.activeNav {

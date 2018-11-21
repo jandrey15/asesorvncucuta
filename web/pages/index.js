@@ -116,8 +116,8 @@ export default class Home extends Component {
           </div>
           <div id='sectionPrincipal' className='container'>
             <div className='column'>
-              <TrackVisibility once partialVisibility tag='section'>
-                {({ isVisible }) => isVisible && <Filter />}
+              <TrackVisibility once partialVisibility>
+                {({ isVisible }) => <Filter />}
               </TrackVisibility>
               <ArticlesColumn news={news} />
             </div>
