@@ -91,7 +91,7 @@ export default class Footer extends Component {
             <div className='info'>
               <Link href='/'>
                 <a className='picture'>
-                  <img src='/static/logo.png' alt='logo' />
+                  <img src='/static/logom.png' alt='Asesorvncucuta' />
                 </a>
               </Link>
               <div className='copy'>
