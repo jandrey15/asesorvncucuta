@@ -37,7 +37,7 @@ export default class Articulos extends Component {
       <Layout
         SEO={{
           title: 'Artículos - Asesorvncucuta',
-          url: 'http://asesorvncucuta.com/articulos',
+          url: 'https://asesorvncucuta.com/articulos',
           titleOpenGraph: 'Artículos'
         }}
       >

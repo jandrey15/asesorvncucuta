@@ -105,18 +105,78 @@ export default class Entrada extends Component {
       }
     }
 
-    const SEO = {
-      title: `${entrada.title.rendered} - Asesorvncucuta`,
-      description:
+    let titleSEO
+    let descriptionSEO
+    const imagenDefaultSEO = entrada._embedded['wp:featuredmedia']
+      ? entrada._embedded['wp:featuredmedia'][0].source_url.replace(
+        'admin',
+        'static'
+      )
+      : 'https://johnserrano.xyz/static/default.jpg'
+    let imagenSEO
+    let imagenFacebookSEO
+    let imagenTwitterSEO
+
+    // console.log(Array.isArray(entrada.acf))
+
+    if (!Array.isArray(entrada.acf)) {
+      // TitleSeo
+      if (entrada.acf.titulo !== '' && entrada.acf.titulo !== null) {
+        titleSEO = `${entrada.acf.titulo} - Asesorvncucuta`
+      } else {
+        titleSEO = `${entrada.title.rendered} - Asesorvncucuta`
+      }
+      // DescriptionSeo
+      if (entrada.acf.descripcion !== '' && entrada.acf.descripcion !== null) {
+        descriptionSEO = entrada.acf.descripcion
+      } else {
+        descriptionSEO =
+          entrada.excerpt.rendered.substring(0, 160).replace(/<[^>]+>/g, '') ||
+          entrada.content.rendered.substring(0, 160).replace(/<[^>]+>/g, '')
+      }
+      // ImagenFacebookSeo
+      if (
+        entrada.acf.imagen_facebook !== '' &&
+        entrada.acf.imagen_facebook !== null
+      ) {
+        imagenFacebookSEO = entrada.acf.imagen_facebook.replace(
+          'admin',
+          'static'
+        )
+      } else {
+        imagenFacebookSEO = imagenDefaultSEO
+        imagenSEO = imagenDefaultSEO
+      }
+      // ImagenTwitterSeo
+      if (
+        entrada.acf.imagen_twitter !== '' &&
+        entrada.acf.imagen_twitter !== null
+      ) {
+        imagenTwitterSEO = entrada.acf.imagen_twitter.replace('admin', 'static')
+      } else {
+        imagenTwitterSEO = imagenDefaultSEO
+        imagenSEO = imagenDefaultSEO
+      }
+    } else {
+      titleSEO = `${entrada.title.rendered} - Asesorvncucuta`
+      descriptionSEO =
         entrada.excerpt.rendered.substring(0, 160).replace(/<[^>]+>/g, '') ||
-        entrada.content.rendered.substring(0, 160).replace(/<[^>]+>/g, ''),
-      image: entrada._embedded['wp:featuredmedia']
-        ? entrada._embedded['wp:featuredmedia'][0].source_url
-        : 'https://scontent.fbog4-1.fna.fbcdn.net/v/t31.0-8/12375335_1123779814308321_6033382701965429938_o.jpg?_nc_cat=107&_nc_ht=scontent.fbog4-1.fna&oh=5c8899fd02f0424fb72448fc28e30e75&oe=5C3FB0C5',
-      url: `http://asesorvncucuta.com/${entrada.slug}`,
+        entrada.content.rendered.substring(0, 160).replace(/<[^>]+>/g, '')
+      imagenSEO = imagenDefaultSEO
+      imagenFacebookSEO = imagenDefaultSEO
+      imagenTwitterSEO = imagenDefaultSEO
+    }
+
+    const SEO = {
+      title: titleSEO,
+      description: descriptionSEO,
+      image: imagenSEO,
+      url: `${entrada.link.replace('admin.', '')}`,
       titleOpenGraph: entrada.title.rendered,
       date: entrada.date,
-      modified: entrada.modified
+      modified: entrada.modified,
+      imagenFacebookSEO,
+      imagenTwitterSEO
     }
 
     return (

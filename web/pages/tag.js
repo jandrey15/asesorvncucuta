@@ -59,7 +59,7 @@ export default class Tag extends Component {
       <Layout
         SEO={{
           title: `${nameTag} - Asesorvncucuta`,
-          url: `http://asesorvncucuta.com/${name}`,
+          url: `https://asesorvncucuta.com/${name}`,
           titleOpenGraph: `${nameTag}`
         }}
       >
