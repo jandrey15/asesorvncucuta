@@ -176,7 +176,8 @@ export default class Entrada extends Component {
       date: entrada.date,
       modified: entrada.modified,
       imagenFacebookSEO,
-      imagenTwitterSEO
+      imagenTwitterSEO,
+      type: 'article'
     }
 
     return (

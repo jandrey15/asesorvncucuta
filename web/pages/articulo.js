@@ -128,7 +128,8 @@ export default class Articulo extends Component {
       date: article.date,
       modified: article.modified,
       imagenFacebookSEO,
-      imagenTwitterSEO
+      imagenTwitterSEO,
+      type: 'article'
     }
 
     return (

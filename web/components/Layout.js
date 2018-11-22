@@ -94,6 +94,11 @@ export default class Layout extends Component {
         ? SEO.modified
         : null
       : null
+    const type = SEO
+      ? SEO.type !== undefined
+        ? SEO.type
+        : DEFAULT_SEO.openGraph.type
+      : DEFAULT_SEO.openGraph.type
 
     return (
       <div id='Layout'>
@@ -133,11 +138,7 @@ export default class Layout extends Component {
           <meta key='twitter:url' name='twitter:url' content={url} />
           <meta name='twitter:image:src' content={imagenTwitter} />
           <meta key='og:url' property='og:url' content={url} />
-          <meta
-            key='og:type'
-            property='og:type'
-            content={DEFAULT_SEO.openGraph.type}
-          />
+          <meta key='og:type' property='og:type' content={type} />
           <meta
             key='og:title'
             property='og:title'
