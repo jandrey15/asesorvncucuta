@@ -171,10 +171,11 @@ export default class Layout extends Component {
             property='og:image:height'
             content={DEFAULT_SEO.openGraph.imageHeight}
           />
+          <meta key='og:locale' property='og:locale' content='es_CO' />
           <meta
-            key='og:locale'
-            property='og:locale'
-            content={DEFAULT_SEO.openGraph.locale}
+            key='og:locale:alternate'
+            property='og:locale:alternate'
+            content='es_LA'
           />
         </Head>
 
