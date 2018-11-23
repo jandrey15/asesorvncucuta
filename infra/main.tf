@@ -19,7 +19,7 @@ resource "digitalocean_droplet" "web" {
     command = "sleep 160 && curl ${self.ipv4_address}"
   }
   ssh_keys           = [20843332, 21489207],
-  user_data          = "${file("web.conf")}"
+  # user_data          = "${file("web.conf")}"
 }
 
 resource "digitalocean_floating_ip_assignment" "web-api" {
