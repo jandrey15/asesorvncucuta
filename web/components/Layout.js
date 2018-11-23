@@ -176,6 +176,7 @@ export default class Layout extends Component {
             property='og:locale'
             content={DEFAULT_SEO.openGraph.locale}
           /> */}
+          <meta property='fb:pages' content='1123759007643735' />
           <meta
             key='og:locale:alternate'
             property='og:locale:alternate'
