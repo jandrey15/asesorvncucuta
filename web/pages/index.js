@@ -117,7 +117,7 @@ export default class Home extends Component {
           <div id='sectionPrincipal' className='container'>
             <div className='column'>
               <TrackVisibility once partialVisibility>
-                {({ isVisible }) => <Filter />}
+                {({ isVisible }) => isVisible && <Filter />}
               </TrackVisibility>
               <ArticlesColumn news={news} />
             </div>
@@ -131,7 +131,7 @@ export default class Home extends Component {
               <div id='postsNews'>
                 <h3>Publicaciones destacadas de carros nuevos</h3>
                 <hr />
-                <TrackVisibility once throttleInterval={100}>
+                <TrackVisibility once partialVisibility>
                   {({ isVisible }) =>
                     isVisible && <MorePosts posts={postsNew} />
                   }
@@ -143,7 +143,7 @@ export default class Home extends Component {
               <div id='postsUsed'>
                 <h3>Publicaciones destacadas de carros usados</h3>
                 <hr />
-                <TrackVisibility once throttleInterval={50}>
+                <TrackVisibility once partialVisibility>
                   {({ isVisible }) =>
                     isVisible && <MorePosts posts={postsUsed} />
                   }

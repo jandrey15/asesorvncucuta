@@ -132,27 +132,10 @@ class ListEntradas extends Component {
               )}
             </TrackVisibility>
           ) : (
-            <TrackVisibility once key={entrada.id}>
+            <TrackVisibility once partialVisibility key={entrada.id}>
               {({ isVisible }) =>
                 isVisible && (
                   <div className='entrada'>
-                    {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
-              <a className='picture'>
-                <img
-                  src={
-                    entrada._embedded['wp:featuredmedia']
-                      ? entrada._embedded['wp:featuredmedia'][0].media_details
-                        .sizes['thumbnail'].source_url
-                      : '/static/default.jpg'
-                  }
-                  alt={
-                    entrada._embedded['wp:featuredmedia']
-                      ? entrada._embedded['wp:featuredmedia'][0].alt_text
-                      : entrada.title.rendered
-                  }
-                />
-              </a>
-            </Link> */}
                     <Link
                       route='entrada'
                       params={{
@@ -189,11 +172,6 @@ class ListEntradas extends Component {
                           : '0'}{' '}
                         - {formatNumber.new(entrada.recorrido)} km
                       </p>
-                      {/* <Link href={`/entrada?name=${entrada.slug}`} prefetch>
-                <a className='title'>
-                  <h2>{entrada.title.rendered}</h2>
-                </a>
-              </Link> */}
                       <Link
                         route='entrada'
                         prefetch

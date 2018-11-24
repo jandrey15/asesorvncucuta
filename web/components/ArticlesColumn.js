@@ -9,36 +9,40 @@ const ArticlesColumn = props => {
     <div className='Articles'>
       {news.length === 0 && (
         <TrackVisibility once partialVisibility>
-          {({ isVisible }) => (
-            <div className='pautas'>
+          {({ isVisible }) =>
+            isVisible && (
+              <div className='pautas'>
+                <div className='pauta'>
+                  <a href='tel:+3138704245' target='_blank'>
+                    <img src='/static/asesoria.gif' alt='asesoria' />
+                  </a>
+                </div>
+                <div className='pauta'>
+                  <a href='tel:+3003482805' target='_blank'>
+                    <img src='/static/seguro.gif' alt='seguro' />
+                  </a>
+                </div>
+              </div>
+            )
+          }
+        </TrackVisibility>
+      )}
+
+      {news.length === 1 && (
+        <TrackVisibility once partialVisibility>
+          {({ isVisible }) =>
+            isVisible && (
               <div className='pauta'>
                 <a href='tel:+3138704245' target='_blank'>
                   <img src='/static/asesoria.gif' alt='asesoria' />
                 </a>
               </div>
-              <div className='pauta'>
-                <a href='tel:+3003482805' target='_blank'>
-                  <img src='/static/seguro.gif' alt='seguro' />
-                </a>
-              </div>
-            </div>
-          )}
+            )
+          }
         </TrackVisibility>
       )}
 
-      {news.length === 1 && (
-        <TrackVisibility once>
-          {({ isVisible }) => (
-            <div className='pauta'>
-              <a href='tel:+3138704245' target='_blank'>
-                <img src='/static/asesoria.gif' alt='asesoria' />
-              </a>
-            </div>
-          )}
-        </TrackVisibility>
-      )}
-
-      <TrackVisibility once>
+      <TrackVisibility once partialVisibility>
         {({ isVisible }) =>
           isVisible &&
           news.map((article, index) => {
