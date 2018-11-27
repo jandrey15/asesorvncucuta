@@ -25,11 +25,12 @@ const CarouselSlide = props => {
       return this.formatear(num)
     }
   }
+
   return (
     <li
       className={index === activeIndex ? `slide active ${animation}` : `slide`}
     >
-      <picture>
+      {/* <picture>
         <source
           media='(min-width: 1024px)'
           srcSet={
@@ -82,7 +83,39 @@ const CarouselSlide = props => {
           }
           alt={slide.title.rendered}
         />
-      </picture>
+      </picture> */}
+
+      <img
+        srcSet={
+          slide._embedded['wp:featuredmedia']
+            ? `${slide._embedded['wp:featuredmedia'][0].media_details.sizes[
+              'medium_large'
+            ].source_url.replace('admin', 'static')} 768w, ${slide._embedded[
+              'wp:featuredmedia'
+            ][0].media_details.sizes['post-thumbnail'].source_url.replace(
+              'admin',
+              'static'
+            )} 825w, ${slide._embedded[
+              'wp:featuredmedia'
+            ][0].media_details.sizes['full'].source_url.replace(
+              'admin',
+              'static'
+            )} 1200w`
+            : '/static/default.jpg'
+        }
+        sizes='(max-width: 320px) 280px,
+          (max-width: 480px) 440px,
+          (max-width: 768px) 768px,
+          892px'
+        src={
+          slide._embedded['wp:featuredmedia']
+            ? slide._embedded['wp:featuredmedia'][0].media_details.sizes[
+              'full'
+            ].source_url.replace('admin', 'static')
+            : '/static/default.jpg'
+        }
+        alt={slide.title.rendered}
+      />
 
       <div className='info'>
         <Link
